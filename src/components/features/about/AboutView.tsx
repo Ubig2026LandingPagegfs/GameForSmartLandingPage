@@ -100,7 +100,7 @@ export default function AboutView() {
                     asChild
                     className="btn-half-border position-relative d-inline-flex py-5 px-8 bgp-1 rounded-pill text-nowrap fw-bold hover-lift transition-all shadow-btn border-none hover:bg-transparent text-white"
                   >
-                    <Link href="/competitions">Mulai Bermain Sekarang</Link>
+                    <Link href="/games">Mulai Bermain Sekarang</Link>
                   </Button>
                 </div>
 

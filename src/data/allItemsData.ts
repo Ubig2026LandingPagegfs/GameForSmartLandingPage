@@ -41,7 +41,7 @@ export const allItemsData: TournamentInfo[] = [
         description: "Experience the ultimate speed challenge! Compete against top racers in this high-octane arcade game. Test your reflexes and strategic driving to the limit.",
         status: "Racing",
         slug: "1",
-        href: "/competitions/1",
+        href: "/games/1",
         rules: [
             "Any form of cheating or software manipulation will result in an immediate ban.",
             "Each match consists of 3 rounds; the winner proceeds to the next bracket.",
@@ -62,7 +62,7 @@ export const allItemsData: TournamentInfo[] = [
         description: "Siapkan dirimu untuk tantangan quiz paling menegangkan di tengah kepungan zombie! Quiz Rush: Zombie Edition adalah ajang adu kecerdasan real-time di mana kecepatan dan ketepatan adalah satu-satunya cara untuk bertahan hidup. Jawab pertanyaan dengan cepat sebelum para zombie mendekat dan buktikan bahwa kamulah penyintas paling pintar di dunia.",
         status: "Action",
         slug: "2",
-        href: "/competitions/2",
+        href: "/games/2",
         rules: [
             "30 detik per pertanyaan untuk bertahan hidup.",
             "Kesalahan jawaban akan mempercepat pergerakan zombie.",
@@ -95,7 +95,7 @@ export const allItemsData: TournamentInfo[] = [
         description: "Conquer the cosmos in this high-stakes trivia battle. Put on your astronaut helmet and explore galactic mysteries, space tech, and the deep history of the stars.",
         status: "Trivia",
         slug: "3",
-        href: "/competitions/3",
+        href: "/games/3",
         rules: [
             "Points are awarded based on difficulty and speed.",
             "Bonus rounds are included for the top 10%",
@@ -116,7 +116,7 @@ export const allItemsData: TournamentInfo[] = [
         description: "Test your mental fortitude with the Mystery Cards. Sharp concentration and rapid-fire recall are your only weapons in this atmospheric and enigmatic puzzle game.",
         status: "Puzzle",
         slug: "4",
-        href: "/competitions/4",
+        href: "/games/4",
         rules: [
             "Strict non-distraction environment recommended.",
             "Pattern recognition speed is the primary metric.",

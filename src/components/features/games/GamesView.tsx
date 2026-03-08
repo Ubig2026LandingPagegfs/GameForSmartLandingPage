@@ -74,7 +74,7 @@ export default function GamesView() {
                         platform={game.platform}
                         rating={game.rating}
                         players={game.players}
-                        link={`/competitions/${game.slug}`}
+                        link={`/games/${game.slug}`}
                       />
                     </div>
                   ))}
