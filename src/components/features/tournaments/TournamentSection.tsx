@@ -145,7 +145,7 @@ export default function TournamentSection() {
                   key={tournament.id}
                   className="swiper-slide !w-[90%] lg:!w-[900px]"
                 >
-                  <Card className="relative h-auto lg:h-[480px] overflow-hidden border-orange-500/30 bg-card transition-all duration-500 tournament-card">
+                  <Card className="relative h-auto lg:h-[480px] overflow-hidden border border-orange-500/30 bg-[#0f1118] backdrop-blur-xl transition-all duration-500 tournament-card">
                     {/* TOP GRADIENT */}
                     <div className="h-[3px] w-full bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500" />
                     <div className="flex flex-col lg:flex-row-reverse h-full">
