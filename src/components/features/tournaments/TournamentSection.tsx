@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { tournamentsData } from "@/data/tournamentsData";
 import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function TournamentSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -125,16 +126,16 @@ export default function TournamentSection() {
           {/* NAVIGATION ARROWS */}
           <button
             onClick={prev}
-            className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#1c1f2a] border border-white/10 flex items-center justify-center text-white hover:bg-orange-500 hover:border-orange-500 z-20 transition-all shadow-lg"
+            className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border-2 border-white/20 bg-[#1c1f2a] flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 z-20 transition-all shadow-lg"
           >
-            ‹
+            <ChevronLeft size={28} className="text-white" />
           </button>
 
           <button
             onClick={next}
-            className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#1c1f2a] border border-white/10 flex items-center justify-center text-white hover:bg-orange-500 hover:border-orange-500 z-20 transition-all shadow-lg"
+            className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border-2 border-white/20 bg-[#1c1f2a] flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 z-20 transition-all shadow-lg"
           >
-            ›
+            <ChevronRight size={28} className="text-white" />
           </button>
 
           {/* SWIPER CONTAINER */}
@@ -160,7 +161,10 @@ export default function TournamentSection() {
                         <div className="absolute inset-0 bg-gradient-to-r lg:bg-gradient-to-l from-black/50 via-black/10 to-transparent" />
                         {/* CATEGORY */}
                         <div className="absolute bottom-5 right-5">
-                          <Badge variant="secondary" className="border-orange-500/40 text-orange-400 bg-orange-600/20">
+                          <Badge
+                            variant="secondary"
+                            className="border-orange-500/40 text-orange-400 bg-orange-600/20"
+                          >
                             {tournament.slug.toUpperCase()}
                           </Badge>
                         </div>
@@ -168,7 +172,10 @@ export default function TournamentSection() {
                       {/* CONTENT (Bottom on Mobile, Left on Desktop) */}
                       <CardContent className="p-8 lg:p-12 flex flex-col justify-center lg:w-1/2">
                         {/* STATUS */}
-                        <Badge variant="outline" className="mb-5 text-orange-400 border-orange-500/20 bg-orange-500/10">
+                        <Badge
+                          variant="outline"
+                          className="mb-5 inline-flex items-center gap-1 px-3 py-1 text-xs rounded-full text-orange-400 border border-orange-500/40 bg-orange-500/10 w-fit"
+                        >
                           ● {tournament.status}
                         </Badge>
                         {/* TITLE */}
@@ -181,22 +188,44 @@ export default function TournamentSection() {
                         </p>
                         {/* STATS */}
                         <div className="flex flex-wrap gap-2 mb-8">
-                          <Badge variant="secondary" className="bg-white/5 border-white/10 text-gray-300">
+                          <Badge
+                            variant="secondary"
+                            className="bg-white/5 border-white/10 text-gray-300"
+                          >
                             {tournament.date}
                           </Badge>
-                          <Badge variant="secondary" className="bg-white/5 border-white/10 text-gray-300">
+                          <Badge
+                            variant="secondary"
+                            className="bg-white/5 border-white/10 text-gray-300"
+                          >
                             {tournament.prizeMoney}
                           </Badge>
-                          <Badge variant="secondary" className="bg-white/5 border-white/10 text-gray-300">
+                          <Badge
+                            variant="secondary"
+                            className="bg-white/5 border-white/10 text-gray-300"
+                          >
                             {tournament.type}
                           </Badge>
                         </div>
                         {/* BUTTONS */}
                         <div className="flex gap-4">
-                          <Button asChild size="lg" className="px-6 py-3 rounded-xl">
-                            <Link href={`/competitions/${tournament.slug}/register`}>Daftar Sekarang</Link>
+                          <Button
+                            asChild
+                            size="lg"
+                            className="px-6 py-3 rounded-xl"
+                          >
+                            <Link
+                              href={`/competitions/${tournament.slug}/register`}
+                            >
+                              Daftar Sekarang
+                            </Link>
                           </Button>
-                          <Button asChild variant="outline" size="lg" className="px-6 py-3 rounded-xl">
+                          <Button
+                            asChild
+                            variant="outline"
+                            size="lg"
+                            className="px-6 py-3 rounded-xl"
+                          >
                             <Link href={tournament.href}>Detail →</Link>
                           </Button>
                         </div>
