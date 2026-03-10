@@ -425,7 +425,7 @@ export default function GameRating({ rating, players }: GameRatingProps) {
                 .gr-avatar {
                     width: 36px; height: 36px;
                     border-radius: 50%;
-                    background: var(--accent, #ff7a00);
+                    background: var(--accent, #ff8c00);
                     color: #fff;
                     display: flex;
                     align-items: center;
@@ -434,7 +434,7 @@ export default function GameRating({ rating, players }: GameRatingProps) {
                     font-size: 0.875rem;
                     flex-shrink: 0;
                 }
-                .gr-avatar.me { background: var(--accent, #ff7a00); }
+                .gr-avatar.me { background: var(--accent, #ff8c00); }
 
                 .gr-field { flex: 1; }
                 .gr-field textarea {
@@ -474,9 +474,9 @@ export default function GameRating({ rating, players }: GameRatingProps) {
                     transition: all 0.15s;
                 }
                 .gr-post-btn.active {
-                    background: #f59e0b;
-                    border-color: #f59e0b;
-                    color: #000;
+                    background: #ff8c00;
+                    border-color: #ff8c00;
+                    color: #fff;
                     cursor: pointer;
                 }
                 .gr-post-btn.active:hover { filter: brightness(1.1); }
@@ -575,9 +575,9 @@ export default function GameRating({ rating, players }: GameRatingProps) {
                     color: var(--text-primary, #e8eaed);
                 }
                 .gr-helpful-btn.clicked {
-                    background: rgba(245,158,11,0.1);
-                    border-color: rgba(245,158,11,0.3);
-                    color: #f59e0b;
+                    background: rgba(255, 140, 0, 0.1);
+                    border-color: rgba(255, 140, 0, 0.3);
+                    color: #ff8c00;
                 }
 
                 /* ── Responsive ── */

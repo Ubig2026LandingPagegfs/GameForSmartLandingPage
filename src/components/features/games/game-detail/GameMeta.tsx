@@ -135,7 +135,7 @@ export default function GameMeta({
         }
 
         .gps-developer {
-          color: var(--accent-green, #00e676);
+          color: #ff8c00;
           font-size: 1rem;
           font-weight: 500;
           text-decoration: none;
@@ -225,50 +225,14 @@ export default function GameMeta({
             flex-wrap: wrap;
         }
 
-        .gps-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          background: #00a870;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          padding: 10px 24px;
-          font-size: 0.95rem;
-          font-weight: 600;
-          cursor: pointer;
-          text-decoration: none;
-          transition: background 0.2s;
-        }
-        .gps-btn-primary:hover {
-          background: #008f5d;
-          color: #fff;
-        }
-
-        .gps-btn-default {
-          display: inline-flex;
-          align-items: center;
-          background: transparent;
-          color: #00a870;
-          border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 4px;
-          padding: 9px 24px;
-          font-size: 0.95rem;
-          font-weight: 600;
-          cursor: pointer;
-          text-decoration: none;
-          transition: background 0.2s, border-color 0.2s;
-        }
-        .gps-btn-default:hover {
-          background: rgba(255,255,255,0.05);
-          border-color: rgba(255,255,255,0.4);
-        }
+        /* Local Button Overrides Extracted */
 
         .gps-btn-text {
           display: inline-flex;
           align-items: center;
           gap: 8px;
           background: transparent;
-          color: #00a870;
+          color: #ff8c00;
           border: none;
           padding: 8px 12px;
           font-size: 0.9rem;
@@ -278,7 +242,7 @@ export default function GameMeta({
           border-radius: 4px;
         }
         .gps-btn-text:hover {
-          background: rgba(0, 168, 112, 0.1);
+          background: rgba(255, 140, 0, 0.1);
         }
 
         .gps-btn-trailer {

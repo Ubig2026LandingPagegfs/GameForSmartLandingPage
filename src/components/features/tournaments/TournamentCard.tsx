@@ -171,38 +171,34 @@ export default function TournamentCard({
         </div>
         <div className="hr-line line3 mt-auto"></div>
         <div className="card-more-info d-between align-items-center mt-6">
-          <Button
-            asChild
-            className="h-auto p-0 rounded-pill bg-orange-gradient text-white fw-bold transition-all hover-scale neon-orange-glow border-none hover:bg-transparent"
+          <Link
+            href={link || `/competitions/${slug || id}`}
+            className="gps-btn-primary flex-grow-1"
           >
-            <Link
-              href={link || `/competitions/${slug || id}`}
-              className="d-flex align-items-center justify-content-center py-4 px-6"
-              style={{ minWidth: "120px" }}
-            >
-              <span className="fs-six">Daftar</span>
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="p-0 rounded-circle bg-transparent hover:bg-transparent"
+            <span className="fs-six">Daftar</span>
+          </Link>
+          <Link
+            href={link || `/competitions/${slug || id}`}
+            className="btn-detail d-flex align-items-center justify-content-center"
+            style={{
+              width: "44px",
+              height: "44px",
+              border: "1px solid rgba(255, 140, 0, 0.4)",
+              borderRadius: "50%",
+              color: "#ff8c00",
+              boxShadow: "0 0 10px rgba(255, 140, 0, 0.1)",
+              transition: "all 0.3s ease",
+            }}
+            title="Lihat Deskripsi"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(255, 140, 0, 0.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
           >
-            <Link
-              href={link || `/competitions/${slug || id}`}
-              className="btn-detail d-flex align-items-center justify-content-center"
-              style={{
-                width: "44px",
-                height: "44px",
-                border: "1px solid rgba(114, 255, 0, 0.4)",
-                color: "#72ff00",
-                boxShadow: "0 0 10px rgba(114, 255, 0, 0.1)",
-              }}
-              title="Lihat Deskripsi"
-            >
-              <i className="ti ti-arrow-right fs-2xl"></i>
-            </Link>
-          </Button>
+            <i className="ti ti-arrow-right fs-2xl"></i>
+          </Link>
         </div>
       </div>
       <style jsx>{`

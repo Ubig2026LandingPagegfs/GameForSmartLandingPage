@@ -47,17 +47,9 @@ export default function Sidebar() {
                   onClick={() => setOpen(false)}
                 >
                   <i
-                    className={`ti ${item.icon}`}
-                    style={{
-                      fontSize: "36px",
-                      color: isActive(item.href)
-                        ? "#ff8c00"
-                        : "rgba(255,255,255,0.4)",
-                      textShadow: isActive(item.href)
-                        ? "0 0 10px #ff8c00, 0 0 20px #ff4500"
-                        : undefined,
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`ti ${item.icon} sidebar-icon ${
+                      isActive(item.href) ? "active" : ""
+                    }`}
                   ></i>
                 </Link>
               </div>
@@ -118,6 +110,17 @@ export default function Sidebar() {
 
         .active-menu {
           background: rgba(255, 140, 0, 0.2);
+        }
+
+        .sidebar-icon {
+          font-size: 36px;
+          color: rgba(255, 255, 255, 0.4);
+          transition: all 0.3s ease;
+        }
+
+        .sidebar-icon.active {
+          color: #ff8c00;
+          text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff4500;
         }
 
         .transition-all {

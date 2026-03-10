@@ -21,7 +21,6 @@ export default function GameHero({
     setMounted(true);
   }, []);
 
-  // Extract YouTube video ID
   const getYoutubeId = (url: string) => {
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -32,76 +31,46 @@ export default function GameHero({
   const videoId = videoUrl ? getYoutubeId(videoUrl) : null;
 
   return (
-    <div
-      className="hero-wrapper position-relative overflow-hidden w-100"
-      style={{ backgroundColor: "#0a0c12" }}
+    <section
+      className="relative w-full"
+      style={{ minHeight: "70vh", backgroundColor: "#0a0c12" }}
     >
-      {/* VIDEO BACKGROUND */}
-      {mounted && videoId ? (
-        <div className="hero-video">
+      {/* Background Banner */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {mounted && videoId ? (
           <iframe
             title={title}
             loading="eager"
             src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playsinline=1&modestbranding=1&playlist=${videoId}`}
             allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-0 pointer-events-none"
+            style={{
+              width: "100vw",
+              height: "56.25vw",
+              minHeight: "100%",
+              minWidth: "177.77vh",
+            }}
           />
-        </div>
-      ) : (
-        <img
-          src={image}
-          alt={title}
-          className="hero-image"
-        />
-      )}
+        ) : (
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        )}
+        {/* GRADIENT OVERLAY */}
+        <div className="hero-gradient absolute inset-0 w-full h-full" />
+      </div>
 
-      {/* GRADIENT OVERLAY */}
-      <div className="hero-gradient" />
-
-      {/* CONTENT */}
-      <div className="hero-content">
-        <div className="hero-inner">{children}</div>
+      {/* Banner Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 z-1 flex items-end w-full" style={{ minHeight: "70vh" }}>
+        <div className="w-full">{children}</div>
       </div>
 
       <style jsx>{`
-        .hero-wrapper {
-          width: 100%;
-          min-height: 520px;
-        }
-
-        .hero-video {
-          position: absolute;
-          inset: 0;
-          overflow: hidden;
-          z-index: 0;
-          pointer-events: none;
-        }
-
-        .hero-video iframe {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 100vw;
-          height: 56.25vw;
-          min-height: 100%;
-          min-width: 177.77vh;
-          transform: translate(-50%, -50%);
-          border: none;
-        }
-
-        .hero-image {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
-        }
-
         .hero-gradient {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          background: linear-gradient(
+          background:
+            linear-gradient(
               to right,
               rgba(15, 17, 24, 1) 0%,
               rgba(15, 17, 24, 0.9) 40%,
@@ -109,29 +78,7 @@ export default function GameHero({
             ),
             linear-gradient(to top, rgba(15, 17, 24, 1) 0%, transparent 100%);
         }
-
-        .hero-content {
-          position: relative;
-          z-index: 2;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 140px 24px 40px;
-          min-height: 520px;
-          display: flex;
-          align-items: flex-end;
-        }
-
-        .hero-inner {
-          width: 100%;
-        }
-
-        @media (max-width: 768px) {
-          .hero-content {
-            padding: 110px 16px 30px;
-            min-height: auto;
-          }
-        }
       `}</style>
-    </div>
+    </section>
   );
 }

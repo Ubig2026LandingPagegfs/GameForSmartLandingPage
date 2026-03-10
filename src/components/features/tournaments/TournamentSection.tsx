@@ -209,25 +209,15 @@ export default function TournamentSection() {
                         </div>
                         {/* BUTTONS */}
                         <div className="flex gap-4">
-                          <Button
-                            asChild
-                            size="lg"
-                            className="px-6 py-3 rounded-xl"
+                          <Link
+                            href={`/competitions/${tournament.slug}/register`}
+                            className="gps-btn-primary"
                           >
-                            <Link
-                              href={`/competitions/${tournament.slug}/register`}
-                            >
-                              Daftar Sekarang
-                            </Link>
-                          </Button>
-                          <Button
-                            asChild
-                            variant="outline"
-                            size="lg"
-                            className="px-6 py-3 rounded-xl"
-                          >
-                            <Link href={tournament.href}>Detail →</Link>
-                          </Button>
+                            Daftar Sekarang
+                          </Link>
+                          <Link href={tournament.href} className="gps-btn-outline">
+                            Detail →
+                          </Link>
                         </div>
                       </CardContent>
                     </div>

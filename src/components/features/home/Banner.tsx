@@ -160,13 +160,9 @@ export default function Banner() {
                             data-swiper-parallax="-400"
                             className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
                           >
-                            <Button
-                              asChild
-                              size="lg"
-                              className="rounded-full px-8 py-6 text-base font-bold border-none"
-                            >
-                              <Link href="/competitions">Masuk Arena</Link>
-                            </Button>
+                            <Link href="/competitions" className="gps-btn-primary">
+                              Masuk Arena
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -239,13 +235,9 @@ export default function Banner() {
                             data-swiper-parallax="-400"
                             className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
                           >
-                            <Button
-                              asChild
-                              size="lg"
-                              className="rounded-full px-8 py-6 text-base font-bold border-none"
-                            >
-                              <Link href="/leaderboard">Cek Leaderboard</Link>
-                            </Button>
+                            <Link href="/leaderboard" className="gps-btn-primary">
+                              Cek Leaderboard
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -318,13 +310,9 @@ export default function Banner() {
                             data-swiper-parallax="-400"
                             className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
                           >
-                            <Button
-                              asChild
-                              size="lg"
-                              className="rounded-full px-8 py-6 text-base font-bold border-none"
-                            >
-                              <Link href="/games">Main Sekarang</Link>
-                            </Button>
+                            <Link href="/games" className="gps-btn-primary">
+                              Main Sekarang
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -397,13 +385,9 @@ export default function Banner() {
                             data-swiper-parallax="-400"
                             className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
                           >
-                            <Button
-                              asChild
-                              size="lg"
-                              className="rounded-full px-8 py-6 text-base font-bold border-none"
-                            >
-                              <Link href="/register">Klaim Slotmu</Link>
-                            </Button>
+                            <Link href="/register" className="gps-btn-primary">
+                              Klaim Slotmu
+                            </Link>
                           </div>
                         </div>
                       </div>

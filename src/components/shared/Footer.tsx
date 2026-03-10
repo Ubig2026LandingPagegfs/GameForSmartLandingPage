@@ -1,17 +1,17 @@
+"use client";
 import Link from "next/link";
 
 export default function Footer() {
   return (
     <footer className="footer bgn-4 bt position-relative overflow-hidden w-100">
-      <div className="container-fluid position-relative" style={{ zIndex: 2 }}>
+      <div className="container-fluid position-relative footer-inner-container">
         <div className="row justify-content-between">
           <div className="col-lg-3 col-sm-6 br py-lg-12 pt-sm-10 pt-6 footer-card-area">
             <div className="py-lg-10">
               <div className="footer-logo mb-4">
                 <Link
                   href="/"
-                  className="d-block"
-                  style={{ maxWidth: "240px", width: "100%" }}
+                  className="d-block footer-brand-link"
                 >
                   <img
                     className="w-100"
@@ -204,18 +204,31 @@ export default function Footer() {
         <img
           src="/assets/img/astronaut-mascot.png"
           alt="Astronaut"
-          style={{
-            position: "absolute",
-            bottom: "0",
-            right: "0",
-            height: "clamp(400px, 50vh, 700px)",
-            transform: "translateX(35%)",
-            zIndex: 10,
-            pointerEvents: "none",
-            objectFit: "contain",
-          }}
+          className="footer-mascot"
         />
       </div>
+
+      <style jsx>{`
+        .footer-inner-container {
+          z-index: 2;
+        }
+
+        .footer-brand-link {
+          max-width: 240px;
+          width: 100%;
+        }
+
+        .footer-mascot {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          height: clamp(400px, 50vh, 700px);
+          transform: translateX(35%);
+          z-index: 10;
+          pointer-events: none;
+          object-fit: contain;
+        }
+      `}</style>
     </footer>
   );
 }

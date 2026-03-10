@@ -10,10 +10,10 @@ export default function CTA() {
         <div className="row justify-content-between align-items-center g-0 px-lg-12 px-8 py-30 rounded-3xl bg-[#0c0c0c]">
           {/* LEFT — Title + Description */}
           <div className="col-lg-5 col-md-6 mb-6 mb-lg-0">
-            <h2 className="display-two tcn-1 mb-3 font-black tracking-tight title-anim">
+            <h2 className="display-two tcn-1 mb-3 font-black tracking-tight title-anim font-heading">
               Tetap Terupdate
             </h2>
-            <p className="fs-lg tcn-6 mb-0" style={{ maxWidth: "420px" }}>
+            <p className="fs-lg tcn-6 mb-0 font-body max-w-[420px]">
               Punya pertanyaan atau masukan? Kami senang mendengar dari Anda.
               Hubungi tim kami atau gunakan formulir kontak kami.
             </p>
@@ -22,23 +22,15 @@ export default function CTA() {
           {/* RIGHT — Label + Input+Button + Privacy note */}
           <div className="col-lg-5 col-md-6">
             <p className="tcn-6 fs-sm mb-2 fw-medium">Stay Informed</p>
-            <div
-              className="d-flex align-items-center w-100 p-2 mb-2"
-              style={{
-                border: "1px solid rgba(255,255,255,0.2)",
-                borderRadius: "50px",
-                backgroundColor: "rgba(255,255,255,0.05)",
-              }}
-            >
+            <div className="cta-input-group d-flex align-items-center w-100 p-2 mb-2">
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-grow-1 border-0 bg-transparent text-white placeholder:text-white/60 focus-visible:ring-0 focus-visible:ring-offset-0 px-4 text-base shadow-none"
-                style={{ outline: "none", boxShadow: "none" }}
+                className="flex-grow-1 border-0 bg-transparent text-white placeholder:text-white/60 focus-visible:ring-0 focus-visible:ring-offset-0 px-4 text-base shadow-none cta-input outline-none"
               />
               <Button
                 type="submit"
-                className="!rounded-full h-12 px-6 text-base flex-shrink-0"
+                className="gps-btn-primary flex-shrink-0 h-100"
               >
                 Submit
               </Button>
@@ -52,6 +44,20 @@ export default function CTA() {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .max-w-\\[420px\\] {
+          max-width: 420px;
+        }
+        .cta-input-group {
+          border: 1px solid rgba(255,255,255,0.2);
+          border-radius: 50px;
+          background-color: rgba(255,255,255,0.05);
+        }
+        .cta-input {
+          outline: none;
+          box-shadow: none;
+        }
+      `}</style>
     </div>
   );
 }

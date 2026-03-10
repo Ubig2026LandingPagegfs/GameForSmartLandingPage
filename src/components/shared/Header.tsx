@@ -59,7 +59,8 @@ export default function Header() {
   };
 
   return (
-    <header className="header-section bgn-4 w-100" style={{ zIndex: 10001 }}>
+    <>
+      <header className="header-section bgn-4 w-100 header-fixed">
       <div className="py-sm-6 py-3 mx-xxl-10 mx-md-8 mx-2">
         <div className="d-between gap-lg-4 gap-2">
           <div className="top-bar alt d-flex align-items-center gap-4">
@@ -75,9 +76,8 @@ export default function Header() {
               <span></span>
             </button>
             <Link
-              className="navbar-brand d-flex align-items-center gap-4"
+              className="navbar-brand d-flex align-items-center gap-4 header-logo-link"
               href="/home"
-              style={{ maxWidth: "240px", width: "100%" }}
             >
               <img
                 className="w-100 d-block"
@@ -91,8 +91,7 @@ export default function Header() {
             ref={headerRef}
           >
             <div
-              className="search-bar"
-              style={{ maxWidth: "400px", width: "100%" }}
+              className="search-bar header-search-bar"
             >
               <form action="#" onSubmit={handleSearchSubmit}>
                 <div className="input-area d-flex align-items-center gap-2">
@@ -100,7 +99,7 @@ export default function Header() {
                   <input
                     type="text"
                     placeholder="Cari Kompetisi, Permainan..."
-                    style={{ padding: "0 4px" }}
+                    className="header-search-input"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -159,6 +158,24 @@ export default function Header() {
           </div>
         </div>
       </div>
-    </header>
+      </header>
+
+      <style jsx>{`
+        .header-fixed {
+          z-index: 10001;
+        }
+        .header-logo-link {
+          max-width: 240px;
+          width: 100%;
+        }
+        .header-search-bar {
+          max-width: 400px;
+          width: 100%;
+        }
+        .header-search-input {
+          padding: 0 4px;
+        }
+      `}</style>
+    </>
   );
 }

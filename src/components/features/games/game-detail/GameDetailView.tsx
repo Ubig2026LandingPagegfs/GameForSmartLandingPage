@@ -2,24 +2,21 @@
 
 // GameDetailView.tsx
 // Komponen utama halaman detail game.
-// Hanya bertugas sebagai orchestrator — state management dan perakitan layout.
-// Setiap seksi dikelola oleh komponen terpisah di folder ./components/
 
 import { useState } from 'react';
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import { TournamentInfo } from '@/data/allItemsData';
-import { gamesData } from '@/data/gamesData'; // sesuaikan path export gamesData
+import { gamesData } from '@/data/gamesData';
 
-import GameHero      from '@/components/features/games/game-detail/GameHero';
-import GameMeta      from '@/components/features/games/game-detail/GameMeta';
-import GameGallery   from '@/components/features/games/game-detail/GameGallery';
-import GameAbout     from '@/components/features/games/game-detail/GameAbout';
-import GameFeatures  from '@/components/features/games/game-detail/GameFeatures';
-// import GamePrivacy   from '@/components/features/games/game-detail/GamePrivacy';
-import GameRating    from '@/components/features/games/game-detail/GameRating';
-import GameSidebar   from '@/components/features/games/game-detail/GameSidebar';
-import VideoModal    from '@/components/features/games/game-detail/VideoModal';
+import GameHero     from '@/components/features/games/game-detail/GameHero';
+import GameMeta     from '@/components/features/games/game-detail/GameMeta';
+import GameGallery  from '@/components/features/games/game-detail/GameGallery';
+import GameAbout    from '@/components/features/games/game-detail/GameAbout';
+import GameFeatures from '@/components/features/games/game-detail/GameFeatures';
+import GameRating   from '@/components/features/games/game-detail/GameRating';
+import GameSidebar  from '@/components/features/games/game-detail/GameSidebar';
+import VideoModal   from '@/components/features/games/game-detail/VideoModal';
 
 interface GameDetailViewProps {
     game: TournamentInfo;
@@ -29,7 +26,6 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const [activeScreenshot, setActiveScreenshot] = useState(0);
 
-    // Gabungkan video thumbnail + screenshots menjadi satu array media
     const allMedia = [
         ...(game.videoUrl ? [{ type: 'video' as const, src: game.image }] : []),
         ...(game.screenshots?.map(s => ({ type: 'image' as const, src: s })) || []),
@@ -38,6 +34,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
     return (
         <>
             <Header />
+
             <GameHero image={game.image} title={game.title} videoUrl={game.videoUrl}>
                 <GameMeta
                     image={game.image}
@@ -49,44 +46,39 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                     onOpenTrailer={() => setIsVideoModalOpen(true)}
                 />
             </GameHero>
-            <main className="main-container container-fluid d-flex px-0 position-relative">
+
+            <main className="page-main">
                 <Sidebar />
-                <article className="main-content w-100">
-                    <div className="gps-wrapper">
+                <article className="page-article">
+                    <div className="page-body">
 
-                        <div className="gps-body">
-                            {/* ── Kolom Kiri (konten utama) ── */}
-                            <div className="gps-main-col">
+                        {/* ── Konten Utama ── */}
+                        <div className="content-col">
+                            <GameGallery
+                                media={allMedia}
+                                activeIndex={activeScreenshot}
+                                onSelect={setActiveScreenshot}
+                                onOpenVideo={() => setIsVideoModalOpen(true)}
+                            />
+                            <GameAbout
+                                description={game.description}
+                                genre={game.genre}
+                                platform={game.platform}
+                                date={game.date}
+                                features={game.features}
+                            />
+                            <GameFeatures
+                                features={game.features || []}
+                                image={game.image}
+                            />
+                            <GameRating
+                                rating={game.rating}
+                                players={game.players}
+                            />
+                        </div>
 
-                                <GameGallery
-                                    media={allMedia}
-                                    activeIndex={activeScreenshot}
-                                    onSelect={setActiveScreenshot}
-                                    onOpenVideo={() => setIsVideoModalOpen(true)}
-                                />
-
-                                <GameAbout
-                                    description={game.description}
-                                    genre={game.genre}
-                                    platform={game.platform}
-                                    date={game.date}
-                                    features={game.features}
-                                />
-
-                                <GameFeatures
-                                    features={game.features || []}
-                                    image={game.image}
-                                />
-
-                                {/* <GamePrivacy /> */}
-
-                                <GameRating
-                                    rating={game.rating}
-                                    players={game.players}
-                                />
-                            </div>
-
-                            {/* ── Kolom Kanan (sidebar) ── */}
+                        {/* ── Sidebar Kanan ── */}
+                        <aside className="sidebar-col">
                             <GameSidebar
                                 slug={game.slug}
                                 genre={game.genre}
@@ -95,13 +87,12 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                                 currentGameId={game.id}
                                 allGames={gamesData}
                             />
-                        </div>
+                        </aside>
 
                     </div>
                 </article>
             </main>
 
-            {/* Video Modal — hanya render jika videoUrl ada dan modal terbuka */}
             {isVideoModalOpen && game.videoUrl && (
                 <VideoModal
                     videoUrl={game.videoUrl}
@@ -109,42 +100,102 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                 />
             )}
 
-            <style jsx>{`
-                /* ── CSS Variables (dark theme) ── */
+            <style jsx global>{`
+                /* ── Design Tokens ── */
                 :root {
-                    --bg-base:        #0f1118;
-                    --bg-surface:     #1a1c25;
-                    --bg-elevated:    #22252f;
-                    --border:         rgba(255,255,255,0.08);
-                    --border-subtle:  rgba(255,255,255,0.05);
-                    --text-primary:   #e8eaed;
-                    --text-secondary: #9aa0a6;
-                    --text-muted:     #5f6368;
-                    --accent:         #ff7a00;
-                    --accent-hover:   #e86d00;
-                    --accent-blue:    #8ab4f8;
-                    --accent-green:   #81c995;
-                    --star-color:     #f9ab00;
-                }
+                    --bg-base:         #0d0f17;
+                    --bg-surface:      #161922;
+                    --bg-elevated:     #1e2130;
+                    --border:          rgba(255, 255, 255, 0.07);
+                    --border-hover:    rgba(255, 255, 255, 0.14);
+                    --text-primary:    #e8eaf0;
+                    --text-secondary:  #8b90a0;
+                    --text-muted:      #50566a;
+                    --accent:          #ff8c00;
+                    --accent-hover:    #e07800;
+                    --accent-dim:      rgba(255, 140, 0, 0.12);
+                    --accent-blue:     #7eb8f7;
+                    --accent-green:    #6fcf97;
+                    --star-color:      #f5a623;
+                    --radius-sm:       6px;
+                    --radius-md:       10px;
+                    --radius-lg:       14px;
 
-                /* ── Wrapper & Layout ── */
-                .gps-wrapper {
+                    /* Spacing scale */
+                    --space-xs:  8px;
+                    --space-sm:  12px;
+                    --space-md:  20px;
+                    --space-lg:  32px;
+                    --space-xl:  48px;
+                    --space-2xl: 64px;
+
+                    /* Page horizontal padding — satu sumber kebenaran */
+                    --page-px: clamp(20px, 4vw, 72px);
+                }
+            `}</style>
+
+            <style jsx>{`
+                /* ── Page Shell ── */
+                .page-main {
+                    display: flex;
                     background: var(--bg-base);
                     min-height: 100vh;
-                    font-family: 'Google Sans', 'Roboto', sans-serif;
                     color: var(--text-primary);
+                    font-family: 'Outfit', 'DM Sans', system-ui, sans-serif;
+                    overflow-x: hidden;
                 }
-                .gps-body {
-                    display: flex;
-                    gap: 32px;
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 0 24px 80px;
-                }
-                .gps-main-col { flex: 1; min-width: 0; }
 
-                @media (max-width: 768px) {
-                    .gps-body { padding: 0 16px 60px; }
+                .page-article {
+                    flex: 1;
+                    min-width: 0;
+                }
+
+                /* ── Page Body ── */
+                .page-body {
+                    display: flex;
+                    gap: var(--space-lg);
+                    padding: var(--space-xl) var(--page-px) var(--space-2xl);
+                    max-width: 1440px;
+                    width: 100%;
+                    margin: 0 auto;
+                }
+
+                /* ── Column widths ── */
+                .content-col {
+                    flex: 1;
+                    min-width: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: var(--space-lg);
+                }
+
+                .sidebar-col {
+                    width: 320px;
+                    flex-shrink: 0;
+                }
+
+                /* ── Responsive ── */
+                @media (max-width: 1100px) {
+                    .sidebar-col {
+                        width: 280px;
+                    }
+                }
+
+                @media (max-width: 860px) {
+                    .page-body {
+                        flex-direction: column;
+                        padding-top: var(--space-lg);
+                    }
+                    .sidebar-col {
+                        width: 100%;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .page-body {
+                        gap: var(--space-md);
+                        padding: var(--space-md) var(--page-px) var(--space-xl);
+                    }
                 }
             `}</style>
         </>

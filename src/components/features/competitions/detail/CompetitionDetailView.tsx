@@ -28,29 +28,30 @@ export default function CompetitionDetailView({ tournament }: CompetitionDetailV
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const maxQuota = parseInt((tournament.teams ?? "100").replace(/\D/g, "")) || 100;
+  const defaultVideoUrl = tournament.videoUrl || "https://youtu.be/_FCYtKCGMjk?si=ua8fNlWphch6S_sr";
 
   return (
     <>
       <Header />
 
-      <main className="main-container container-fluid d-flex pt-0 px-0 position-relative">
+      {/* ── Hero Banner (Full Width Outside Main Container) ── */}
+      <GameHero
+        image={tournament.image || "/images/bghero.webp"}
+        title={tournament.title}
+        videoUrl={defaultVideoUrl}
+      >
+        <CompetitionHeroContent
+          title={tournament.title}
+          slug={tournament.slug}
+          videoUrl={defaultVideoUrl}
+          onOpenVideo={() => setIsVideoModalOpen(true)}
+        />
+      </GameHero>
+
+      <main className="main-container container-fluid d-flex pt-0 px-0 position-relative overflow-x-hidden">
         <Sidebar />
 
         <article className="main-content w-100">
-          {/* ── Hero Banner ── */}
-          <GameHero
-            image={tournament.image || "/images/bghero.webp"}
-            title={tournament.title}
-            videoUrl={tournament.videoUrl}
-          >
-            <CompetitionHeroContent
-              title={tournament.title}
-              slug={tournament.slug}
-              videoUrl={tournament.videoUrl}
-              onOpenVideo={() => setIsVideoModalOpen(true)}
-            />
-          </GameHero>
-
           {/* ── Body ── */}
           <div className="container-fluid px-lg-15 px-md-10 px-6 mt-10 pb-120">
             <section className="tournament-details">
@@ -92,9 +93,9 @@ export default function CompetitionDetailView({ tournament }: CompetitionDetailV
       <Footer/>
 
       {/* Video Modal */}
-      {isVideoModalOpen && tournament.videoUrl && (
+      {isVideoModalOpen && defaultVideoUrl && (
         <VideoModal
-          videoUrl={tournament.videoUrl}
+          videoUrl={defaultVideoUrl}
           onClose={() => setIsVideoModalOpen(false)}
         />
       )}

@@ -157,8 +157,8 @@ export default function StatisticsSection() {
       value: "240.32",
       prefix: "$",
       icon: "🏆",
-      iconColor: "#FFD700",
-      borderColor: "#FFD700",
+      iconColor: "#ff8c00",
+      borderColor: "#ff8c00",
       bgClass: "linear-gradient(180deg, #3d2b25 0%, #2b1d1a 100%)", // Darker brown gradient
       isHighlighted: true,
     },
@@ -195,8 +195,8 @@ export default function StatisticsSection() {
       value: "17,406",
       prefix: "$",
       icon: "💰",
-      iconColor: "#FFD700",
-      borderColor: "#FFD700",
+      iconColor: "#ff8c00",
+      borderColor: "#ff8c00",
       isHighlighted: false,
     },
     {
@@ -205,8 +205,8 @@ export default function StatisticsSection() {
       value: "0",
       prefix: "$",
       icon: "💳",
-      iconColor: "#FFD700",
-      borderColor: "#FFD700",
+      iconColor: "#ff8c00",
+      borderColor: "#ff8c00",
       isHighlighted: false,
     },
   ];
@@ -229,7 +229,7 @@ export default function StatisticsSection() {
       <div className="container-fluid pt-120">
         <div className="row mb-lg-15 mb-sm-10 mb-8">
           <div className="col-lg-6 text-start">
-            <h2 className="display-four tcn-1 cursor-scale growUp title-anim">
+            <h2 className="display-four tcn-1 cursor-scale growUp title-anim font-heading">
               Statistics
             </h2>
           </div>

@@ -147,15 +147,13 @@ export default function GameCard({
 
         {/* CTA BUTTON */}
         <div className="mt-auto">
-          <Button
-            asChild
-            className="w-100 d-flex align-items-center justify-content-center gap-2 rounded-[30px] font-bold py-[10px]"
+          <Link
+            href={link || `/games/${slug || id}`}
+            className="gps-btn-primary w-100 py-3"
           >
-            <Link href={link || `/games/${slug || id}`}>
-              Lihat Game
-              <i className="ti ti-arrow-right fs-base"></i>
-            </Link>
-          </Button>
+            Lihat Game
+            <i className="ti ti-arrow-right fs-base"></i>
+          </Link>
         </div>
       </div>
     </div>

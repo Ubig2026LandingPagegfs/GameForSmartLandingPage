@@ -21,21 +21,15 @@ export default function GamesSection() {
           <div className="row justify-content-between align-items-end mb-lg-8 mb-sm-6 mb-4 g-3">
             <div className="col">
               <Link href="/games">
-                <h2
-                  className="display-four tcn-1 cursor-scale growUp title-anim"
-                  style={{ fontSize: "calc(1.1rem + 1vw)" }}
-                >
+                <h2 className="display-four tcn-1 cursor-scale growUp title-anim font-heading text-[calc(1.1rem+1vw)]">
                   Permainan
                 </h2>
               </Link>
             </div>
             <div className="col-auto">
-              <Button
-                asChild
-                className="btn-half-border position-relative d-inline-flex py-5 bgp-1 px-8 rounded-pill text-nowrap border-none hover:bg-transparent"
-              >
-                <Link href="/games">Lihat Semua</Link>
-              </Button>
+              <Link href="/games" className="gps-btn-outline">
+                Lihat Semua
+              </Link>
             </div>
           </div>
           <div className="tabcontents">

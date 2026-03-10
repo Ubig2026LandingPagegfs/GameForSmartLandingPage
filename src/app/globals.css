@@ -54,6 +54,7 @@ body {
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  overflow-x: hidden;
 }
 
 /* Premium Button Styles */
@@ -87,3 +88,70 @@ body {
   border-color: #ffaa00;
 }
 
+/* Global Reusable Design System Classes */
+
+/* Buttons */
+.gps-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #ff9d00 0%, #ff5e00 100%);
+  color: #fff !important;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3);
+}
+.gps-btn-primary:hover {
+  background: linear-gradient(90deg, #ffaa00 0%, #ff4500 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 94, 0, 0.4);
+}
+
+.gps-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #ff8c00 !important;
+  border: 1px solid #ff8c00;
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  gap: 8px;
+}
+.gps-btn-outline:hover {
+  background: rgba(255, 140, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Chakra Petch', sans-serif;
+}
+body, p, span, a, .font-body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.text-primary-brand {
+  color: #ff8c00 !important;
+}
+.bg-primary-brand {
+  background-color: #ff8c00 !important;
+}
+
+/* Structure Utilities */
+.gps-section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
