@@ -17,6 +17,7 @@ import GameFeatures from '@/components/features/games/game-detail/GameFeatures';
 import GameRating   from '@/components/features/games/game-detail/GameRating';
 import GameSidebar  from '@/components/features/games/game-detail/GameSidebar';
 import VideoModal   from '@/components/features/games/game-detail/VideoModal';
+import Footer from '@/components/shared/Footer';
 
 interface GameDetailViewProps {
     game: TournamentInfo;
@@ -43,6 +44,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                     rating={game.rating}
                     players={game.players}
                     videoUrl={game.videoUrl}
+                    playUrl={game.playUrl}
                     onOpenTrailer={() => setIsVideoModalOpen(true)}
                 />
             </GameHero>
@@ -72,26 +74,28 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                                 image={game.image}
                             />
                             <GameRating
+                                title={game.title}
+                                image={game.image}
                                 rating={game.rating}
                                 players={game.players}
                             />
                         </div>
 
                         {/* ── Sidebar Kanan ── */}
-                        <aside className="sidebar-col">
-                            <GameSidebar
-                                slug={game.slug}
-                                genre={game.genre}
-                                date={game.date}
-                                prizeMoney={game.prizeMoney}
-                                currentGameId={game.id}
-                                allGames={gamesData}
-                            />
-                        </aside>
+                        <GameSidebar
+                            slug={game.slug}
+                            genre={game.genre}
+                            date={game.date}
+                            prizeMoney={game.prizeMoney}
+                            currentGameId={game.id}
+                            allGames={gamesData}
+                            playUrl={game.playUrl}
+                        />
 
                     </div>
                 </article>
             </main>
+            <Footer/>
 
             {isVideoModalOpen && game.videoUrl && (
                 <VideoModal
@@ -166,28 +170,13 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                     min-width: 0;
                     display: flex;
                     flex-direction: column;
-                    gap: var(--space-lg);
-                }
-
-                .sidebar-col {
-                    width: 320px;
-                    flex-shrink: 0;
                 }
 
                 /* ── Responsive ── */
-                @media (max-width: 1100px) {
-                    .sidebar-col {
-                        width: 280px;
-                    }
-                }
-
                 @media (max-width: 860px) {
                     .page-body {
                         flex-direction: column;
                         padding-top: var(--space-lg);
-                    }
-                    .sidebar-col {
-                        width: 100%;
                     }
                 }
 

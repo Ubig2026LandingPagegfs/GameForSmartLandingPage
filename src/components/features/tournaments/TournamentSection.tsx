@@ -208,14 +208,14 @@ export default function TournamentSection() {
                           </Badge>
                         </div>
                         {/* BUTTONS */}
-                        <div className="flex gap-4">
+                        <div className="flex flex-wrap gap-4 mt-auto">
                           <Link
                             href={`/competitions/${tournament.slug}/register`}
-                            className="gps-btn-primary"
+                            className="gps-btn-primary whitespace-nowrap"
                           >
                             Daftar Sekarang
                           </Link>
-                          <Link href={tournament.href} className="gps-btn-outline">
+                          <Link href={tournament.href} className="gps-btn-outline whitespace-nowrap">
                             Detail →
                           </Link>
                         </div>

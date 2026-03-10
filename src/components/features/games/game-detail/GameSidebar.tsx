@@ -41,9 +41,10 @@ interface GameSidebarProps {
     prizeMoney?: string;
     currentGameId?: number;
     allGames?: GameItem[];
+    playUrl?: string;
 }
 
-export default function GameSidebar({ slug, genre, date, prizeMoney, currentGameId, allGames = [] }: GameSidebarProps) {
+export default function GameSidebar({ slug, genre, date, prizeMoney, currentGameId, allGames = [], playUrl }: GameSidebarProps) {
     // Filter game lain selain yang sedang dibuka, max 4
     const relatedGames = allGames.filter(g => g.id !== currentGameId).slice(0, 4);
     return (
@@ -59,7 +60,9 @@ export default function GameSidebar({ slug, genre, date, prizeMoney, currentGame
                         <span>Main Langsung di Browser</span>
                     </div>
                     <p className="gps-pc-desc">Tidak perlu download atau install apapun. Buka dan langsung main!</p>
-                    <a href={`/play/${slug}`} className="gps-link-green">Mulai bermain sekarang →</a>
+                    <a href={playUrl || `/play/${slug}`} className="gps-link-green" target={playUrl ? "_blank" : undefined} rel={playUrl ? "noopener noreferrer" : undefined}>
+                        Mulai bermain sekarang →
+                    </a>
                     <ul className="gps-pc-features">
                         {BROWSER_FEATURES.map((f, i) => (
                             <li key={i}>

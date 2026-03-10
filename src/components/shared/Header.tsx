@@ -65,7 +65,7 @@ export default function Header() {
         <div className="d-between gap-lg-4 gap-2">
           <div className="top-bar alt d-flex align-items-center gap-4">
             <button
-              className={`sidebar-toggle-btn d-lg-none d-block ${sidebarOpen ? "open" : ""}`}
+              className={`sidebar-toggle-btn responsive-toggle d-lg-none d-block ${sidebarOpen ? "open" : ""}`}
               type="button"
               aria-label="Toggle sidebar"
               onClick={handleSidebarToggle}
@@ -174,6 +174,12 @@ export default function Header() {
         }
         .header-search-input {
           padding: 0 4px;
+        }
+
+        @media (min-width: 992px) and (max-height: 650px) {
+          .responsive-toggle {
+            display: block !important;
+          }
         }
       `}</style>
     </>

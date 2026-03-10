@@ -24,6 +24,7 @@ export interface TournamentInfo {
     videoUrl?: string;
     screenshots?: string[];
     features?: { icon: string; title: string; description: string }[];
+    playUrl?: string;
 }
 
 export const allItemsData: TournamentInfo[] = [
@@ -47,7 +48,8 @@ export const allItemsData: TournamentInfo[] = [
             "Each match consists of 3 rounds; the winner proceeds to the next bracket.",
             "Internet stability is the responsibility of the player."
         ],
-        videoUrl: "https://www.youtube.com/embed/R9K1sN-y-pI", // Good Pizza Great Pizza Trailer
+        videoUrl: "https://www.youtube.com/embed/R9K1sN-y-pI",
+        playUrl: "https://crazy-race-next.vercel.app",
     },
     {
         id: 2,
@@ -80,7 +82,8 @@ export const allItemsData: TournamentInfo[] = [
             { icon: "ti ti-skull", title: "Survival Score Challenge", description: "Kumpulkan poin sebanyak mungkin dengan jawaban yang tepat." },
             { icon: "ti ti-world", title: "Global Survivor Leaderboard", description: "Bandingkan peringkatmu dengan penyintas lain di seluruh dunia." },
             { icon: "ti ti-swords", title: "Zombie Horde Duel", description: "Tantang pemain lain dalam duel otak di tengah invasi zombie." }
-        ]
+        ],
+        playUrl: "https://quizrun.vercel.app",
     },
     {
         id: 3,
@@ -101,7 +104,8 @@ export const allItemsData: TournamentInfo[] = [
             "Bonus rounds are included for the top 10%",
             "One entry per account."
         ],
-        videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA", // Minecraft Trailer
+        videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA",
+        playUrl: "https://spacequizv1.vercel.app",
     },
     {
         id: 4,
@@ -122,7 +126,8 @@ export const allItemsData: TournamentInfo[] = [
             "Pattern recognition speed is the primary metric.",
             "Fair play is mandatory."
         ],
-        videoUrl: "https://www.youtube.com/embed/TAlKhARUcoY", // Genshin Impact Trailer
+        videoUrl: "https://www.youtube.com/embed/TAlKhARUcoY",
+        playUrl: "https://memorygame-quiz.vercel.app",
     },
     // Tournaments
     {

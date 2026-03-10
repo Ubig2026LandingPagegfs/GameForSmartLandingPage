@@ -10,6 +10,7 @@ interface GameMetaProps {
   rating: string;
   players: string;
   videoUrl?: string;
+  playUrl?: string;
   onOpenTrailer: () => void;
 }
 
@@ -20,6 +21,7 @@ export default function GameMeta({
   rating,
   players,
   videoUrl,
+  playUrl,
   onOpenTrailer,
 }: GameMetaProps) {
   const handleShare = async () => {
@@ -84,7 +86,7 @@ export default function GameMeta({
         {/* Buttons Row */}
         <div className="gps-actions-row">
             <div className="gps-actions-start">
-                <Link href={`/play/${slug}`} className="gps-btn-primary">
+                <Link href={playUrl || `/play/${slug}`} className="gps-btn-primary" target={playUrl ? "_blank" : undefined} rel={playUrl ? "noopener noreferrer" : undefined}>
                     Main Sekarang
                 </Link>
                 

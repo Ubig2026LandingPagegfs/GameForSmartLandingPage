@@ -136,9 +136,8 @@ export default function Banner() {
                           </p>
                           <h2
                             data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4"
+                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
                             style={{
-                              fontSize: "3.5rem",
                               lineHeight: "100%",
                               fontWeight: "900",
                               letterSpacing: "-1.5px",
@@ -210,9 +209,8 @@ export default function Banner() {
                           </p>
                           <h2
                             data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4"
+                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
                             style={{
-                              fontSize: "3.5rem",
                               lineHeight: "100%",
                               fontWeight: "900",
                               letterSpacing: "-1.5px",
@@ -286,9 +284,8 @@ export default function Banner() {
                           </p>
                           <h2
                             data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4"
+                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
                             style={{
-                              fontSize: "3.5rem",
                               lineHeight: "100%",
                               fontWeight: "900",
                               letterSpacing: "-1.5px",
@@ -361,9 +358,8 @@ export default function Banner() {
                           </p>
                           <h2
                             data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4"
+                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
                             style={{
-                              fontSize: "3.5rem",
                               lineHeight: "100%",
                               fontWeight: "900",
                               letterSpacing: "-1.5px",
@@ -427,12 +423,11 @@ export default function Banner() {
           </div>
           <div className="col-xxl-3 col-xl-4 col-lg-5 d-flex align-items-stretch">
             <div
-              className="card-area flex-fill d-flex flex-column w-100 overflow-hidden shadow-lg border border-secondary border-opacity-10 px-0"
+              className="card-area flex-fill d-flex flex-column w-100 overflow-hidden shadow-lg border border-secondary border-opacity-10 px-0 min-h-[300px] lg:min-h-full"
               style={{
                 backgroundColor: "#0b1117",
                 borderRadius: "40px",
                 height: "100%",
-                minHeight: "100%",
               }}
             >
               <div className="card-header pt-4 px-4 pb-2">

@@ -31,7 +31,7 @@ export default function RootLayout({
             <head>
                 <link rel="shortcut icon" href="/assets/img/gameforsmartlogo.png" type="image/x-icon" />
             </head>
-            <body className={inter.className}>
+            <body className={`${inter.className} overflow-x-hidden relative max-w-[1920px] mx-auto`}>
                 <SearchProvider>
                     <Preloader />
                     <div className="cursor"></div>

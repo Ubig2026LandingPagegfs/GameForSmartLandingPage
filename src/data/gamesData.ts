@@ -13,6 +13,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/1", 
+        playUrl: "https://crazy-race-next.vercel.app",
         description: "Rasakan adrenalin balap mobil dengan kecepatan tinggi dan lintasan menantang." 
     },
     { 
@@ -29,6 +30,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/2", 
+        playUrl: "https://quizrun.vercel.app",
         description: "Uji kecepatan respon dan tangkasnya tanganmu dalam tantangan aksi yang seru." 
     },
     { 
@@ -45,6 +47,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/3", 
+        playUrl: "https://spacequizv1.vercel.app",
         description: "Eksplorasi wawasan luar angkasamu dan jawab pertanyaan-pertanyaan mematikan." 
     },
     { 
@@ -61,6 +64,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/4", 
+        playUrl: "https://memorygame-quiz.vercel.app",
         description: "Latih daya ingatmu dengan memecahkan teka-teki memori tingkat tinggi." 
     },
 ];

@@ -65,10 +65,10 @@ export default function Sidebar() {
 
         .sidebar {
           position: sticky;
-          top: 130px; /* sesuaikan dengan tinggi header + gap */
+          top: 100px; /* adjusted for better fit */
           align-self: flex-start;
           height: fit-content;
-          max-height: calc(100vh - 150px);
+          max-height: calc(100vh - 100px);
           z-index: 1000;
         }
 
@@ -79,10 +79,11 @@ export default function Sidebar() {
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
           display: inline-block;
           margin-left: 15px;
-          margin-top: 15px;
-          margin-bottom: 20px;
-          max-height: calc(100vh - 180px);
+          margin-top: 10px;
+          margin-bottom: 15px;
+          max-height: calc(100vh - 120px);
           overflow-y: auto;
+          overflow-x: hidden;
           scrollbar-width: none; /* Firefox */
         }
 
@@ -102,6 +103,7 @@ export default function Sidebar() {
           height: 70px;
           border-radius: 50%;
           background: transparent;
+          margin: 0 auto;
         }
 
         .menu-link:hover {
@@ -113,7 +115,7 @@ export default function Sidebar() {
         }
 
         .sidebar-icon {
-          font-size: 36px;
+          font-size: 32px;
           color: rgba(255, 255, 255, 0.4);
           transition: all 0.3s ease;
         }
@@ -127,11 +129,36 @@ export default function Sidebar() {
           transition: all 0.3s ease;
         }
 
+        /* Responsive height for scroll/zoom issues */
+        @media (max-height: 800px) and (min-height: 651px) {
+          .menu-link {
+            width: 60px;
+            height: 60px;
+          }
+          .sidebar-icon {
+            font-size: 28px;
+          }
+          .sidebar-menu-capsule {
+            border-radius: 60px;
+          }
+        }
+
+        /* Responsive width for smaller desktops/tablets */
+        @media (max-width: 1199px) {
+          .menu-link {
+            width: 55px;
+            height: 55px;
+          }
+          .sidebar-icon {
+            font-size: 26px;
+          }
+        }
+
         /* ============================= */
-        /* MOBILE OVERLAY */
+        /* MOBILE OVERLAY (Also triggers on short screens) */
         /* ============================= */
 
-        @media (max-width: 991px) {
+        @media (max-width: 991px), (max-height: 650px) {
           .sidebar {
             position: fixed;
             top: 0;
@@ -163,6 +190,7 @@ export default function Sidebar() {
             margin-left: 20px;
             margin-top: 0;
             border-radius: 40px;
+            max-height: 90vh; /* Allow more scrolling space on mobile */
           }
         }
 
@@ -170,7 +198,7 @@ export default function Sidebar() {
         /* DESKTOP */
         /* ============================= */
 
-        @media (min-width: 992px) {
+        @media (min-width: 992px) and (min-height: 651px) {
           .sidebar-wrapper {
             display: flex !important;
             position: static !important;
