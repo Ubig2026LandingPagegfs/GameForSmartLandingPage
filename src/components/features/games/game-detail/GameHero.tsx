@@ -63,8 +63,8 @@ export default function GameHero({
       </div>
 
       {/* Banner Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 z-1 flex items-end w-full" style={{ minHeight: "70vh" }}>
-        <div className="w-full">{children}</div>
+      <div className="relative z-1 flex items-end w-full px-5 sm:px-10 lg:px-20 py-16" style={{ minHeight: "70vh" }}>
+        <div className="w-full text-left">{children}</div>
       </div>
 
       <style jsx>{`

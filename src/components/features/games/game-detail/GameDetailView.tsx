@@ -159,9 +159,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                     display: flex;
                     gap: var(--space-lg);
                     padding: var(--space-xl) var(--page-px) var(--space-2xl);
-                    max-width: 1440px;
                     width: 100%;
-                    margin: 0 auto;
                 }
 
                 /* ── Column widths ── */
