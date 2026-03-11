@@ -228,6 +228,12 @@ export default function Footer() {
           pointer-events: none;
           object-fit: contain;
         }
+        
+        @media (max-width: 991px) {
+          .footer-mascot {
+            display: none;
+          }
+        }
       `}</style>
     </footer>
   );

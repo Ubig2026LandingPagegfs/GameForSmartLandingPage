@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 import RatingStars from "./RatingStars";
 import { Review } from "@/data/rating";
@@ -10,14 +11,23 @@ interface ReviewListModalProps {
 }
 
 export default function ReviewListModal({ title, image, reviews, onClose }: ReviewListModalProps) {
-    // Lock body scroll when modal is open
+    // Lock body scroll and listen for ESC key when modal is open
     useEffect(() => {
         const originalStyle = window.getComputedStyle(document.body).overflow;
         document.body.style.overflow = "hidden";
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+
         return () => {
             document.body.style.overflow = originalStyle;
+            window.removeEventListener("keydown", handleKeyDown);
         };
-    }, []);
+    }, [onClose]);
     return (
         <>
             <div className="rlm-overlay" onClick={onClose}>

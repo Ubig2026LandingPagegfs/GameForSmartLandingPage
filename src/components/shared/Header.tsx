@@ -27,6 +27,7 @@ export default function Header() {
         setIsProfileOpen(false);
       }
     };
+    
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -174,6 +175,20 @@ export default function Header() {
         }
         .header-search-input {
           padding: 0 4px;
+        }
+
+        .sidebar-toggle-btn {
+          padding: 0 !important;
+          min-width: 36px;
+        }
+
+        @media (max-width: 991px) {
+          .header-logo-link {
+            max-width: 150px;
+          }
+          .d-between {
+             flex-wrap: nowrap;
+          }
         }
 
         @media (min-width: 992px) and (max-height: 650px) {

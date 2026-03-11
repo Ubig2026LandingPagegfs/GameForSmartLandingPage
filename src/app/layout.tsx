@@ -33,7 +33,7 @@ export default function RootLayout({
             </head>
             <body className={`${inter.className} overflow-x-hidden relative max-w-[1920px] mx-auto`}>
                 <SearchProvider>
-                    <Preloader />
+                    <Preloader />   
                     <div className="cursor"></div>
                     <NotificationArea />
                     <ConnectWalletModal />

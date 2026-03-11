@@ -1,3 +1,4 @@
+"use client";
 // components/VideoModal.tsx
 // Modal fullscreen untuk memutar trailer/video game
 
@@ -6,7 +7,19 @@ interface VideoModalProps {
     onClose: () => void;
 }
 
+import { useEffect } from "react";
+
 export default function VideoModal({ videoUrl, onClose }: VideoModalProps) {
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [onClose]);
+
     return (
         <>
             <div className="gps-modal-overlay" onClick={onClose}>

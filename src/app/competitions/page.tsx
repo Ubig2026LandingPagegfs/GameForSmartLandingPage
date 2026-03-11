@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import TournamentCard from "@/components/features/tournaments/TournamentCard";
@@ -9,10 +11,22 @@ import { tournamentsData } from "@/data/tournamentsData";
 
 export default function TournamentsPage() {
   const [activeTab, setActiveTab] = useState("All");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filteredTournaments = tournamentsData.filter((t) => {
     return activeTab === "All" || t.status === activeTab;
   });
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <>
       <Header />
@@ -46,8 +60,9 @@ export default function TournamentsPage() {
                   </div>
                 </div>
                 <div className="singletab tournaments-tab">
-                  <div className="d-between gap-6 flex-wrap mb-lg-15 mb-sm-10 mb-6">
-                    <ul className="tablinks d-flex flex-wrap align-items-center gap-3">
+                  <div className="d-flex justify-content-between align-items-center flex-wrap mb-lg-15 mb-sm-10 mb-6">
+                    {/* Desktop Tabs */}
+                    <ul className="tablinks d-none d-md-flex flex-wrap align-items-center gap-3 list-unstyled mb-0">
                       {["All", "Active", "Upcoming", "Finished"].map((tab) => (
                         <li
                           key={tab}
@@ -62,6 +77,46 @@ export default function TournamentsPage() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Mobile Dropdown */}
+                    <div className="d-block d-md-none position-relative w-100" ref={dropdownRef}>
+                      <button
+                        className="dropdown-toggle-btn w-100 d-flex justify-content-between align-items-center py-3 px-6 rounded-3 tcn-1 bgn-3 border-0"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
+                        <span>{activeTab}</span>
+                        <ChevronDown 
+                          size={20} 
+                          className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {isDropdownOpen && (
+                          <motion.ul
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="dropdown-menu-list position-absolute start-0 w-100 mt-2 p-2 rounded-3 bgn-3 list-unstyled shadow-lg"
+                            style={{ zIndex: 100 }}
+                          >
+                            {["All", "Active", "Upcoming", "Finished"].map((tab) => (
+                              <li key={tab}>
+                                <button
+                                  className={`dropdown-item w-100 text-start py-2 px-4 rounded-2 border-0 bg-transparent tcn-1 ${activeTab === tab ? 'bg-primary-dark text-orange-500' : 'hover-bg-n4'}`}
+                                  onClick={() => {
+                                    setActiveTab(tab);
+                                    setIsDropdownOpen(false);
+                                  }}
+                                >
+                                  {tab}
+                                </button>
+                              </li>
+                            ))}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                   <div className="tabcontents">
                     <div className="tabitem active">
@@ -92,6 +147,33 @@ export default function TournamentsPage() {
         </article>
       </main>
       <Footer />
+
+      <style jsx>{`
+        .dropdown-toggle-btn {
+          background: rgba(var(--n3), 0.4);
+          color: rgb(var(--n1));
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+        .dropdown-menu-list {
+          background: #1c1f2a;
+          border: 1px solid rgba(var(--p1), 0.2);
+        }
+        .dropdown-item {
+          transition: all 0.2s ease;
+          color: rgb(var(--n1));
+        }
+        .dropdown-item:hover {
+          background: rgba(var(--n4), 0.6);
+          color: orange;
+        }
+        .bg-primary-dark {
+          background: rgba(var(--p1), 0.1);
+        }
+        .hover-bg-n4:hover {
+          background: rgba(var(--n4), 0.4);
+        }
+      `}</style>
     </>
   );
 }
