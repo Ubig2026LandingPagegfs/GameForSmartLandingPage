@@ -191,7 +191,7 @@ export default function Header() {
           }
         }
 
-        @media (min-width: 992px) and (max-height: 650px) {
+        @media (min-width: 992px) and (max-height: 700px) {
           .responsive-toggle {
             display: block !important;
           }

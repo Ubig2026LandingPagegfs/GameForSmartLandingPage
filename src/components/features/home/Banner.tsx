@@ -159,7 +159,10 @@ export default function Banner() {
                             data-swiper-parallax="-400"
                             className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
                           >
-                            <Link href="/competitions" className="gps-btn-primary">
+                            <Link
+                              href="/competitions"
+                              className="gps-btn-primary"
+                            >
                               Masuk Arena
                             </Link>
                           </div>
@@ -233,7 +236,10 @@ export default function Banner() {
                             data-swiper-parallax="-400"
                             className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
                           >
-                            <Link href="/leaderboard" className="gps-btn-primary">
+                            <Link
+                              href="/leaderboard"
+                              className="gps-btn-primary"
+                            >
                               Cek Leaderboard
                             </Link>
                           </div>

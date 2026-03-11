@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { tournamentsData } from "@/data/tournamentsData";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function TournamentSection() {
@@ -49,14 +48,12 @@ export default function TournamentSection() {
             },
           },
           breakpoints: {
-            // Mobile: normal swipe
             320: {
               coverflowEffect: {
                 depth: 0,
                 stretch: 0,
               },
             },
-            // Desktop: stacked
             1024: {
               coverflowEffect: {
                 rotate: 0,
@@ -109,13 +106,10 @@ export default function TournamentSection() {
         <div className="text-center mb-14">
           <p className="text-xs tracking-[0.3em] text-gray-400 mb-3 text-uppercase">
             KOMPETISI
-            {/* AKTIF & MENDATANG */}
           </p>
-
           <h2 className="text-4xl font-extrabold text-white mb-4">
             Siap Unjuk Kemampuan?
           </h2>
-
           <p className="text-gray-400 max-w-xl mx-auto">
             Pilih lomba sesuai jenjang dan wilayahmu
           </p>
@@ -124,7 +118,15 @@ export default function TournamentSection() {
         {/* CARD WRAPPER */}
         <div className="relative max-w-7xl mx-auto">
           {/* NAVIGATION ARROWS */}
+          {/*
+            suppressHydrationWarning mencegah React error akibat atribut
+            `fdprocessedid` yang ditambahkan browser extension (password
+            manager, form filler, dll.) ke elemen <button> sebelum
+            React selesai hydrate. Atribut ini tidak ada di server HTML
+            sehingga menyebabkan mismatch.
+          */}
           <button
+            suppressHydrationWarning
             onClick={prev}
             className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border-2 border-white/20 bg-[#1c1f2a] flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 z-20 transition-all shadow-lg"
           >
@@ -132,6 +134,7 @@ export default function TournamentSection() {
           </button>
 
           <button
+            suppressHydrationWarning
             onClick={next}
             className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border-2 border-white/20 bg-[#1c1f2a] flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 z-20 transition-all shadow-lg"
           >
@@ -150,16 +153,14 @@ export default function TournamentSection() {
                     {/* TOP GRADIENT */}
                     <div className="h-[3px] w-full bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500" />
                     <div className="flex flex-col lg:flex-row-reverse h-full">
-                      {/* IMAGE (Top on Mobile, Right on Desktop) */}
+                      {/* IMAGE */}
                       <div className="relative h-[240px] lg:h-full lg:w-1/2 overflow-hidden">
                         <img
                           src={tournament.image}
                           alt={tournament.title}
                           className="w-full h-full object-cover"
                         />
-                        {/* OVERLAY */}
                         <div className="absolute inset-0 bg-gradient-to-r lg:bg-gradient-to-l from-black/50 via-black/10 to-transparent" />
-                        {/* CATEGORY */}
                         <div className="absolute bottom-5 right-5">
                           <Badge
                             variant="secondary"
@@ -169,24 +170,20 @@ export default function TournamentSection() {
                           </Badge>
                         </div>
                       </div>
-                      {/* CONTENT (Bottom on Mobile, Left on Desktop) */}
+                      {/* CONTENT */}
                       <CardContent className="p-8 lg:p-12 flex flex-col justify-center lg:w-1/2">
-                        {/* STATUS */}
                         <Badge
                           variant="outline"
                           className="mb-5 inline-flex items-center gap-1 px-3 py-1 text-xs rounded-full text-orange-400 border border-orange-500/40 bg-orange-500/10 w-fit"
                         >
                           ● {tournament.status}
                         </Badge>
-                        {/* TITLE */}
                         <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4 leading-snug">
                           {tournament.title}
                         </h3>
-                        {/* DESCRIPTION */}
                         <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-2">
                           {tournament.description.split("\n")[0]}
                         </p>
-                        {/* STATS */}
                         <div className="flex flex-wrap gap-2 mb-8">
                           <Badge
                             variant="secondary"
@@ -207,7 +204,6 @@ export default function TournamentSection() {
                             {tournament.type}
                           </Badge>
                         </div>
-                        {/* BUTTONS */}
                         <div className="flex flex-wrap gap-4 mt-auto">
                           <Link
                             href={`/competitions/${tournament.slug}/register`}
@@ -215,7 +211,10 @@ export default function TournamentSection() {
                           >
                             Daftar Sekarang
                           </Link>
-                          <Link href={tournament.href} className="gps-btn-outline whitespace-nowrap">
+                          <Link
+                            href={tournament.href}
+                            className="gps-btn-outline whitespace-nowrap"
+                          >
                             Detail →
                           </Link>
                         </div>
@@ -231,6 +230,7 @@ export default function TournamentSection() {
           <div className="flex justify-center gap-2 mt-12">
             {visibleTournaments.map((_, i) => (
               <button
+                suppressHydrationWarning
                 key={i}
                 onClick={() => paginate(i)}
                 className={`h-[4px] rounded-full transition-all duration-300 ${

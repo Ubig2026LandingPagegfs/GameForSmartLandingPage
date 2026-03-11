@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: any) => {
@@ -13,6 +14,48 @@ export default function Sidebar() {
     };
     window.addEventListener("sidebar-toggle", handler);
     return () => window.removeEventListener("sidebar-toggle", handler);
+  }, []);
+
+  // Dynamically track actual header height and set as CSS variable.
+  // This is the key fix: padding-top of the overlay always equals the
+  // real rendered header height, so it stays correct at any zoom level.
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      // Adjust this selector to match your actual header element.
+      const header =
+        document.querySelector("header") ||
+        document.querySelector(".header") ||
+        document.querySelector("[data-header]") ||
+        document.querySelector("nav");
+
+      const height = header ? header.getBoundingClientRect().height : 100;
+
+      // Add a 16px comfortable gap below the header
+      document.documentElement.style.setProperty(
+        "--sidebar-overlay-top",
+        `${height + 16}px`
+      );
+    };
+
+    updateHeaderHeight();
+
+    // ResizeObserver re-measures whenever header size changes (including zoom)
+    const header =
+      document.querySelector("header") ||
+      document.querySelector(".header") ||
+      document.querySelector("[data-header]") ||
+      document.querySelector("nav");
+
+    const ro = new ResizeObserver(updateHeaderHeight);
+    if (header) ro.observe(header);
+
+    // Also listen to window resize as a fallback
+    window.addEventListener("resize", updateHeaderHeight);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", updateHeaderHeight);
+    };
   }, []);
 
   const isActive = (path: string) => {
@@ -31,10 +74,7 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      {/* SIDEBAR CONTENT */}
-
-      {/* SIDEBAR CONTENT */}
-      <div className={`sidebar-wrapper ${open ? "show-menu" : ""} d-lg-flex`}>
+      <div ref={wrapperRef} className={`sidebar-wrapper ${open ? "show-menu" : ""}`}>
         <div className="sidebar-menu-capsule py-xxl-20 py-sm-15 py-10 px-6">
           <div className="d-grid gap-sm-12 gap-8 sidebar-menu-items text-center">
             {menuItems.map((item) => (
@@ -64,12 +104,14 @@ export default function Sidebar() {
         /* ============================= */
 
         .sidebar {
+          --header-height: 110px;
+          --top-offset: clamp(130px, 18vh, 170px);
           position: sticky;
-          top: 130px; /* adjusted to appear below header */
+          top: var(--top-offset);
           align-self: flex-start;
           height: fit-content;
-          max-height: calc(100vh - 150px);
-          z-index: 10000; /* Just below header (10001) */
+          max-height: calc(100svh - (2 * var(--top-offset)) + var(--header-height));
+          z-index: 10000;
         }
 
         .sidebar-menu-capsule {
@@ -79,16 +121,16 @@ export default function Sidebar() {
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
           display: inline-block;
           margin-left: 15px;
-          margin-top: 10px;
-          margin-bottom: 15px;
-          max-height: calc(100vh - 120px);
+          margin-top: 0;
+          margin-bottom: 0;
+          max-height: inherit;
           overflow-y: auto;
           overflow-x: hidden;
-          scrollbar-width: none; /* Firefox */
+          scrollbar-width: none;
         }
 
         .sidebar-menu-capsule::-webkit-scrollbar {
-          display: none; /* Safari and Chrome */
+          display: none;
         }
 
         .sidebar-wrapper {
@@ -129,21 +171,32 @@ export default function Sidebar() {
           transition: all 0.3s ease;
         }
 
-        /* Responsive height for scroll/zoom issues */
-        @media (max-height: 800px) and (min-height: 651px) {
+        @media (max-height: 800px) {
           .menu-link {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
           }
           .sidebar-icon {
-            font-size: 28px;
+            font-size: 26px;
           }
           .sidebar-menu-capsule {
             border-radius: 60px;
           }
         }
 
-        /* Responsive width for smaller desktops/tablets */
+        @media (max-height: 600px) {
+          .menu-link {
+            width: 46px;
+            height: 46px;
+          }
+          .sidebar-icon {
+            font-size: 22px;
+          }
+          .sidebar-menu-capsule {
+            border-radius: 40px;
+          }
+        }
+
         @media (max-width: 1199px) {
           .menu-link {
             width: 55px;
@@ -155,10 +208,10 @@ export default function Sidebar() {
         }
 
         /* ============================= */
-        /* MOBILE OVERLAY (Also triggers on short screens) */
+        /* MOBILE OVERLAY */
         /* ============================= */
 
-        @media (max-width: 991px) {
+        @media (max-width: 991px), (max-height: 700px) {
           .sidebar {
             position: fixed;
             top: 0;
@@ -171,14 +224,32 @@ export default function Sidebar() {
           .sidebar-wrapper {
             position: fixed;
             top: 0;
-            left: -120px; /* Lebar capsule approx */
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
+            left: -120px;
+            /*
+              Pakai min-height bukan height agar wrapper tidak memotong
+              konten. Saat zoom tinggi, wrapper bisa "lebih panjang"
+              dari layar dan di-scroll, sehingga item Kontak tetap dapat
+              dijangkau.
+            */
+            min-height: 100dvh;
+            height: auto;
+            background: rgba(0, 0, 0, 0.85);
             width: 100vw;
             display: none !important;
+            flex-direction: column;
             justify-content: flex-start;
-            align-items: center;
-            backdrop-filter: blur(5px);
+            align-items: flex-start;
+            padding-top: var(--sidebar-overlay-top, 116px);
+            padding-bottom: 32px;
+            backdrop-filter: blur(8px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: none;
+            box-sizing: border-box;
+          }
+
+          .sidebar-wrapper::-webkit-scrollbar {
+            display: none;
           }
 
           .sidebar-wrapper.show-menu {
@@ -190,7 +261,9 @@ export default function Sidebar() {
             margin-left: 20px;
             margin-top: 0;
             border-radius: 40px;
-            max-height: 90vh; /* Allow more scrolling space on mobile */
+            /* Tidak ada max-height — capsule penuh, wrapper yang scroll */
+            max-height: none;
+            overflow-y: visible;
           }
         }
 
@@ -198,23 +271,17 @@ export default function Sidebar() {
         /* DESKTOP */
         /* ============================= */
 
-        @media (min-width: 992px) {
+        @media (min-width: 992px) and (min-height: 701px) {
           .sidebar-wrapper {
             display: flex !important;
             position: static !important;
-            transform: none !important; /* Override style.css 1750px breakpoint */
+            transform: none !important;
             opacity: 1 !important;
           }
 
           .sidebar {
             display: block !important;
             transform: none !important;
-            position: sticky !important;
-            top: 130px !important;
-            height: fit-content !important;
-            align-self: flex-start !important;
-            width: fit-content !important;
-            z-index: 10000 !important;
           }
         }
       `}</style>
