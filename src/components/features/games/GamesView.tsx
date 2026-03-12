@@ -75,6 +75,7 @@ export default function GamesView() {
                         rating={game.rating}
                         players={game.players}
                         link={`/games/${game.slug}`}
+                        playUrl={game.playUrl}
                       />
                     </div>
                   ))}

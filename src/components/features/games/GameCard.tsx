@@ -15,6 +15,7 @@ interface GameCardProps {
   description?: string;
   link?: string;
   slug?: string;
+  playUrl?: string; // Add playUrl into props
 }
 
 export default function GameCard({
@@ -29,6 +30,7 @@ export default function GameCard({
   description,
   link,
   slug,
+  playUrl, // Add playUrl destructuring
 }: GameCardProps) {
   const defaultDescription =
     "Game menarik yang siap memberikan pengalaman bermain tidak terlupakan buat Anda.";
@@ -36,11 +38,14 @@ export default function GameCard({
   return (
     <div className="tournament-card bgn-4 d-flex flex-column h-100 w-100 rounded-2xl overflow-hidden">
       {/* IMAGE AREA */}
-      <div className="tournament-img position-relative h-[360px] sm:h-[400px] shrink-0">
+      <Link 
+        href={link || `/games/${slug || id}`} 
+        className="tournament-img position-relative h-[360px] sm:h-[400px] shrink-0 d-block overflow-hidden"
+      >
         <img
-          className="w-100 h-100 object-fit-cover"
+          className="w-100 h-100 object-fit-cover transition-transform duration-300 hover:scale-105"
           src={image}
-          alt="game"
+          alt={title}
           style={{
             objectPosition: "top",
             ...(status === "Coming Soon"
@@ -73,7 +78,7 @@ export default function GameCard({
             Baru
           </span>
         )}
-      </div>
+      </Link>
 
       {/* CONTENT AREA */}
       <div className="tournament-content p-[14px] sm:p-4 d-flex flex-column flex-grow-1">
@@ -145,14 +150,25 @@ export default function GameCard({
           </div>
         </div>
 
-        {/* CTA BUTTON */}
-        <div className="mt-auto">
+        {/* CTA BUTTONS */}
+        <div className="mt-auto d-flex gap-2">
           <Link
             href={link || `/games/${slug || id}`}
-            className="gps-btn-primary w-100 py-3"
+            className="gps-btn-secondary w-50 py-2 d-flex justify-content-center align-items-center bg-transparent border border-secondary text-white rounded"
+            style={{ fontSize: '0.9rem', transition: 'background 0.3s' }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
-            Lihat Game
-            <i className="ti ti-arrow-right fs-base"></i>
+            Detail
+          </Link>
+          <Link
+            href={playUrl || `/play/${slug || id}`}
+            target={playUrl ? "_blank" : undefined}
+            rel={playUrl ? "noopener noreferrer" : undefined}
+            className="gps-btn-primary w-50 py-2 d-flex justify-content-center align-items-center rounded"
+            style={{ fontSize: '0.9rem' }}
+          >
+            Play <i className="ti ti-player-play fs-base ms-1"></i>
           </Link>
         </div>
       </div>
