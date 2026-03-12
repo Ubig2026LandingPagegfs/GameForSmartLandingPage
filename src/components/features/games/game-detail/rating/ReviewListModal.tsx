@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import RatingStars from "./RatingStars";
 import { Review } from "@/data/rating";
 
@@ -11,6 +11,8 @@ interface ReviewListModalProps {
 }
 
 export default function ReviewListModal({ title, image, reviews, onClose }: ReviewListModalProps) {
+    const [selectedStar, setSelectedStar] = useState<number | null>(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     // Lock body scroll and listen for ESC key when modal is open
     useEffect(() => {
         const originalStyle = window.getComputedStyle(document.body).overflow;
@@ -28,6 +30,11 @@ export default function ReviewListModal({ title, image, reviews, onClose }: Revi
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [onClose]);
+    // Filter reviews based on selected star
+    const filteredReviews = selectedStar 
+        ? reviews.filter(review => Math.floor(review.rating) === selectedStar)
+        : reviews;
+
     return (
         <>
             <div className="rlm-overlay" onClick={onClose}>
@@ -51,33 +58,43 @@ export default function ReviewListModal({ title, image, reviews, onClose }: Revi
 
                     {/* Filter Pills */}
                     <div className="rlm-filters">
-                        <button className="rlm-filter-pill active">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-                                <line x1="12" y1="18" x2="12.01" y2="18"/>
-                            </svg>
-                            Ponsel
-                            <svg className="rlm-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
-                            </svg>
-                        </button>
-                        <button className="rlm-filter-pill">
-                            Paling relevan
-                            <svg className="rlm-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
-                            </svg>
-                        </button>
-                        <button className="rlm-filter-pill">
-                            Rating bintang
-                            <svg className="rlm-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
-                            </svg>
-                        </button>
+                        <div style={{ position: 'relative' }}>
+                            <button 
+                                className={`rlm-filter-pill ${selectedStar ? 'active' : ''}`}
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            >
+                                {selectedStar ? `Bintang ${selectedStar}` : 'Semua Rating'}
+                                <svg className="rlm-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: isDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </button>
+
+                            {isDropdownOpen && (
+                                <div className="rlm-dropdown">
+                                    <button 
+                                        className={`rlm-dropdown-item ${selectedStar === null ? 'active' : ''}`}
+                                        onClick={() => { setSelectedStar(null); setIsDropdownOpen(false); }}
+                                    >
+                                        Semua Rating
+                                    </button>
+                                    {[5, 4, 3, 2, 1].map(star => (
+                                        <button 
+                                            key={star}
+                                            className={`rlm-dropdown-item ${selectedStar === star ? 'active' : ''}`}
+                                            onClick={() => { setSelectedStar(star); setIsDropdownOpen(false); }}
+                                        >
+                                            Bintang {star}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* Body */}
                     <div className="rlm-body">
-                        {reviews.map(review => (
+                        {filteredReviews.length > 0 ? (
+                            filteredReviews.map(review => (
                             <div key={review.id} className="rlm-item">
                                 {/* User row */}
                                 <div className="rlm-user-row">
@@ -129,7 +146,11 @@ export default function ReviewListModal({ title, image, reviews, onClose }: Revi
                                     </div>
                                 )}
                             </div>
-                        ))}
+                        ))) : (
+                            <div className="rlm-empty">
+                                <p>Tidak ada ulasan untuk rating ini.</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -215,11 +236,9 @@ export default function ReviewListModal({ title, image, reviews, onClose }: Revi
                     padding: 12px 24px;
                     display: flex;
                     gap: 12px;
-                    overflow-x: auto;
+                    flex-wrap: wrap;
                     border-bottom: 1px solid #3c4043;
-                    scrollbar-width: none;
                 }
-                .rlm-filters::-webkit-scrollbar { display: none; }
                 .rlm-filter-pill {
                     display: flex;
                     align-items: center;
@@ -242,6 +261,38 @@ export default function ReviewListModal({ title, image, reviews, onClose }: Revi
                     border-color: #e6f4ea;
                 }
                 .rlm-chevron { opacity: 0.7; }
+                
+                /* Dropdown */
+                .rlm-dropdown {
+                    position: absolute;
+                    top: calc(100% + 4px);
+                    left: 0;
+                    background: #202124;
+                    border: 1px solid #3c4043;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+                    z-index: 10;
+                    min-width: 150px;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .rlm-dropdown-item {
+                    padding: 10px 16px;
+                    background: transparent;
+                    border: none;
+                    color: #e8eaed;
+                    font-size: 0.85rem;
+                    text-align: left;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+                .rlm-dropdown-item:hover { background: #2d2e31; }
+                .rlm-dropdown-item.active {
+                    background: rgba(255, 140, 0, 0.1);
+                    color: #ff8c00;
+                    font-weight: 500;
+                }
 
                 /* Body */
                 .rlm-body {
@@ -318,6 +369,14 @@ export default function ReviewListModal({ title, image, reviews, onClose }: Revi
                 .rlm-dev-name { font-size: 0.8125rem; font-weight: 500; color: #e8eaed; }
                 .rlm-dev-date { font-size: 0.75rem; color: #9aa0a6; }
                 .rlm-dev-text { font-size: 0.8125rem; color: #9aa0a6; line-height: 1.55; margin: 0; }
+                
+                /* Empty state */
+                .rlm-empty {
+                    padding: 40px 20px;
+                    text-align: center;
+                    color: #9aa0a6;
+                    font-size: 0.9rem;
+                }
             `}</style>
         </>
     );
