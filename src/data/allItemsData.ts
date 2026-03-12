@@ -39,7 +39,15 @@ export const allItemsData: TournamentInfo[] = [
         platform: "Mobile & Web",
         rating: "4.8",
         genre: "Arcade",
-        description: "Experience the ultimate speed challenge! Compete against top racers in this high-octane arcade game. Test your reflexes and strategic driving to the limit.",
+        description: `Rasakan sensasi balap yang sesungguhnya di Crazy Race — game aksi kecepatan tinggi yang dirancang untuk menguji refleks dan kemampuan strategis kamu di lintasan yang dinamis!
+
+Dalam setiap balapan, kamu akan menghadapi trek dengan belokan tajam, rintangan acak, dan lawan-lawan tangguh dari seluruh dunia. Gunakan item boost, blokir lawan, dan pilih jalur tercepat untuk merebut posisi pertama di setiap race.
+
+Tersedia berbagai mode permainan mulai dari Time Trial untuk melatih kecepatan, hingga mode Grand Prix penuh dengan lapisan strategi dan penghitungan poin kumulatif. Unggah rekormu ke Global Leaderboard dan tunjukkan siapa pembalap terhebat!
+
+• Mode: Single Race · Grand Prix · Time Trial
+• Jumlah Lintasan: 12 Trek Unik
+• Pemain: Solo & Multiplayer Online`,
         status: "Racing",
         slug: "1",
         href: "/games/1",
@@ -50,7 +58,13 @@ export const allItemsData: TournamentInfo[] = [
         ],
         videoUrl: "https://www.youtube.com/embed/AJm-cwt0Ba8?si=jj2jNgwrt3vnggRo",
         playUrl: "https://crazy-race-next.vercel.app",
-        screenshots: ["/images/crazyrace.webp", "/images/spacequiz.webp", "/assets/img/game-1.png"]
+        screenshots: ["/images/crazyrace.webp", "/images/spacequiz.webp", "/assets/img/game-1.png"],
+        features: [
+            { icon: "ti ti-steering-wheel", title: "Kontrol Presisi Tinggi", description: "Rasakan pengalaman berkendara responsif dengan sistem kontrol yang dioptimalkan untuk kecepatan." },
+            { icon: "ti ti-road", title: "Lintasan Menantang", description: "Jelajahi berbagai lintasan dengan tingkat kesulitan yang meningkat dan rintangan unik." },
+            { icon: "ti ti-trophy", title: "Sistem Ranking Global", description: "Bersaing dengan pembalap dari seluruh dunia dan pantau posisimu di leaderboard global." },
+            { icon: "ti ti-bolt", title: "Mode Turbo Boost", description: "Gunakan boost strategis pada momen tepat untuk melewati lawan dan merebut posisi terdepan." }
+        ]
     },
     {
         id: 2,
@@ -96,7 +110,15 @@ export const allItemsData: TournamentInfo[] = [
         platform: "Web",
         rating: "4.7",
         genre: "Educational",
-        description: "Conquer the cosmos in this high-stakes trivia battle. Put on your astronaut helmet and explore galactic mysteries, space tech, and the deep history of the stars.",
+        description: `Conquer the cosmos in this high-stakes trivia battle! Space Quiz mengajakmu menjelajahi misteri alam semesta sambil menguji seberapa dalam pengetahuanmu tentang luar angkasa.
+
+Dengan lebih dari 500 pertanyaan yang mencakup astronomi, fisika kosmik, sejarah penjelajahan luar angkasa, dan teknologi antariksa terkini, setiap sesi permainan akan terasa seperti petualangan baru di galaksi yang tak terbatas.
+
+Jawab pertanyaan dengan cepat sebelum waktu habis! Mode Kecepatan Kilat memberikan bonus poin ekstra bagi pemain yang bisa menjawab dalam 5 detik pertama. Naiki tangga dari Cadet hingga Galaxy Master dan buktikan kamu adalah penjelajah terpintar di semesta ini.
+
+• Topik: Astronomi · Fisika · Sejarah Antariksa · Teknologi Luar Angkasa
+• Level: Cadet → Astronaut → Commander → Galaxy Master
+• Mode: Solo · Duel Head-to-Head · Turnamen Mingguan`,
         status: "Trivia",
         slug: "3",
         href: "/games/3",
@@ -107,7 +129,13 @@ export const allItemsData: TournamentInfo[] = [
         ],
         videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA",
         playUrl: "https://spacequizv1.vercel.app",
-        screenshots: ["/images/spacequiz.webp", "/images/crazyrace.webp", "/assets/img/game-3.png"]
+        screenshots: ["/images/spacequiz.webp", "/images/crazyrace.webp", "/assets/img/game-3.png"],
+        features: [
+            { icon: "ti ti-planet", title: "500+ Soal Luar Angkasa", description: "Bank soal komprehensif mencakup astronomi, fisika kosmik, sejarah penjelajahan antariksa, dan teknologi luar angkasa." },
+            { icon: "ti ti-clock-bolt", title: "Mode Kecepatan Kilat", description: "Jawab pertanyaan sebelum waktu habis — semakin cepat jawabanmu, semakin besar bonusnya." },
+            { icon: "ti ti-chart-bar", title: "Progress Level Galaksi", description: "Naiki tangga dari Cadet hingga Galaxy Master dengan sistem XP dan level yang menantang." },
+            { icon: "ti ti-users", title: "Duel Head-to-Head", description: "Tantang temanmu atau pemain acak dalam duel trivia langsung secara real-time." }
+        ]
     },
     {
         id: 4,
@@ -119,7 +147,15 @@ export const allItemsData: TournamentInfo[] = [
         platform: "Web",
         rating: "4.6",
         genre: "Puzzle",
-        description: "Test your mental fortitude with the Mystery Cards. Sharp concentration and rapid-fire recall are your only weapons in this atmospheric and enigmatic puzzle game.",
+        description: `Latih kekuatan otak dan daya ingatmu bersama Memory Quiz — game puzzle yang menantang konsentrasi dan kecepatan recall dalam suasana yang misterius dan mendebarkan!
+
+Setiap sesi permainan menghadirkan susunan kartu acak yang berbeda, sehingga tidak ada dua permainan yang sama. Temukan pasangan kartu yang cocok secepat mungkin sebelum waktu habis untuk mendapatkan skor sempurna.
+
+Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat waktu yang tersedia. Sistem tingkat kesulitan adaptif memastikan game selalu terasa menantang tanpa terasa terlalu mudah atau terlalu susah.
+
+• Mode: Classic · Challenge · Time Attack · Survival
+• Level Kesulitan: Mudah (4×4) → Sedang (6×6) → Sulit (8×8)
+• Fitur: Daily Challenge · Streak Bonus · Achievement System`,
         status: "Puzzle",
         slug: "4",
         href: "/games/4",
@@ -130,7 +166,13 @@ export const allItemsData: TournamentInfo[] = [
         ],
         videoUrl: "https://www.youtube.com/embed/TAlKhARUcoY",
         playUrl: "https://memorygame-quiz.vercel.app",
-        screenshots: ["/images/memoryquiz.webp", "/images/quizrush.webp", "/assets/img/game-4.png"]
+        screenshots: ["/images/memoryquiz.webp", "/images/quizrush.webp", "/assets/img/game-4.png"],
+        features: [
+            { icon: "ti ti-brain", title: "Latihan Memori Adaptif", description: "Tingkat kesulitan menyesuaikan kemampuanmu secara otomatis untuk melatih daya ingat secara optimal." },
+            { icon: "ti ti-cards", title: "Ratusan Pola Kartu Unik", description: "Ratusan kombinasi pola kartu yang berbeda memastikan setiap sesi permainan selalu terasa segar." },
+            { icon: "ti ti-medal", title: "Pencapaian & Lencana", description: "Kumpulkan lencana eksklusif atas pencapaian luar biasa dan pamerkan ke seluruh komunitas." },
+            { icon: "ti ti-clock", title: "Mode Tantangan Waktu", description: "Selesaikan semua pasangan kartu dalam batas waktu ketat untuk mendapatkan skor sempurna." }
+        ]
     },
     // Tournaments
     {
