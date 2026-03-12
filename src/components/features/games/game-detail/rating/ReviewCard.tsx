@@ -39,7 +39,7 @@ export default function ReviewCard({ review, showDevResponse = false }: ReviewCa
 
                 {/* Meta */}
                 <div className="rc-meta">
-                    <RatingStars rating={review.rating} size="sm" color="#01875f" />
+                    <RatingStars rating={review.rating} size="sm" color="#ff8c00" />
                     <span className="rc-date">{review.date}</span>
                 </div>
 

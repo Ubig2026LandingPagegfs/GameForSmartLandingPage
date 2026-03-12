@@ -61,7 +61,10 @@ export default function GameMeta({
 
             <div className="gps-stats-blocks">
                 <div className="gps-stat-item">
-                    <span className="gps-stat-val">{rating}★</span>
+                    <span className="gps-stat-val">
+                        {rating}
+                        <span style={{ color: '#ff8c00', marginLeft: '2px' }}>★</span>
+                    </span>
                     <span className="gps-stat-label">{players} ulasan</span>
                 </div>
                 <div className="gps-stat-divider" />

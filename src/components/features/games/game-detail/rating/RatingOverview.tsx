@@ -142,7 +142,7 @@ export default function RatingOverview({ rating, players }: RatingOverviewProps)
                 }
                 .ro-bar-fill {
                     height: 100%;
-                    background: #01875f;
+                    background: #ff8c00;
                     border-radius: 3px;
                     transition: width 0.6s ease;
                 }
@@ -165,14 +165,14 @@ export default function RatingOverview({ rating, players }: RatingOverviewProps)
                     align-items: center;
                     gap: 6px;
                     padding: 5px 12px;
-                    background: rgba(1, 135, 95, 0.08);
-                    border: 1px solid rgba(1, 135, 95, 0.18);
+                    background: rgba(255, 140, 0, 0.08);
+                    border: 1px solid rgba(255, 140, 0, 0.18);
                     border-radius: 20px;
                     font-size: 0.75rem;
                     color: var(--text-primary, #e8eaed);
                     white-space: nowrap;
                 }
-                .ro-pill svg { color: #01875f; flex-shrink: 0; }
+                .ro-pill svg { color: #ff8c00; flex-shrink: 0; }
 
                 /* Responsive */
                 @media (max-width: 900px) {
