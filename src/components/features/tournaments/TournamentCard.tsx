@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 
 interface TournamentCardProps {
   id: number;
@@ -44,6 +43,8 @@ export default function TournamentCard({
     description ||
     "Kompetisi menguji kemampuan siswa dalam menyelesaikan tantangan yang tersedia sebagai latihan.";
 
+  const detailHref = link || `/competitions/${slug || id}`;
+
   useEffect(() => {
     if (textRef.current) {
       const element = textRef.current;
@@ -57,24 +58,26 @@ export default function TournamentCard({
         className="tournament-img mb-8 position-relative w-100"
         style={{ flexShrink: 0 }}
       >
-        <div className="img-area overflow-hidden position-relative w-100 rounded d-flex align-items-center justify-content-center">
-          <img
-            className="w-100 h-auto object-fit-contain"
-            src={image}
-            alt="tournament"
-            style={
-              status === "Coming Soon"
-                ? { filter: "blur(4px) brightness(0.4)" }
-                : {}
-            }
-          />
-          {status === "Coming Soon" && (
-            <div className="position-absolute top-50 start-50 translate-middle text-center w-100">
-              <i className="ti ti-lock display-four tcn-1 mb-2"></i>
-              <h5 className="tcn-1 text-uppercase fw-bold">Segera Hadir</h5>
-            </div>
-          )}
-        </div>
+        <Link href={detailHref} className="d-block card-img-link">
+          <div className="img-area overflow-hidden position-relative w-100 rounded d-flex align-items-center justify-content-center">
+            <img
+              className="w-100 h-auto object-fit-contain"
+              src={image}
+              alt="tournament"
+              style={
+                status === "Coming Soon"
+                  ? { filter: "blur(4px) brightness(0.4)" }
+                  : {}
+              }
+            />
+            {status === "Coming Soon" && (
+              <div className="position-absolute top-50 start-50 translate-middle text-center w-100">
+                <i className="ti ti-lock display-four tcn-1 mb-2"></i>
+                <h5 className="tcn-1 text-uppercase fw-bold">Segera Hadir</h5>
+              </div>
+            )}
+          </div>
+        </Link>
         {status === "Popular" ? (
           <span
             className="card-status position-absolute top-0 end-0 py-1 px-4 tcn-1 fs-sm fw-bold shadow-sm"
@@ -100,10 +103,7 @@ export default function TournamentCard({
       <div className="tournament-content px-xxl-4 d-flex flex-column flex-grow-1">
         <div className="tournament-info mb-5">
           <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-1">
-            <Link
-              href={link || `/competitions/${slug || id}`}
-              className="d-block"
-            >
+            <Link href={detailHref} className="d-block card-title-link">
               <h4 className="tournament-title tcn-1 mb-0 fs-five">{title}</h4>
             </Link>
             {status !== "Popular" &&
@@ -170,34 +170,37 @@ export default function TournamentCard({
           )}
         </div>
         <div className="hr-line line3 mt-auto"></div>
-        <div className="card-more-info d-between align-items-center mt-6">
+        <div className="card-more-info d-flex align-items-center gap-2 mt-6">
           <Link
-            href={link || `/competitions/${slug || id}`}
-            className="gps-btn-primary flex-grow-1"
-          >
-            <span className="fs-six">Daftar</span>
-          </Link>
-          <Link
-            href={link || `/competitions/${slug || id}`}
-            className="btn-detail d-flex align-items-center justify-content-center"
+            href={detailHref}
+            className="d-flex align-items-center justify-content-center gap-2 flex-grow-1"
             style={{
-              width: "44px",
               height: "44px",
-              border: "1px solid rgba(255, 140, 0, 0.4)",
-              borderRadius: "50%",
+              border: "1px solid rgba(255, 140, 0, 0.6)",
+              borderRadius: "50px",
               color: "#ff8c00",
-              boxShadow: "0 0 10px rgba(255, 140, 0, 0.1)",
-              transition: "all 0.3s ease",
+              fontWeight: 600,
+              fontSize: "0.875rem",
+              textDecoration: "none",
+              background: "transparent",
+              transition: "background 0.25s ease",
             }}
-            title="Lihat Deskripsi"
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(255, 140, 0, 0.1)";
+              (e.currentTarget as HTMLElement).style.background = "rgba(255, 140, 0, 0.12)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
+              (e.currentTarget as HTMLElement).style.background = "transparent";
             }}
           >
-            <i className="ti ti-arrow-right fs-2xl"></i>
+            <i className="ti ti-info-circle"></i>
+            <span>Detail</span>
+          </Link>
+          <Link
+            href={detailHref}
+            className="gps-btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-2"
+          >
+            <i className="ti ti-pencil-plus"></i>
+            <span className="fs-six">Daftar</span>
           </Link>
         </div>
       </div>
@@ -227,6 +230,44 @@ export default function TournamentCard({
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        .card-img-link {
+          display: block;
+        }
+        .card-img-link img {
+          transition: transform 0.35s ease, filter 0.35s ease;
+        }
+        .card-img-link:hover img {
+          transform: scale(1.04);
+          filter: brightness(0.85);
+        }
+        .card-title-link {
+          text-decoration: none;
+        }
+        .card-title-link:hover .tournament-title {
+          color: #ff8c00 !important;
+          transition: color 0.2s ease;
+        }
+        .btn-detail-outline {
+          height: 44px;
+          border: 1px solid rgba(255, 140, 0, 0.45);
+          border-radius: 50px;
+          color: #ff8c00;
+          font-weight: 600;
+          font-size: 0.875rem;
+          text-decoration: none;
+          background: transparent;
+          transition: background 0.25s ease, border-color 0.25s ease;
+        }
+        .btn-detail-outline:hover {
+          background: rgba(255, 140, 0, 0.12);
+          border-color: rgba(255, 140, 0, 0.8);
+          color: #ff8c00;
+        }
+        .gps-btn-primary {
+          height: 44px;
+          border-radius: 8px;
+          text-decoration: none;
         }
         @media (max-width: 575px) {
           .tournament-card {
