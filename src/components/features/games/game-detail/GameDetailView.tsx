@@ -156,6 +156,8 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                     color: var(--text-primary);
                     font-family: 'Outfit', 'DM Sans', system-ui, sans-serif;
                     overflow: visible;
+                    padding-top: var(--space-xl);
+                    padding-bottom: var(--space-xl);
                 }
 
                 .page-article {
@@ -167,7 +169,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                 .page-body {
                     display: flex;
                     gap: var(--space-lg);
-                    padding: var(--space-xl) var(--page-px) var(--space-2xl);
+                    padding: 0 var(--page-px) var(--space-2xl);
                     width: 100%;
                 }
 

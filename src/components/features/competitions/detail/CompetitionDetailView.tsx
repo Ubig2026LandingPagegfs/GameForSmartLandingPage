@@ -48,7 +48,7 @@ export default function CompetitionDetailView({ tournament }: CompetitionDetailV
         />
       </GameHero>
 
-      <main className="main-container container-fluid d-flex pt-0 px-0 position-relative" style={{ overflow: "visible" }}>
+      <main className="main-container container-fluid d-flex pt-10 pb-15 px-0 position-relative" style={{ overflow: "visible" }}>
         <Sidebar />
 
         <article className="main-content w-100">
@@ -57,7 +57,7 @@ export default function CompetitionDetailView({ tournament }: CompetitionDetailV
             <section className="tournament-details">
 
               {/* Row 1: description + sidebar */}
-              <div className="row g-10">
+              <div className="row g-10 align-items-start">
                 <div className="col-lg-8 animate-fade-in-up">
                   <CompetitionAbout description={tournament.description} />
                   <CompetitionRules rules={tournament.rules} />
@@ -66,6 +66,7 @@ export default function CompetitionDetailView({ tournament }: CompetitionDetailV
                 <div className="col-lg-4 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
                   <CompetitionInfoCard
                     slug={tournament.slug}
+                    title={tournament.title}
                     prizeMoney={tournament.prizeMoney}
                     date={tournament.date}
                     ticketFee={tournament.ticketFee}
