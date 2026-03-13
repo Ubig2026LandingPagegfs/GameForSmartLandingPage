@@ -2593,7 +2593,9 @@ ul li {
 }
 
 .main-container .main-content {
-  width: calc(100% - 160px);
+  flex: 1;
+  min-width: 0;
+  width: auto;
 }
 
 @media (max-width: 1750px) {
@@ -2612,8 +2614,10 @@ ul li {
     transform: translateX(0);
   }
 
+  /* No longer need to force 100% width, flex handles it */
   .main-container .main-content {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
   }
 }
 
