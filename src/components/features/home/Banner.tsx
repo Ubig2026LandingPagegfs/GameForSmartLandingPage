@@ -1,38 +1,34 @@
 "use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { winnersData } from "@/data/winnersData";
 
-const getInitials = (name: string) => {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .substring(0, 2);
+const getInitials = (name: string) =>
+  name.split(" ").map((n) => n[0]).join("").toUpperCase().substring(0, 2);
+
+const gameColors: Record<string, { from: string; to: string }> = {
+  "Crazy Race":  { from: "#ff8c00", to: "#ff4500" },
+  "Quiz Master": { from: "#ff8c00", to: "#ffb347" },
+  "Word Puzzle": { from: "#ffb347", to: "#ff6a00" },
+  "Math Hero":   { from: "#ff6a00", to: "#ff8c00" },
 };
 
-const formatToRupiah = (amountStr: string) => {
-  // Extract number from "+$220" or similar
-  const num = parseInt(amountStr.replace(/[+$,]/g, ""));
-  if (isNaN(num)) return amountStr;
+const getGameGradient = (game: string) =>
+  gameColors[game] ?? { from: "#ff8c00", to: "#ffb347" };
 
-  // Convert to Rupiah equivalent ($220 -> Rp 220.000)
-  const idrValue = num * 1000;
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  })
-    .format(idrValue)
-    .replace("IDR", "Rp");
+const timeToSeconds = (timeStr: string): number => {
+  const match = timeStr.match(/(\d+)\s*(minute|second|hour)/);
+  if (!match) return 9999;
+  const [, num, unit] = match;
+  const n = parseInt(num);
+  if (unit === "second") return n;
+  if (unit === "minute") return n * 60;
+  if (unit === "hour") return n * 3600;
+  return 9999;
 };
 
 export default function Banner() {
   useEffect(() => {
-    // Initialize Swiper with a check to handle delayed script loading
     let swiperInstance: any = null;
     let retryCount = 0;
     const maxRetries = 20;
@@ -40,12 +36,7 @@ export default function Banner() {
     const initSwiper = () => {
       if (typeof window !== "undefined" && (window as any).Swiper) {
         const Swiper = (window as any).Swiper;
-
-        // Destroy existing instance if any
-        if (swiperInstance) {
-          swiperInstance.destroy();
-        }
-
+        if (swiperInstance) swiperInstance.destroy();
         swiperInstance = new Swiper(".banner-swiper", {
           direction: "horizontal",
           slidesPerView: 1,
@@ -53,14 +44,8 @@ export default function Banner() {
           loop: true,
           speed: 1200,
           parallax: true,
-          autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-          },
-          pagination: {
-            el: ".banner-swiper-pagination",
-            clickable: true,
-          },
+          autoplay: { delay: 5000, disableOnInteraction: false },
+          pagination: { el: ".banner-swiper-pagination", clickable: true },
           observer: true,
           observeParents: true,
         });
@@ -69,498 +54,454 @@ export default function Banner() {
       return false;
     };
 
-    // Try immediate init
     if (!initSwiper()) {
       const interval = setInterval(() => {
         retryCount++;
-        if (initSwiper() || retryCount >= maxRetries) {
-          clearInterval(interval);
-        }
+        if (initSwiper() || retryCount >= maxRetries) clearInterval(interval);
       }, 500);
       return () => clearInterval(interval);
     }
-
-    return () => {
-      if (swiperInstance) {
-        swiperInstance.destroy();
-      }
-    };
+    return () => { if (swiperInstance) swiperInstance.destroy(); };
   }, []);
+
+  const recentPlayers = winnersData
+    .slice()
+    .sort((a, b) => timeToSeconds(a.time) - timeToSeconds(b.time))
+    .slice(0, 4);
 
   return (
     <section className="banner-section pb-6 pt-lg-1 pt-sm-1 mt-lg-8 mt-4">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+        /* ── Player card ── */
+        .pt-card {
+          background: #0b1117;
+          border-radius: 28px;
+          border: 1px solid rgba(255,255,255,0.06);
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          overflow: hidden;
+          font-family: 'DM Sans', sans-serif;
+        }
+
+        .pt-header {
+          padding: 20px 20px 14px;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .pt-title-wrap {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .pt-live-dot {
+          position: relative;
+          width: 8px;
+          height: 8px;
+        }
+        .pt-live-dot::before,
+        .pt-live-dot::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          background: #ff8c00;
+        }
+        .pt-live-dot::after {
+          animation: pt-ping 1.8s ease-out infinite;
+          opacity: 0;
+        }
+        @keyframes pt-ping {
+          0%   { transform: scale(1); opacity: 0.6; }
+          100% { transform: scale(2.8); opacity: 0; }
+        }
+
+        .pt-title {
+          font-family: 'Syne', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.7);
+          margin: 0;
+        }
+
+        .pt-count-pill {
+          font-size: 10px;
+          font-weight: 500;
+          color: rgba(255,255,255,0.3);
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 100px;
+          padding: 3px 10px;
+        }
+
+        /* ── Player rows ── */
+        .pt-list {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+
+        .pt-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px 20px;
+          border-bottom: 1px solid rgba(255,255,255,0.04);
+          transition: background 0.15s;
+          cursor: pointer;
+          position: relative;
+          flex: 1;
+        }
+
+        .pt-item:last-child { border-bottom: none; }
+        .pt-item:hover { background: rgba(255,255,255,0.02); }
+
+        /* newest indicator */
+        .pt-item.is-newest::before {
+          content: '';
+          position: absolute;
+          left: 0; top: 20%; bottom: 20%;
+          width: 2px;
+          background: linear-gradient(180deg, #ff8c00, #ff4500);
+          border-radius: 0 2px 2px 0;
+        }
+
+        .pt-rank {
+          font-family: 'Syne', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          color: rgba(255,255,255,0.12);
+          width: 16px;
+          text-align: center;
+          flex-shrink: 0;
+        }
+
+        .pt-avatar {
+          position: relative;
+          flex-shrink: 0;
+        }
+
+        .pt-avatar-img {
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          object-fit: cover;
+          border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .pt-avatar-fallback {
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          background: rgba(255,140,0,0.1);
+          border: 1px solid rgba(255,140,0,0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Syne', sans-serif;
+          font-size: 12px;
+          font-weight: 700;
+          color: #ff8c00;
+        }
+
+        .pt-online {
+          position: absolute;
+          bottom: -2px; right: -2px;
+          width: 10px; height: 10px;
+          border-radius: 50%;
+          background: #4ade80;
+          border: 2px solid #0b1117;
+        }
+
+        .pt-info {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .pt-name {
+          font-family: 'Syne', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          color: #fff;
+          margin: 0 0 2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .pt-time {
+          font-size: 11px;
+          font-weight: 300;
+          color: rgba(255,255,255,0.25);
+          margin: 0;
+        }
+
+        .pt-game-badge {
+          flex-shrink: 0;
+          font-family: 'Syne', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 10px;
+          border-radius: 8px;
+          white-space: nowrap;
+          letter-spacing: 0.2px;
+        }
+
+        /* ── Footer ── */
+        .pt-footer {
+          padding: 12px 20px;
+          border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .pt-footer-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          font-size: 12px;
+          font-weight: 500;
+          color: rgba(255,255,255,0.3);
+          text-decoration: none;
+          transition: color 0.15s;
+        }
+        .pt-footer-link:hover { color: #ff8c00; text-decoration: none; }
+
+        /* ── Mascot float ── */
+        .float-mascot { animation: float 4s ease-in-out infinite; }
+        @keyframes float {
+          0%,100% { transform: translateY(0); }
+          50%      { transform: translateY(-18px); }
+        }
+
+        /* ── Swiper pagination override ── */
+        .banner-swiper-pagination { bottom: 16px !important; }
+        .banner-swiper-pagination .swiper-pagination-bullet {
+          background: rgba(255,255,255,0.3) !important;
+          opacity: 1 !important;
+          width: 6px; height: 6px;
+        }
+        .banner-swiper-pagination .swiper-pagination-bullet-active {
+          background: #ff8c00 !important;
+          width: 20px;
+          border-radius: 3px;
+        }
+      `}</style>
+
       <div className="container-fluid px-lg-12 px-md-10 px-6">
-        <div
-          className="row g-3 align-items-stretch hover-none"
-          style={{ minHeight: "360px", height: "auto" }}
-        >
+        <div className="row g-3 align-items-stretch" style={{ minHeight: "360px" }}>
+
+          {/* ── Banner Swiper ── */}
           <div className="col-xxl-9 col-xl-8 col-lg-7 d-flex align-items-stretch">
             <div
-              className="swiper banner-swiper position-relative flex-fill w-100 h-100 overflow-hidden shadow-lg border border-secondary border-opacity-10"
-              style={{
-                borderRadius: "40px",
-                backgroundColor: "#0b1117",
-                height: "100%",
-                minHeight: "360px",
-              }}
+              className="swiper banner-swiper position-relative flex-fill w-100 overflow-hidden shadow-lg"
+              style={{ borderRadius: "28px", backgroundColor: "#0b1117", minHeight: "360px", border: "1px solid rgba(255,255,255,0.06)" }}
               data-observer="true"
               data-observe-parents="true"
             >
-              <div
-                className="banner-bg-img position-absolute w-100 h-100"
-                style={{ opacity: "0.4" }}
-              >
-                <img
-                  className="w-100 h-100 object-fit-cover"
-                  src="/assets/img/hero-banner-bg.png"
-                  alt="banner"
-                />
+              <div className="banner-bg-img position-absolute w-100 h-100" style={{ opacity: 0.4 }}>
+                <img className="w-100 h-100 object-fit-cover" src="/assets/img/hero-banner-bg.png" alt="banner" />
               </div>
               <div className="banner-swiper-pagination"></div>
               <div className="swiper-wrapper h-100">
-                {/* Slide 1 - INTRO KOMPETISI */}
+
+                {/* Slide 1 */}
                 <div className="swiper-slide h-100">
                   <div className="banner-content h-100 d-flex align-items-center">
                     <div className="row justify-content-center gy-3 align-items-center w-100">
                       <div className="col-lg-6 col-md-8 col-11">
                         <div className="hero-content ps-lg-12 ps-6">
-                          <p
-                            data-swiper-parallax="-200"
-                            className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider"
-                          >
-                            SIAP • BERSIAP • MAIN
-                          </p>
-                          <h2
-                            data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
-                            style={{
-                              lineHeight: "100%",
-                              fontWeight: "900",
-                              letterSpacing: "-1.5px",
-                            }}
-                          >
+                          <p data-swiper-parallax="-200" className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider">SIAP • BERSIAP • MAIN</p>
+                          <h2 data-swiper-parallax="-300" className="hero-title tcn-1 mb-lg-5 mb-4" style={{ lineHeight: "100%", fontWeight: 900, letterSpacing: "-1.5px" }}>
                             ARENA GAMING <span className="tcp-1">TERBAIK</span>
                           </h2>
-                          <p
-                            data-swiper-parallax="-350"
-                            className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six"
-                            style={{ maxWidth: "600px" }}
-                          >
-                            Gabung di arena cerdas cermat dengan sensasi gaming
-                            yang seru. Tantang pengetahuanmu dan kuasai panggung
-                            turnamen!
+                          <p data-swiper-parallax="-350" className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six" style={{ maxWidth: 600 }}>
+                            Gabung di arena cerdas cermat dengan sensasi gaming yang seru. Tantang pengetahuanmu dan kuasai panggung turnamen!
                           </p>
-
-                          <div
-                            data-swiper-parallax="-400"
-                            className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
-                          >
-                            <Link
-                              href="/competitions"
-                              className="gps-btn-primary"
-                            >
-                              Masuk Arena
-                            </Link>
+                          <div data-swiper-parallax="-400" className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1">
+                            <Link href="/competitions" className="gps-btn-primary">Masuk Arena</Link>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className="col-lg-6 position-relative d-none d-lg-block"
-                        style={{ zIndex: 10 }}
-                      >
-                        <div
-                          data-swiper-parallax="-500"
-                          className="banner-characters position-relative d-flex align-items-center justify-content-center"
-                          style={{ minHeight: "340px" }}
-                        >
-                          <img
-                            src="/assets/img/astronaut-mascot-transparent.png"
-                            alt="Mascot"
-                            className="float-mascot"
-                            style={{
-                              height: "450px",
-                              width: "auto",
-                              zIndex: 20,
-                              filter:
-                                "drop-shadow(0 0 60px rgba(0, 209, 255, 0.4))",
-                              transform: "scale(1.35) translateY(5px)",
-                              objectFit: "contain",
-                              display: "block",
-                              opacity: 1,
-                            }}
-                          />
+                      <div className="col-lg-6 position-relative d-none d-lg-block" style={{ zIndex: 10 }}>
+                        <div data-swiper-parallax="-500" className="banner-characters position-relative d-flex align-items-center justify-content-center" style={{ minHeight: 340 }}>
+                          <img src="/assets/img/astronaut-mascot-transparent.png" alt="Mascot" className="float-mascot" style={{ height: 450, width: "auto", zIndex: 20, filter: "drop-shadow(0 0 60px rgba(0,209,255,0.4))", transform: "scale(1.35) translateY(5px)", objectFit: "contain" }} />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* Slide 2 - TANTANGAN & SKOR */}
+
+                {/* Slide 2 */}
                 <div className="swiper-slide h-100">
                   <div className="banner-content h-100 d-flex align-items-center">
                     <div className="row justify-content-center gy-3 align-items-center w-100">
                       <div className="col-lg-6 col-md-8 col-11">
                         <div className="hero-content ps-lg-12 ps-6">
-                          <p
-                            data-swiper-parallax="-200"
-                            className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider"
-                          >
-                            NAIK LEVEL • HANYA SKILL
-                          </p>
-                          <h2
-                            data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
-                            style={{
-                              lineHeight: "100%",
-                              fontWeight: "900",
-                              letterSpacing: "-1.5px",
-                            }}
-                          >
-                            RAIH KEMENANGAN{" "}
-                            <span className="tcp-1">BERUNTUN</span>
+                          <p data-swiper-parallax="-200" className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider">NAIK LEVEL • HANYA SKILL</p>
+                          <h2 data-swiper-parallax="-300" className="hero-title tcn-1 mb-lg-5 mb-4" style={{ lineHeight: "100%", fontWeight: 900, letterSpacing: "-1.5px" }}>
+                            RAIH KEMENANGAN <span className="tcp-1">BERUNTUN</span>
                           </h2>
-                          <p
-                            data-swiper-parallax="-350"
-                            className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six"
-                            style={{ maxWidth: "600px" }}
-                          >
-                            Mainkan quiz layaknya pro gamer. Jawab cepat,
-                            kumpulkan combo poin, dan rebut posisi pertama di
-                            leaderboard.
+                          <p data-swiper-parallax="-350" className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six" style={{ maxWidth: 600 }}>
+                            Mainkan quiz layaknya pro gamer. Jawab cepat, kumpulkan combo poin, dan rebut posisi pertama di leaderboard.
                           </p>
-
-                          <div
-                            data-swiper-parallax="-400"
-                            className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
-                          >
-                            <Link
-                              href="/leaderboard"
-                              className="gps-btn-primary"
-                            >
-                              Cek Leaderboard
-                            </Link>
+                          <div data-swiper-parallax="-400" className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1">
+                            <Link href="/leaderboard" className="gps-btn-primary">Cek Leaderboard</Link>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className="col-lg-6 position-relative d-none d-lg-block"
-                        style={{ zIndex: 10 }}
-                      >
-                        <div
-                          data-swiper-parallax="-500"
-                          className="banner-characters position-relative d-flex align-items-center justify-content-center"
-                          style={{ minHeight: "340px" }}
-                        >
-                          <img
-                            src="/assets/img/new-boy-mascot.png"
-                            alt="Mascot"
-                            className="float-mascot"
-                            style={{
-                              height: "400px",
-                              width: "auto",
-                              zIndex: 20,
-                              filter:
-                                "drop-shadow(0 0 30px rgba(255, 140, 0, 0.3))",
-                              borderRadius: "30px",
-                              transform: "scale(1.1) translateY(5px)",
-                              objectFit: "contain",
-                              display: "block",
-                              opacity: 1,
-                            }}
-                          />
+                      <div className="col-lg-6 position-relative d-none d-lg-block" style={{ zIndex: 10 }}>
+                        <div data-swiper-parallax="-500" className="banner-characters position-relative d-flex align-items-center justify-content-center" style={{ minHeight: 340 }}>
+                          <img src="/assets/img/new-boy-mascot.png" alt="Mascot" className="float-mascot" style={{ height: 400, width: "auto", zIndex: 20, filter: "drop-shadow(0 0 30px rgba(255,140,0,0.3))", borderRadius: 30, transform: "scale(1.1) translateY(5px)", objectFit: "contain" }} />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* SLIDE 3 - MODE TANTANGAN CEPAT */}
+
+                {/* Slide 3 */}
                 <div className="swiper-slide h-100">
                   <div className="banner-content h-100 d-flex align-items-center">
                     <div className="row justify-content-center gy-3 align-items-center w-100">
                       <div className="col-lg-6 col-md-8 col-11">
                         <div className="hero-content ps-lg-12 ps-6">
-                          <p
-                            data-swiper-parallax="-200"
-                            className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider"
-                          >
-                            ADU CEPAT • TANPA LAG
-                          </p>
-                          <h2
-                            data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
-                            style={{
-                              lineHeight: "100%",
-                              fontWeight: "900",
-                              letterSpacing: "-1.5px",
-                            }}
-                          >
-                            REFLEKS{" "}
-                            <span className="tcp-1">TERCEPAT MENANG</span>
+                          <p data-swiper-parallax="-200" className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider">ADU CEPAT • TANPA LAG</p>
+                          <h2 data-swiper-parallax="-300" className="hero-title tcn-1 mb-lg-5 mb-4" style={{ lineHeight: "100%", fontWeight: 900, letterSpacing: "-1.5px" }}>
+                            REFLEKS <span className="tcp-1">TERCEPAT MENANG</span>
                           </h2>
-                          <p
-                            data-swiper-parallax="-350"
-                            className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six"
-                            style={{ maxWidth: "600px" }}
-                          >
-                            Buktikan kecepatan jarimu dan ketajaman otakmu. Di
-                            mode ini, setiap detik adalah penentu kemenanganmu!
+                          <p data-swiper-parallax="-350" className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six" style={{ maxWidth: 600 }}>
+                            Buktikan kecepatan jarimu dan ketajaman otakmu. Di mode ini, setiap detik adalah penentu kemenanganmu!
                           </p>
-
-                          <div
-                            data-swiper-parallax="-400"
-                            className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
-                          >
-                            <Link href="/games" className="gps-btn-primary">
-                              Main Sekarang
-                            </Link>
+                          <div data-swiper-parallax="-400" className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1">
+                            <Link href="/games" className="gps-btn-primary">Main Sekarang</Link>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className="col-lg-6 position-relative d-none d-lg-block"
-                        style={{ zIndex: 10 }}
-                      >
-                        <div
-                          data-swiper-parallax="-500"
-                          className="banner-characters position-relative d-flex align-items-center justify-content-center"
-                          style={{ minHeight: "340px" }}
-                        >
-                          <img
-                            src="/assets/img/astronaut-mascot-transparent.png"
-                            alt="Mascot"
-                            className="float-mascot"
-                            style={{
-                              height: "450px",
-                              width: "auto",
-                              zIndex: 20,
-                              filter:
-                                "drop-shadow(0 0 60px rgba(0, 209, 255, 0.4))",
-                              transform:
-                                "scale(1.35) rotate(-5deg) translateY(5px)",
-                              objectFit: "contain",
-                              display: "block",
-                              opacity: 1,
-                            }}
-                          />
+                      <div className="col-lg-6 position-relative d-none d-lg-block" style={{ zIndex: 10 }}>
+                        <div data-swiper-parallax="-500" className="banner-characters position-relative d-flex align-items-center justify-content-center" style={{ minHeight: 340 }}>
+                          <img src="/assets/img/astronaut-mascot-transparent.png" alt="Mascot" className="float-mascot" style={{ height: 450, width: "auto", zIndex: 20, filter: "drop-shadow(0 0 60px rgba(0,209,255,0.4))", transform: "scale(1.35) rotate(-5deg) translateY(5px)", objectFit: "contain" }} />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* SLIDE 4 - PRESTASI & HADIAH */}
+
+                {/* Slide 4 */}
                 <div className="swiper-slide h-100">
                   <div className="banner-content h-100 d-flex align-items-center">
                     <div className="row justify-content-center gy-3 align-items-center w-100">
                       <div className="col-lg-6 col-md-8 col-11">
                         <div className="hero-content ps-lg-12 ps-6">
-                          <p
-                            data-swiper-parallax="-200"
-                            className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider"
-                          >
-                            HADIAH EPIK • STATUS MVP
-                          </p>
-                          <h2
-                            data-swiper-parallax="-300"
-                            className="hero-title tcn-1 mb-lg-5 mb-4 text-4xl md:text-5xl lg:text-[3.5rem]"
-                            style={{
-                              lineHeight: "100%",
-                              fontWeight: "900",
-                              letterSpacing: "-1.5px",
-                            }}
-                          >
+                          <p data-swiper-parallax="-200" className="tcn-1 mb-lg-4 mb-3 opacity-75 fw-medium fs-six text-uppercase tracking-wider">HADIAH EPIK • STATUS MVP</p>
+                          <h2 data-swiper-parallax="-300" className="hero-title tcn-1 mb-lg-5 mb-4" style={{ lineHeight: "100%", fontWeight: 900, letterSpacing: "-1.5px" }}>
                             JADI JUARA <span className="tcp-1">LEGENDA</span>
                           </h2>
-                          <p
-                            data-swiper-parallax="-350"
-                            className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six"
-                            style={{ maxWidth: "600px" }}
-                          >
-                            Raih trophy eksklusif, sertifikat nasional, dan
-                            total hadiah jutaan Rupiah. Inilah saatnya jadi MVP
-                            di GameForSmart!
+                          <p data-swiper-parallax="-350" className="tcn-1 mb-lg-6 mb-5 opacity-75 fs-six" style={{ maxWidth: 600 }}>
+                            Raih trophy eksklusif, sertifikat nasional, dan total hadiah jutaan Rupiah. Inilah saatnya jadi MVP di GameForSmart!
                           </p>
-
-                          <div
-                            data-swiper-parallax="-400"
-                            className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1"
-                          >
-                            <Link href="/register" className="gps-btn-primary">
-                              Klaim Slotmu
-                            </Link>
+                          <div data-swiper-parallax="-400" className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-1">
+                            <Link href="/register" className="gps-btn-primary">Klaim Slotmu</Link>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className="col-lg-6 position-relative d-none d-lg-block"
-                        style={{ zIndex: 10 }}
-                      >
-                        <div
-                          data-swiper-parallax="-500"
-                          className="banner-characters position-relative d-flex align-items-center justify-content-center"
-                          style={{ minHeight: "340px" }}
-                        >
-                          <img
-                            src="/assets/img/new-boy-mascot.png"
-                            alt="Mascot"
-                            className="float-mascot"
-                            style={{
-                              height: "400px",
-                              width: "auto",
-                              zIndex: 20,
-                              filter:
-                                "drop-shadow(0 0 30px rgba(255, 140, 0, 0.3))",
-                              borderRadius: "30px",
-                              transform: "scale(1.1) translateY(5px)",
-                              objectFit: "contain",
-                              display: "block",
-                              opacity: 1,
-                            }}
-                          />
+                      <div className="col-lg-6 position-relative d-none d-lg-block" style={{ zIndex: 10 }}>
+                        <div data-swiper-parallax="-500" className="banner-characters position-relative d-flex align-items-center justify-content-center" style={{ minHeight: 340 }}>
+                          <img src="/assets/img/new-boy-mascot.png" alt="Mascot" className="float-mascot" style={{ height: 400, width: "auto", zIndex: 20, filter: "drop-shadow(0 0 30px rgba(255,140,0,0.3))", borderRadius: 30, transform: "scale(1.1) translateY(5px)", objectFit: "contain" }} />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
+
+          {/* ── Pemain Terakhir Panel ── */}
           <div className="col-xxl-3 col-xl-4 col-lg-5 d-flex align-items-stretch">
-            <div
-              className="card-area flex-fill d-flex flex-column w-100 overflow-hidden shadow-lg border border-secondary border-opacity-10 px-0 min-h-[300px] lg:min-h-full"
-              style={{
-                backgroundColor: "#0b1117",
-                borderRadius: "40px",
-                height: "100%",
-              }}
-            >
-              <div className="card-header pt-4 px-4 pb-2">
-                <h3 className="tcn-1 dot-icon mb-0 fs-six fw-bold text-uppercase d-flex align-items-center">
-                  <span className="d-flex gap-1 me-2">
-                    <span
-                      className="otp-dots"
-                      style={{
-                        width: "7px",
-                        height: "7px",
-                        borderRadius: "50%",
-                        backgroundColor: "var(--tcp-1)",
-                        boxShadow: "0 0 10px var(--tcp-1)",
-                      }}
-                    ></span>
-                    <span
-                      className="otp-dots"
-                      style={{
-                        width: "7px",
-                        height: "7px",
-                        borderRadius: "50%",
-                        backgroundColor: "var(--tcp-1)",
-                        boxShadow: "0 0 10px var(--tcp-1)",
-                      }}
-                    ></span>
-                  </span>
-                  Last Winner
-                </h3>
+            <div className="pt-card w-100">
+
+              {/* Header */}
+              <div className="pt-header">
+                <div className="pt-title-wrap">
+                  <span className="pt-live-dot" />
+                  <h3 className="pt-title">Pemain Terakhir</h3>
+                </div>
+                <span className="pt-count-pill">{recentPlayers.length} aktif</span>
               </div>
-              <div className="card-items d-flex flex-column flex-grow-1 overflow-auto custom-scrollbar">
-                {winnersData.slice(0, 4).map((winner, i, arr) => (
-                  <div
-                    key={winner.id}
-                    className="winner-list-item px-4 py-4 transition flex-grow-1 d-flex flex-column justify-content-center"
-                    style={{
-                      borderBottom:
-                        i < arr.length - 1
-                          ? "1px solid rgba(255,255,255,0.05)"
-                          : "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div className="d-flex align-items-center justify-content-between">
-                      <div className="d-flex align-items-center gap-3">
-                        <div
-                          className="card-img-area rounded-circle overflow-hidden border border-2 border-dark d-flex align-items-center justify-content-center"
-                          style={{
-                            width: "42px",
-                            height: "42px",
-                            minWidth: "42px",
-                            backgroundColor: winner.img
-                              ? "transparent"
-                              : "rgba(255,255,255,0.1)",
-                          }}
-                        >
-                          {winner.img ? (
-                            <img
-                              className="w-100 h-100 object-fit-cover"
-                              src={`/assets/img/${winner.img}`}
-                              alt="profile"
-                            />
-                          ) : (
-                            <span className="tcn-1 fs-seven fw-bold">
-                              {getInitials(winner.name)}
-                            </span>
-                          )}
-                        </div>
-                        <div className="card-info">
-                          <h4
-                            className="card-title fw-bold tcn-1 mb-0"
-                            style={{ fontSize: "0.95rem" }}
-                          >
-                            {winner.name}
-                          </h4>
-                          <span
-                            className="tcn-1 opacity-50"
-                            style={{ fontSize: "0.75rem" }}
-                          >
-                            {winner.time}
-                          </span>
-                        </div>
+
+              {/* Player list */}
+              <div className="pt-list">
+                {recentPlayers.map((winner, i) => {
+                  const { from, to } = getGameGradient(winner.game);
+                  const isNewest = i === 0;
+
+                  return (
+                    <div
+                      key={winner.id}
+                      className={`pt-item ${isNewest ? "is-newest" : ""}`}
+                    >
+                      {/* Rank */}
+                      <span className="pt-rank">{i + 1}</span>
+
+                      {/* Avatar */}
+                      <div className="pt-avatar">
+                        {winner.img ? (
+                          <img
+                            className="pt-avatar-img"
+                            src={`/assets/img/${winner.img}`}
+                            alt={winner.name}
+                          />
+                        ) : (
+                          <div className="pt-avatar-fallback">
+                            {getInitials(winner.name)}
+                          </div>
+                        )}
+                        {isNewest && <span className="pt-online" />}
                       </div>
-                      <div className="card-data text-end">
-                        <p
-                          className="card-text fw-bold mb-0"
-                          style={{ fontSize: "1.05rem", color: "#00D1FF" }}
-                        >
-                          {formatToRupiah(winner.amount)}
-                        </p>
+
+                      {/* Info */}
+                      <div className="pt-info">
+                        <p className="pt-name">{winner.name}</p>
+                        <p className="pt-time">{winner.time}</p>
                       </div>
+
+                      {/* Game badge — orange gradient */}
+                      <span
+                        className="pt-game-badge"
+                        style={{
+                          background: `linear-gradient(135deg, ${from}18, ${to}18)`,
+                          border: `1px solid ${from}35`,
+                          color: from,
+                        }}
+                      >
+                        {winner.game}
+                      </span>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
-              <style jsx>{`
-                .winner-list-item:hover {
-                  background-color: rgba(255, 255, 255, 0.03);
-                }
-                .hover-scale:hover {
-                  transform: scale(1.05);
-                }
-                .custom-scrollbar::-webkit-scrollbar {
-                  width: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-track {
-                  background: transparent;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                  background: rgba(255, 140, 0, 0.2);
-                  border-radius: 10px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                  background: rgba(255, 140, 0, 0.4);
-                }
-                .float-mascot {
-                  animation: float 4s ease-in-out infinite;
-                }
-                @keyframes float {
-                  0% {
-                    transform: translateY(0);
-                  }
-                  50% {
-                    transform: translateY(-20px);
-                  }
-                  100% {
-                    transform: translateY(0);
-                  }
-                }
-              `}</style>
+
+              {/* Footer */}
+              <div className="pt-footer">
+                <Link href="/leaderboard" className="pt-footer-link">
+                  Lihat semua pemain
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                  </svg>
+                </Link>
+              </div>
+
             </div>
           </div>
+
         </div>
       </div>
     </section>

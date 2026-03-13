@@ -1,5 +1,4 @@
-// components/GameSidebar.tsx
-// Sidebar kanan: kartu "Main di Browser", persyaratan, info game, changelog, game lainnya
+import RecentPlayersCard from "./RecentPlayersCard";
 
 interface GameItem {
   id: number;
@@ -40,6 +39,7 @@ interface GameSidebarProps {
   date?: string;
   prizeMoney?: string;
   currentGameId?: number;
+  currentGameTitle?: string;
   allGames?: GameItem[];
   playUrl?: string;
 }
@@ -50,6 +50,7 @@ export default function GameSidebar({
   date,
   prizeMoney,
   currentGameId,
+  currentGameTitle,
   allGames = [],
   playUrl,
 }: GameSidebarProps) {
@@ -118,15 +119,8 @@ export default function GameSidebar({
                     </dl>
                 </div> */}
 
-        {/* ── Changelog ── */}
-        {/* <div className="gps-sidebar-card">
-          <h3 className="gps-sidebar-card-title">Yang baru</h3>
-          <ul className="gps-changelog">
-            {CHANGELOG.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </div> */}
+        {/* ── Pemain Terakhir ── */}
+        <RecentPlayersCard gameTitle={currentGameTitle || ""} />
 
         {/* ── Game Lainnya ── */}
         {relatedGames.length > 0 && (

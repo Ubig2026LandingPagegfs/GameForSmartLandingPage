@@ -88,6 +88,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                             date={game.date}
                             prizeMoney={game.prizeMoney}
                             currentGameId={game.id}
+                            currentGameTitle={game.title}
                             allGames={gamesData}
                             playUrl={game.playUrl}
                         />
