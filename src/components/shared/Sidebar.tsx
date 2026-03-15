@@ -16,6 +16,20 @@ export default function Sidebar() {
     return () => window.removeEventListener("sidebar-toggle", handler);
   }, []);
 
+  // Prevent background scrolling when sidebar is open
+  useEffect(() => {
+    if (open && window.innerWidth < 992) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    
+    return () => {
+      // Ensure we restore scrolling when unmounted
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   // Dynamically track dimensions
   useEffect(() => {
     const updateDimensions = () => {
@@ -144,6 +158,7 @@ export default function Sidebar() {
           max-height: var(--capsule-max-h, 480px);
           overflow-y: auto;
           overflow-x: hidden;
+          
           scrollbar-width: none;
         }
 
@@ -248,9 +263,12 @@ export default function Sidebar() {
             margin-top: 0;
             border-radius: 40px;
             
-            /* Sesuai instruksi: ukurannya sama dgn tidak di-zoom */
             height: auto;
-            max-height: none !important;
+            max-height: calc(100vh - var(--sidebar-overlay-top, 116px) - 32px) !important;
+            overflow-y: auto;
+            
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
             
             /* Setup animasi slide in/out */
             transform: translateX(-150px);
@@ -259,7 +277,22 @@ export default function Sidebar() {
           }
 
           .sidebar-menu-capsule::-webkit-scrollbar {
-            display: none;
+            display: block;
+            width: 5px;
+          }
+          
+          .sidebar-menu-capsule::-webkit-scrollbar-track {
+            background: transparent;
+            margin-block: 50px;
+          }
+          
+          .sidebar-menu-capsule::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+          }
+          
+          .sidebar-menu-capsule::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
           }
 
           .sidebar-wrapper.show-menu .sidebar-menu-capsule {
