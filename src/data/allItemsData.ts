@@ -174,6 +174,72 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
             { icon: "ti ti-clock", title: "Mode Tantangan Waktu", description: "Selesaikan semua pasangan kartu dalam batas waktu ketat untuk mendapatkan skor sempurna." }
         ]
     },
+    {
+        id: 5,
+        type: "game",
+        title: "NitroQuiz",
+        subtitle: "Speed Trivia",
+        image: "/images/quizrush.webp",
+        players: "256",
+        platform: "Web",
+        rating: "4.8",
+        genre: "Trivia",
+        description: "Tantang pengetahuanmu dengan cepat di NitroQuiz.",
+        status: "Trivia",
+        slug: "5",
+        href: "/games/5",
+        rules: ["Jawab pertanyaan secepat mungkin.", "Pemain dengan skor tertinggi menang."],
+        playUrl: "#",
+        screenshots: ["/images/quizrush.webp", "/assets/img/game-2.png"],
+        features: [
+            { icon: "ti ti-bolt", title: "Kecepatan Menjawab", description: "Waktu sangat berharga, jawab secepatnya." },
+            { icon: "ti ti-trophy", title: "Leaderboard", description: "Raih skor tertinggi." }
+        ]
+    },
+    {
+        id: 6,
+        type: "game",
+        title: "Axiom",
+        subtitle: "Strategic Mastery",
+        image: "/assets/img/game3.png",
+        players: "128",
+        platform: "Web",
+        rating: "4.9",
+        genre: "Strategy",
+        description: "Susun strategimu dan taklukkan lawan di Axiom.",
+        status: "Puzzle",
+        slug: "6",
+        href: "/games/6",
+        rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
+        playUrl: "#",
+        screenshots: ["/assets/img/game3.png", "/assets/img/game-3.png"],
+        features: [
+            { icon: "ti ti-chess", title: "Tantangan Strategi", description: "Pikirkan beberapa langkah ke depan." },
+            { icon: "ti ti-medal", title: "Peringkat", description: "Raih peringkat master." }
+        ]
+    },
+    {
+        id: 7,
+        type: "game",
+        title: "Zigma",
+        subtitle: "Survival Action",
+        image: "/assets/img/game4.png",
+        players: "512",
+        platform: "Web",
+        rating: "4.7",
+        genre: "Action",
+        description: "Bertahan hidup dan kalahkan musuh di dunia Zigma.",
+        status: "Action",
+        slug: "7",
+        href: "/games/7",
+        rules: ["Bertahan hidup selama mungkin.", "Kalahkan target yang datang."],
+        playUrl: "#",
+        screenshots: ["/assets/img/game4.png", "/assets/img/game-4.png"],
+        features: [
+            { icon: "ti ti-swords", title: "Aksi Tanpa Henti", description: "Hadapi berbagai musuh." },
+            { icon: "ti ti-shield", title: "Survival", description: "Daya tahan adalah kunci utama." }
+        ]
+    },
     // Tournaments
     {
         id: 11,

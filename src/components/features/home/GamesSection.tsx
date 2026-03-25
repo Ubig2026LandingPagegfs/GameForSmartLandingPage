@@ -9,11 +9,14 @@ import { gamesData } from "@/data/gamesData";
 export default function GamesSection() {
   const { searchQuery } = useSearch();
 
-  const filteredGames = gamesData.filter(
-    (game) =>
-      game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      game.type.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const filteredGames = [...gamesData]
+    .reverse()
+    .filter(
+      (game) =>
+        game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        game.type.toLowerCase().includes(searchQuery.toLowerCase()),
+    )
+    .slice(0, 4);
 
   return (
     <section className="tournament-section game-section pt-20 pb-10">
