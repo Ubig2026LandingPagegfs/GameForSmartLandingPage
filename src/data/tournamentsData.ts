@@ -3,7 +3,7 @@ export const tournamentsData = [
         id: 21,
         title: "Lomba Cerdas Cermat – Malangraya",
         type: "SD, SMP, SMK, SMA",
-        image: "/assets/poster/Malang-raya.png",
+        image: "/assets/Poster/Malang-raya.png",
         description: "Kompetisi Cerdas Cermat tingkat Malang Raya bagi siswa SD hingga SMK.\n\n• Penyisihan: April – Mei | Final: Juni\n• Biaya: Rp 25.000/player | Hadiah: Rp 5.000.000\n\nSegera daftarkan dirimu sekarang!",
         practiceAttempts: 3,
         competitionAttempts: 1,
