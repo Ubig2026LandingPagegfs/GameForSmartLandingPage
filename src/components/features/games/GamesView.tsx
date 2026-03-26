@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import GameCard from "@/components/features/games/GameCard";
@@ -12,6 +13,21 @@ import { allItemsData } from "@/data/allItemsData";
 
 export default function GamesView() {
   const [activeTab, setActiveTab] = useState("All");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const games = allItemsData.filter((item) => item.type === "game");
 
@@ -43,7 +59,8 @@ export default function GamesView() {
                 </div>
                 <div className="singletab tournaments-tab mb-10">
                   <div className="d-center gap-6 mb-lg-15 mb-sm-10 mb-6 w-100 overflow-visible">
-                    <ul className="tablinks d-flex flex-nowrap align-items-center justify-content-lg-center gap-3 list-unstyled m-0 p-2 overflow-x-auto scrollbar-hide w-100" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    {/* Desktop Tabs */}
+                    <ul className="tablinks d-none d-md-flex flex-nowrap align-items-center justify-content-lg-center gap-3 list-unstyled m-0 p-2 overflow-x-auto scrollbar-hide w-100" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                       {[
                         "All",
                         "Action",
@@ -63,6 +80,59 @@ export default function GamesView() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Mobile Dropdown */}
+                    <div
+                      className="d-block d-md-none position-relative w-100"
+                      ref={dropdownRef}
+                    >
+                      <button
+                        className="dropdown-toggle-btn w-100 d-flex justify-content-between align-items-center py-3 px-6 rounded-3 tcn-1 bgn-3 border-0"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
+                        <span>{activeTab}</span>
+                        <ChevronDown
+                          size={20}
+                          className={`transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {isDropdownOpen && (
+                          <motion.ul
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="dropdown-menu-list position-absolute start-0 w-100 mt-2 p-2 rounded-3 bgn-3 list-unstyled shadow-lg"
+                            style={{ zIndex: 100 }}
+                          >
+                            {[
+                              "All",
+                              "Action",
+                              "Racing",
+                              "Puzzle",
+                              "Trivia",
+                              "Coming Soon",
+                            ].map((tab) => (
+                              <li key={tab}>
+                                <button
+                                  className={`dropdown-item w-100 text-start py-3 px-4 rounded-2 border-0 bg-transparent tcn-1 ${activeTab === tab ? "bg-primary-dark fw-bold" : "hover-bg-n4"}`}
+                                  style={{
+                                    color: activeTab === tab ? "#ff8c00" : "inherit",
+                                  }}
+                                  onClick={() => {
+                                    setActiveTab(tab);
+                                    setIsDropdownOpen(false);
+                                  }}
+                                >
+                                  {tab}
+                                </button>
+                              </li>
+                            ))}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </div>
                 <div className="row gy-lg-10 gy-6 justify-content-center">
@@ -93,6 +163,41 @@ export default function GamesView() {
         </article>
       </main>
       <Footer />
+
+      <style jsx>{`
+        .dropdown-toggle-btn {
+          background: #1c1f2a;
+          color: rgb(var(--n1));
+          font-weight: 500;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          transition: all 0.3s ease;
+        }
+        .dropdown-toggle-btn:hover {
+          border-color: rgba(var(--p1), 0.5) !important;
+        }
+        .dropdown-menu-list {
+          background: #1c1f2a;
+          border: 1px solid rgba(var(--p1), 0.3);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+          overflow: hidden;
+        }
+        .dropdown-item {
+          transition: all 0.2s ease;
+          color: rgb(var(--n1));
+          font-size: 14px;
+        }
+        .dropdown-item:hover {
+          background: rgba(var(--p1), 0.1);
+          color: #ff8c00;
+          padding-left: 20px;
+        }
+        .bg-primary-dark {
+          background: rgba(var(--p1), 0.15);
+        }
+        .hover-bg-n4:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
+      `}</style>
     </>
   );
 }
