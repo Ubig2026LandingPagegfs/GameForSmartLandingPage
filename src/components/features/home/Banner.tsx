@@ -309,10 +309,10 @@ export default function Banner() {
       `}</style>
 
       <div className="container-fluid px-lg-12 px-md-10 px-6">
-        <div className="row g-3 align-items-stretch" style={{ minHeight: "360px" }}>
+        <div className="row g-3 align-items-stretch">
 
           {/* ── Banner Swiper ── */}
-          <div className="col-xxl-9 col-xl-8 col-lg-7 d-flex align-items-stretch">
+          <div className="col-12 d-flex align-items-stretch">
             <div
               className="swiper banner-swiper position-relative flex-fill w-100 overflow-hidden shadow-lg"
               style={{ borderRadius: "28px", backgroundColor: "#0b1117", minHeight: "360px", border: "1px solid rgba(255,255,255,0.06)" }}
@@ -432,89 +432,9 @@ export default function Banner() {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
-
-          {/* ── Pemain Terakhir Panel ── */}
-          <div className="col-xxl-3 col-xl-4 col-lg-5 d-flex align-items-stretch">
-            <div className="pt-card w-100">
-
-              {/* Header */}
-              <div className="pt-header">
-                <div className="pt-title-wrap">
-                  <span className="pt-live-dot" />
-                  <h3 className="pt-title">Pemain Terakhir</h3>
-                </div>
-                <span className="pt-count-pill">{recentPlayers.length} aktif</span>
-              </div>
-
-              {/* Player list */}
-              <div className="pt-list">
-                {recentPlayers.map((winner, i) => {
-                  const { from, to } = getGameGradient(winner.game);
-                  const isNewest = i === 0;
-
-                  return (
-                    <div
-                      key={winner.id}
-                      className={`pt-item ${isNewest ? "is-newest" : ""}`}
-                    >
-                      {/* Rank */}
-                      <span className="pt-rank">{i + 1}</span>
-
-                      {/* Avatar */}
-                      <div className="pt-avatar">
-                        {winner.img ? (
-                          <img
-                            className="pt-avatar-img"
-                            src={`/assets/img/${winner.img}`}
-                            alt={winner.name}
-                          />
-                        ) : (
-                          <div className="pt-avatar-fallback">
-                            {getInitials(winner.name)}
-                          </div>
-                        )}
-                        {isNewest && <span className="pt-online" />}
-                      </div>
-
-                      {/* Info */}
-                      <div className="pt-info">
-                        <p className="pt-name">{winner.name}</p>
-                        <p className="pt-time">{winner.time}</p>
-                      </div>
-
-                      {/* Game badge — orange gradient */}
-                      <span
-                        className="pt-game-badge"
-                        style={{
-                          background: `linear-gradient(135deg, ${from}18, ${to}18)`,
-                          border: `1px solid ${from}35`,
-                          color: from,
-                        }}
-                      >
-                        {winner.game}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Footer */}
-              <div className="pt-footer">
-                <Link href="/leaderboard" className="pt-footer-link">
-                  Lihat semua pemain
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                  </svg>
-                </Link>
-              </div>
-
-            </div>
-          </div>
-
         </div>
       </div>
     </section>

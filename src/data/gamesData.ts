@@ -87,7 +87,12 @@ export const gamesData = [
         href: "/games/5", 
         playUrl: "#",
         description: "Tantang pengetahuanmu dengan cepat di NitroQuiz.",
-        screenshots: ["/assets/Poster/NitroQuiz.png", "/assets/Poster/NitroQuiz.png"]
+        screenshots: [
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-04-21.jpg",
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-04.jpg",
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-07.jpg",
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-08.jpg"
+        ]
     },
     { 
         id: 6, 
@@ -105,7 +110,14 @@ export const gamesData = [
         href: "/games/6", 
         playUrl: "#",
         description: "Susun strategimu dan taklukkan lawan di Axiom.",
-        screenshots: ["/assets/Poster/Axiom.png", "/assets/Poster/Axiom.png"]
+        screenshots: [
+            "/assets/img/Axiom/photo_2026-03-26_20-04-21.jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-04 (2).jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-05.jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (2).jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (3).jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-06.jpg"
+        ]
     },
     { 
         id: 7, 

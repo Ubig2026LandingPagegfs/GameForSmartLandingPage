@@ -190,7 +190,12 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         href: "/games/5",
         rules: ["Jawab pertanyaan secepat mungkin.", "Pemain dengan skor tertinggi menang."],
         playUrl: "#",
-        screenshots: ["/images/quizrush.webp", "/assets/img/game-2.png"],
+        screenshots: [
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-04-21.jpg",
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-04.jpg",
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-07.jpg",
+            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-08.jpg"
+        ],
         features: [
             { icon: "ti ti-bolt", title: "Kecepatan Menjawab", description: "Waktu sangat berharga, jawab secepatnya." },
             { icon: "ti ti-trophy", title: "Leaderboard", description: "Raih skor tertinggi." }
@@ -212,7 +217,14 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         href: "/games/6",
         rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
         playUrl: "#",
-        screenshots: ["/assets/img/game3.png", "/assets/img/game-3.png"],
+        screenshots: [
+            "/assets/img/Axiom/photo_2026-03-26_20-04-21.jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-04 (2).jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-05.jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (2).jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (3).jpg",
+            "/assets/img/Axiom/photo_2026-03-26_20-10-06.jpg"
+        ],
         features: [
             { icon: "ti ti-chess", title: "Tantangan Strategi", description: "Pikirkan beberapa langkah ke depan." },
             { icon: "ti ti-medal", title: "Peringkat", description: "Raih peringkat master." }
