@@ -44,6 +44,7 @@ export default function TournamentCard({
     "Kompetisi menguji kemampuan siswa dalam menyelesaikan tantangan yang tersedia sebagai latihan.";
 
   const detailHref = link || `/competitions/${slug || id}`;
+  const registerHref = `/competitions/${slug || id}/register`;
 
   useEffect(() => {
     if (textRef.current) {
@@ -197,7 +198,7 @@ export default function TournamentCard({
             <span>Detail</span>
           </Link>
           <Link
-            href={detailHref}
+            href={registerHref}
             className="gps-btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-2"
           >
             <i className="ti ti-pencil-plus"></i>
