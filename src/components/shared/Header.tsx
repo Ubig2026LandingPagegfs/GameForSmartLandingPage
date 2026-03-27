@@ -145,7 +145,7 @@ export default function Header() {
             ref={headerRef}
           >
             <div
-              className={`search-bar header-search-bar ${isMobileSearchOpen ? "mobile-open" : ""}`}
+              className={`search-bar header-search-bar position-relative ${isMobileSearchOpen ? "mobile-open" : ""}`}
               ref={searchRef}
             >
               <form action="#" onSubmit={handleSearchSubmit}>
