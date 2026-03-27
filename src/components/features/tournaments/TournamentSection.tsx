@@ -236,14 +236,11 @@ export default function TournamentSection() {
                                 className="gps-btn-outline whitespace-nowrap inline-flex items-center gap-1 group"
                               >
                                 Detail
-                                <span className="group-hover:translate-x-1 transition-transform inline-block">
-                                  →
-                                </span>
                               </Link>
                             </div>
 
                             {/* SOCIAL PROOF */}
-                            <div className="flex items-center gap-3">
+                           {/*  <div className="flex items-center gap-3">
                               <div className="flex">
                                 {["A", "B", "C"].map((char, i) => (
                                   <div
@@ -263,7 +260,7 @@ export default function TournamentSection() {
                                 </span>{" "}
                                 sudah mendaftar
                               </p>
-                            </div>
+                            </div> */}
                           </div>
                         </CardContent>
                       </div>

@@ -134,7 +134,7 @@ export default function TournamentsPage() {
                     ))
                   ) : (
                     <div className="col-12 text-center py-20">
-                      <h3 className="tcn-1">No competitions found for &quot;{activeTab}&quot;</h3>
+                      <h3 className="tcn-1">Tidak ada kompetisi ditemukan untuk &quot;{activeTab}&quot;</h3>
                     </div>
                   )}
                 </div>

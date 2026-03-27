@@ -273,8 +273,8 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         href: "/competitions/grand-prix-championship",
         rules: [
             "Any form of cheating or software manipulation will result in an immediate ban.",
-            "Each match consists of 3 rounds; the winner proceeds to the next bracket.",
-            "Competition admins have the final say in all disputes."
+            "Setiap pertandingan terdiri dari 3 babak; pemenang maju ke bracket berikutnya.",
+            "Admin kompetisi memiliki keputusan akhir dalam semua perselisihan."
         ],
         prizes: [
             { place: "1st", amount: "Rp 400k" },
@@ -296,7 +296,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         platform: "Web",
         rating: "4.9",
         genre: "Trivia",
-        description: "Test your cosmic knowledge in the Galaxy Trivia Masters! This interstellar competition challenges 256 contestants across the galaxy to prove their mastery of space science, history, and technology. Journey through multiple rounds of rapid-fire questions to claim your place among the trivia elite and win amazing prizes.",
+        description: "Uji pengetahuan kosmikmu di Galaxy Trivia Masters! Kompetisi antarbintang ini menantang 256 kontestan untuk membuktikan penguasaan mereka tentang sains, sejarah, dan teknologi luar angkasa. Lewati berbagai babak tanya-jawab cepat untuk menempati posisi elit dan menangkan hadiah luar biasa.",
         status: "Upcoming",
         slug: "galaxy-trivia-masters",
         href: "/competitions/galaxy-trivia-masters",
@@ -325,7 +325,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         platform: "Web",
         rating: "4.7",
         genre: "Puzzle",
-        description: "Reach the summit of mental performance in the Memory Peak Tournament! Battle against 64 other participants in a series of increasingly complex memory and pattern recognition challenges. This tournament tests your focus, speed, and cognitive endurance in a high-pressure environment where every millisecond counts towards victory.",
+        description: "Capai puncak kinerja mental di Turnamen Memory Peak! Bertarunglah melawan 64 peserta lain dalam serangkaian tantangan ingatan dan pengenalan pola yang semakin kompleks. Turnamen ini menguji fokus, kecepatan, dan ketahanan kognitif kamu dalam lingkungan bertekanan tinggi di mana setiap milidetik berarti untuk kemenangan.",
         status: "Playing",
         slug: "memory-peak-tournament",
         href: "/competitions/memory-peak-tournament",
@@ -354,7 +354,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         platform: "Web",
         rating: "4.6",
         genre: "Puzzle",
-        description: "Enter The Strategist's Gauntlet in the Master Mind Plate. This tournament is designed for those with exceptional focus and rapid-recall capabilities. Navigate through complex pattern recognition trials that push your mental fortitude to its absolute limit in a competitive arena.",
+        description: "Masuki The Strategist's Gauntlet di ajang Master Mind Plate. Turnamen ini dirancang untuk mereka yang memiliki fokus luar biasa dan kemampuan mengingat cepat. Lewati uji coba pengenalan pola kompleks yang mendorong mental kamu hingga batas absolut di arena kompetitif.",
         status: "Upcoming",
         slug: "master-mind-plate",
         href: "/competitions/master-mind-plate",
@@ -413,7 +413,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         platform: "Web",
         rating: "5.0",
         genre: "Educational",
-        description: `Kompetisi Cerdas Cermat tingkat Jawa Timur yang mempertemukan sekolah-sekolah terbaik antar wilayah. Tunjukkan keunggulan intelektual sekolahmu dan buktikan bahwa timmu adalah yang terbaik di seluruh provinsi!\n\nJawa Timur Competition adalah ajang tahunan yang paling dinanti oleh ribuan pelajar. Tahun ini, kami menghadirkan tantangan yang lebih kompleks dengan kategori soal yang mencakup literasi digital, penalaran logis, dan pengetahuan global. Setiap tim akan bersaing dalam suasana kompetitif yang sehat untuk memperebutkan gelar Juara Provinsi.\n\n• Penyisihan: Juli | Final: Agustus\n• Cakupan: Seluruh Kabupaten/Kota di Jawa Timur\n• Biaya Pendaftaran: Rp 25.000/player\n• Hadiah: Rp 10.000.000 + Trofi Bergilir Gubernur\n\nJangan lewatkan kesempatan untuk mengukir sejarah! Amankan kursimu sekarang!`,
+        description: `Kompetisi Cerdas Cermat tingkat Jawa Timur yang mempertemukan sekolah-sekolah terbaik antar wilayah. Tunjukkan keunggulan intelektual sekolahmu dan buktikan bahwa timmu adalah yang terbaik di seluruh provinsi!\n\nKompetisi Jawa Timur adalah ajang tahunan yang paling dinanti oleh ribuan pelajar. Tahun ini, kami menghadirkan tantangan yang lebih kompleks dengan kategori soal yang mencakup literasi digital, penalaran logis, dan pengetahuan global. Setiap tim akan bersaing dalam suasana kompetitif yang sehat untuk memperebutkan gelar Juara Provinsi.\n\n• Penyisihan: Juli | Final: Agustus\n• Cakupan: Seluruh Kabupaten/Kota di Jawa Timur\n• Biaya Pendaftaran: Rp 25.000/player\n• Hadiah: Rp 10.000.000 + Trofi Bergilir Gubernur\n\nJangan lewatkan kesempatan untuk mengukir sejarah! Amankan kursimu sekarang!`,
         status: "Upcoming",
         slug: "jawa-timur",
         href: "/competitions/jawa-timur",
@@ -449,7 +449,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         href: "/competitions/nasional",
         finalRound: "Oktober",
         rules: [
-            "Competition skala Nasional dengan pengawasan ketat.",
+            "Kompetisi skala Nasional dengan pengawasan ketat.",
             "Hadiah utama untuk pemenang terbaik.",
             "Dokumentasi resmi akan disiarkan secara online."
         ],
