@@ -13,7 +13,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/1", 
-        playUrl: "https://crazy-race-next.vercel.app",
+        playUrl: "https://crazyrace.gameforsmart.com",
         description: "Rasakan adrenalin balap mobil dengan kecepatan tinggi dan lintasan menantang.",
         screenshots: ["/images/crazyrace.webp", "/images/spacequiz.webp", "/assets/img/game-1.png"]
     },
@@ -31,7 +31,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/2", 
-        playUrl: "https://quizrun.vercel.app",
+        playUrl: "https://quizrush.gameforsmart.com",
         description: "Uji kecepatan respon dan tangkasnya tanganmu dalam tantangan aksi yang seru.",
         screenshots: ["/images/quizrush.webp", "/images/memoryquiz.webp", "/assets/img/game-2.png"]
     },
@@ -49,7 +49,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/3", 
-        playUrl: "https://spacequizv1.vercel.app",
+        playUrl: "https://spacequiz.gameforsmart.com",
         description: "Eksplorasi wawasan luar angkasamu dan jawab pertanyaan-pertanyaan mematikan.",
         screenshots: ["/images/spacequiz.webp", "/images/crazyrace.webp", "/assets/img/game-3.png"]
     },
@@ -67,7 +67,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/4", 
-        playUrl: "https://memorygame-quiz.vercel.app",
+        playUrl: "https://memoryquiz.gameforsmart.com",
         description: "Latih daya ingatmu dengan memecahkan teka-teki memori tingkat tinggi.",
         screenshots: ["/images/memoryquiz.webp", "/images/quizrush.webp", "/assets/img/game-4.png"]
     },
@@ -85,7 +85,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/5", 
-        playUrl: "#",
+        playUrl: "https://nitroquiz.gameforsmart.com",
         description: "Tantang pengetahuanmu dengan cepat di NitroQuiz.",
         screenshots: [
             "/assets/img/NitroQuiz/photo_2026-03-26_20-04-21.jpg",
@@ -108,7 +108,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/6", 
-        playUrl: "#",
+        playUrl: "https://axiom.gameforsmart.com",
         description: "Susun strategimu dan taklukkan lawan di Axiom.",
         screenshots: [
             "/assets/img/Axiom/photo_2026-03-26_20-04-21.jpg",
@@ -133,7 +133,7 @@ export const gamesData = [
         date: "07 OCT, 5:10 AM", 
         teams: "12/12", 
         href: "/games/7", 
-        playUrl: "#",
+        playUrl: "https://zigma.gameforsmart.com",
         description: "Bertahan hidup dan kalahkan musuh di dunia Zigma.",
         screenshots: ["/assets/Poster/Zigma.png", "/assets/Poster/Zigma.png"]
     }

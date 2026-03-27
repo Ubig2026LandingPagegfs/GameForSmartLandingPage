@@ -92,12 +92,11 @@ export default function Sidebar() {
   }, []);
 
   const isActive = (path: string) => {
-    if (path === "/home" && pathname === "/") return true;
     return pathname === path || pathname.startsWith(path + "/");
   };
 
   const menuItems = [
-    { href: "/home", icon: "ti-home", label: "Beranda" },
+    { href: "/", icon: "ti-home", label: "Beranda" },
     { href: "/competitions", icon: "ti-trophy", label: "Kompetisi" },
     { href: "/games", icon: "ti-device-gamepad-2", label: "Permainan" },
     { href: "/community", icon: "ti-users", label: "Komunitas" },

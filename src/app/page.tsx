@@ -1,22 +1,34 @@
-"use client";
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import Header from "@/components/shared/Header";
+import Sidebar from "@/components/shared/Sidebar";
+import Banner from "@/components/features/home/Banner";
+import TournamentSection from "@/components/features/tournaments/TournamentSection";
+import GamesSection from "@/components/features/home/GamesSection";
+import CTA from "@/components/features/home/CTA";
+import Footer from "@/components/shared/Footer";
 
-export default function HomeRedirect() {
-    const router = useRouter();
+export const metadata = {
+  title: "GameForSmart",
+  description:
+    "Mainkan berbagai game seru dan ikuti turnamen berhadiah di GameForSmart 2026.",
+};
 
-    useEffect(() => {
-        router.push('/home');
-    }, [router]);
-
-    return (
-        <div className="min-vh-100 bgn-4 d-flex align-items-center justify-content-center">
-            <div className="spinner-border text-orange" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-            <style jsx>{`
-                .text-orange { color: #ff8c00; }
-            `}</style>
-        </div>
-    );
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <main
+        className="main-container container-fluid d-flex align-items-start pt-20 pb-20 px-0 position-relative"
+        style={{ overflow: "visible" }}
+      >
+        <Sidebar />
+        <article className="main-content">
+          <Banner />
+          <GamesSection />
+          <TournamentSection />
+          <CTA />
+        </article>
+      </main>
+      <Footer />
+    </>
+  );
 }

@@ -36,13 +36,13 @@ export default function Breadcrumbs({ customCrumbs }: BreadcrumbsProps) {
 
     const breadcrumbs = customCrumbs || defaultCrumbs;
 
-    if (pathname === '/' || pathname === '/home') return null; 
+    if (pathname === '/') return null;
  
     return (
         <nav aria-label="breadcrumb" className="breadcrumb-nav mb-8">
             <ol className="breadcrumb d-flex align-items-center gap-2 m-0 p-0 list-unstyled">
                 <li className="breadcrumb-item">
-                    <Link href="/home" className="tcn-6 fs-sm hover-orange">Home</Link>
+                    <Link href="/" className="tcn-6 fs-sm hover-orange">Home</Link>
                 </li>
                 {breadcrumbs.map((crumb, index) => (
                     <React.Fragment key={crumb.href}>

@@ -57,7 +57,7 @@ Tersedia berbagai mode permainan mulai dari Time Trial untuk melatih kecepatan, 
             "Internet stability is the responsibility of the player."
         ],
         videoUrl: "https://www.youtube.com/embed/AJm-cwt0Ba8?si=jj2jNgwrt3vnggRo",
-        playUrl: "https://crazy-race-next.vercel.app",
+        playUrl: "https://crazyrace.gameforsmart.com",
         screenshots: ["/images/crazyrace.webp", "/images/spacequiz.webp", "/assets/img/game-1.png"],
         features: [
             { icon: "ti ti-steering-wheel", title: "Kontrol Presisi Tinggi", description: "Rasakan pengalaman berkendara responsif dengan sistem kontrol yang dioptimalkan untuk kecepatan." },
@@ -98,7 +98,7 @@ Tersedia berbagai mode permainan mulai dari Time Trial untuk melatih kecepatan, 
             { icon: "ti ti-world", title: "Global Survivor Leaderboard", description: "Bandingkan peringkatmu dengan penyintas lain di seluruh dunia." },
             { icon: "ti ti-swords", title: "Zombie Horde Duel", description: "Tantang pemain lain dalam duel otak di tengah invasi zombie." }
         ],
-        playUrl: "https://quizrun.vercel.app",
+        playUrl: "https://quizrush.gameforsmart.com",
     },
     {
         id: 3,
@@ -128,7 +128,7 @@ Jawab pertanyaan dengan cepat sebelum waktu habis! Mode Kecepatan Kilat memberik
             "One entry per account."
         ],
         videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA",
-        playUrl: "https://spacequizv1.vercel.app",
+        playUrl: "https://spacequiz.gameforsmart.com",
         screenshots: ["/images/spacequiz.webp", "/images/crazyrace.webp", "/assets/img/game-3.png"],
         features: [
             { icon: "ti ti-planet", title: "500+ Soal Luar Angkasa", description: "Bank soal komprehensif mencakup astronomi, fisika kosmik, sejarah penjelajahan antariksa, dan teknologi luar angkasa." },
@@ -165,7 +165,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
             "Fair play is mandatory."
         ],
         videoUrl: "https://www.youtube.com/embed/TAlKhARUcoY",
-        playUrl: "https://memorygame-quiz.vercel.app",
+        playUrl: "https://memoryquiz.gameforsmart.com",
         screenshots: ["/images/memoryquiz.webp", "/images/quizrush.webp", "/assets/img/game-4.png"],
         features: [
             { icon: "ti ti-brain", title: "Latihan Memori Adaptif", description: "Tingkat kesulitan menyesuaikan kemampuanmu secara otomatis untuk melatih daya ingat secara optimal." },
@@ -189,7 +189,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         slug: "5",
         href: "/games/5",
         rules: ["Jawab pertanyaan secepat mungkin.", "Pemain dengan skor tertinggi menang."],
-        playUrl: "#",
+        playUrl: "https://nitroquiz.gameforsmart.com",
         screenshots: [
             "/assets/img/NitroQuiz/photo_2026-03-26_20-04-21.jpg",
             "/assets/img/NitroQuiz/photo_2026-03-26_20-10-04.jpg",
@@ -216,7 +216,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         slug: "6",
         href: "/games/6",
         rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
-        playUrl: "#",
+        playUrl: "https://axiom.gameforsmart.com",
         screenshots: [
             "/assets/img/Axiom/photo_2026-03-26_20-04-21.jpg",
             "/assets/img/Axiom/photo_2026-03-26_20-10-04 (2).jpg",
@@ -245,7 +245,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         slug: "7",
         href: "/games/7",
         rules: ["Bertahan hidup selama mungkin.", "Kalahkan target yang datang."],
-        playUrl: "#",
+        playUrl: "https://zigma.gameforsmart.com",
         screenshots: ["/assets/Poster/Zigma.png", "/assets/Poster/Zigma.png"],
         features: [
             { icon: "ti ti-swords", title: "Aksi Tanpa Henti", description: "Hadapi berbagai musuh." },

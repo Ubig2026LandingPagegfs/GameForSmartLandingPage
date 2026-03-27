@@ -128,7 +128,7 @@ export default function Header() {
             </button>
             <Link
               className="navbar-brand d-flex align-items-center gap-4 header-logo-link"
-              href="/home"
+              href="/"
             >
               <img
                 className="w-100 d-block"
