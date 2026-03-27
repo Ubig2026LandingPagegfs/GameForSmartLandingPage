@@ -366,7 +366,7 @@ export default function Banner() {
                             Mainkan quiz layaknya pro gamer. Jawab cepat, kumpulkan combo poin, dan rebut posisi pertama di leaderboard.
                           </p>
                           <div data-swiper-parallax="-400" className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-lg-1 mb-8 mb-sm-6">
-                            <Link href="/leaderboard" className="gps-btn-primary">Cek Leaderboard</Link>
+                            <Link href="/games" className="gps-btn-primary">Main Sekarang</Link>
                           </div>
                         </div>
                       </div>
@@ -393,7 +393,7 @@ export default function Banner() {
                             Buktikan kecepatan jarimu dan ketajaman otakmu. Di mode ini, setiap detik adalah penentu kemenanganmu!
                           </p>
                           <div data-swiper-parallax="-400" className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-lg-1 mb-8 mb-sm-6">
-                            <Link href="/games" className="gps-btn-primary">Main Sekarang</Link>
+                            <Link href="/competitions" className="gps-btn-primary">Main Sekarang</Link>
                           </div>
                         </div>
                       </div>
@@ -420,7 +420,7 @@ export default function Banner() {
                             Raih trophy eksklusif, sertifikat nasional, dan total hadiah jutaan Rupiah. Inilah saatnya jadi MVP di GameForSmart!
                           </p>
                           <div data-swiper-parallax="-400" className="d-flex align-items-center flex-wrap gap-xl-4 gap-3 mb-lg-1 mb-8 mb-sm-6">
-                            <Link href="/register" className="gps-btn-primary">Klaim Slotmu</Link>
+                            <Link href="/competitions" className="gps-btn-primary">Klaim Slotmu</Link>
                           </div>
                         </div>
                       </div>

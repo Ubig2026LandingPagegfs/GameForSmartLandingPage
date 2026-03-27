@@ -49,40 +49,31 @@ export default function Footer() {
               <h4 className="footer-title mb-8 title-anim">Produk</h4>
               <ul className="footer-list d-grid gap-2">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/games"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
-                    Fitur
-                  </a>
+                    Permainan
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/competitions"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
-                    Mode Game
-                  </a>
+                    Mode Kompetisi
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/games"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
-                    Harga
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
-                    API
-                  </a>
+                    Peringkat
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -92,40 +83,31 @@ export default function Footer() {
               <h4 className="footer-title mb-8 title-anim">Dukungan</h4>
               <ul className="footer-list d-grid gap-2">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/faq"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
                     Pusat Bantuan
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/contact"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
                     Kontak
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/faq"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
                     FAQ
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
-                    Status
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -135,40 +117,31 @@ export default function Footer() {
               <h4 className="footer-title mb-8 title-anim">Perusahaan</h4>
               <ul className="footer-list d-grid gap-2">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/about"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
                     Tentang Kami
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/teams"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
-                    Blog
-                  </a>
+                    Tim
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/contact"
                     className="footer-link d-flex align-items-center tcn-6"
                   >
                     {" "}
                     Karir
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
-                    Pers
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -177,24 +150,24 @@ export default function Footer() {
         <div className="row pb-4 pt-lg-4 pt-8 justify-content-between">
           <div className="col-lg-6">
             <span>
-              © 2024 GameForSmart. Hak cipta dilindungi undang-undang.
+              © 2026 GameForSmart. Hak cipta dilindungi undang-undang.
             </span>
           </div>
           <div className="col-lg-6 d-flex justify-content-lg-end">
             <ul className="d-flex flex-wrap align-items-center gap-lg-10 gap-sm-6 gap-4 justify-content-center justify-content-lg-end">
               <li>
-                <a href="#">Kebijakan Privasi</a>
+                <Link href="/terms-condition">Kebijakan Privasi</Link>
               </li>
               <li>
-                <a href="#">Ketentuan Layanan</a>
+                <Link href="/terms-condition">Ketentuan Layanan</Link>
               </li>
               <li>
-                <a href="#">Cookies</a>
+                <Link href="/terms-condition">Cookies</Link>
               </li>
               <li>
-                <a href="#">
+                <span className="tcn-6 cursor-pointer hover-orange pointer">
                   <i className="ti ti-world"></i> Bahasa
-                </a>
+                </span>
               </li>
             </ul>
           </div>
