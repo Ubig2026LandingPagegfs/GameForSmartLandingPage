@@ -55,12 +55,15 @@ export default function Header() {
     setSidebarOpen((prev) => !prev);
   };
 
+  const sortedGames = [...gamesData].sort((a, b) => a.title.localeCompare(b.title));
+  const sortedTournaments = [...tournamentsData].sort((a, b) => a.id - b.id); // Asumsi ID lebih kecil = jadwal lebih awal/kronologis
+
   const visibleGames = searchQuery 
-    ? gamesData.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase())) 
-    : gamesData;
+    ? sortedGames.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase())) 
+    : sortedGames;
   const visibleTournaments = searchQuery 
-    ? tournamentsData.filter(t => t.title.toLowerCase().includes(searchQuery.toLowerCase())) 
-    : tournamentsData;
+    ? sortedTournaments.filter(t => t.title.toLowerCase().includes(searchQuery.toLowerCase())) 
+    : sortedTournaments;
   const allVisibleItems = [...visibleGames, ...visibleTournaments];
 
   useEffect(() => {
