@@ -32,7 +32,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
-                <link rel="shortcut icon" href="/assets/img/gameforsmartlogo.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="/assets/img/gameforsmart-icon.png" type="image/x-icon" />
             </head>
             <body className={`${inter.className} overflow-x-hidden relative max-w-[1920px] mx-auto`}>
                 <SearchProvider>
