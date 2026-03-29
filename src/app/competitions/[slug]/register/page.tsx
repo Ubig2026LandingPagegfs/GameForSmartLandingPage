@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import RegistrationView from "@/components/features/auth/RegistrationView";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
+import Sidebar from "@/components/shared/Sidebar";
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const params = await props.params;
@@ -35,16 +36,19 @@ export default async function RegistrationPage(props: { params: Promise<{ slug: 
     }
 
     return (
-        <div className="registration-page-wrapper">
+        <>
             <Header />
-            <main className="main-content pt-20 pb-12">
-                <RegistrationView
-                    competitionTitle={item.title}
-                    competitionSlug={item.slug}
-                    fee={item.ticketFee || 'Free Entry'}
-                />
+            <main className="main-container container-fluid d-flex pt-20 pb-12 px-0 position-relative" style={{ overflow: "visible" }}>
+                <Sidebar />
+                <article className="main-content w-100">
+                    <RegistrationView
+                        competitionTitle={item.title}
+                        competitionSlug={item.slug}
+                        fee={item.ticketFee || 'Free Entry'}
+                    />
+                </article>
             </main>
             <Footer />
-        </div>
+        </>
     );
 }
