@@ -16,6 +16,7 @@ interface GameCardProps {
   link?: string;
   slug?: string;
   playUrl?: string; // Add playUrl into props
+  isFavorite?: boolean;
 }
 
 export default function GameCard({
@@ -31,6 +32,7 @@ export default function GameCard({
   link,
   slug,
   playUrl, // Add playUrl destructuring
+  isFavorite,
 }: GameCardProps) {
   const defaultDescription =
     "Game menarik yang siap memberikan pengalaman bermain tidak terlupakan buat Anda.";
@@ -77,6 +79,19 @@ export default function GameCard({
           >
             Baru
           </span>
+        )}
+        {isFavorite && (
+          <div
+            className="position-absolute top-0 start-0 p-3"
+            style={{ zIndex: 10 }}
+          >
+            <div
+              className="d-center bg-white/10 backdrop-blur-md rounded-circle border border-white/20 shadow-lg"
+              style={{ width: "40px", height: "40px" }}
+            >
+              <i className="ti ti-heart-filled text-danger fs-xl"></i>
+            </div>
+          </div>
         )}
       </Link>
 

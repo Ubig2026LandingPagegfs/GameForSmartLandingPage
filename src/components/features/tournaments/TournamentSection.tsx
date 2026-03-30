@@ -229,7 +229,7 @@ export default function TournamentSection() {
                                 href={`/competitions/${tournament.slug}/register`}
                                 className="gps-btn-primary whitespace-nowrap flex-1 text-center"
                               >
-                                Daftar Sekarang
+                                Daftar
                               </Link>
                               <Link
                                 href={tournament.href}

@@ -25,6 +25,7 @@ export interface TournamentInfo {
     screenshots?: string[];
     features?: { icon: string; title: string; description: string }[];
     playUrl?: string;
+    isFavorite?: boolean;
 }
 
 export const allItemsData: TournamentInfo[] = [
@@ -188,6 +189,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         status: "Trivia",
         slug: "5",
         href: "/games/5",
+        isFavorite: true,
         rules: ["Jawab pertanyaan secepat mungkin.", "Pemain dengan skor tertinggi menang."],
         playUrl: "https://nitroquiz.gameforsmart.com",
         screenshots: [
@@ -215,6 +217,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         status: "Puzzle",
         slug: "6",
         href: "/games/6",
+        isFavorite: true,
         rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
         playUrl: "https://axiom.gameforsmart.com",
         screenshots: [
@@ -244,6 +247,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         status: "Action",
         slug: "7",
         href: "/games/7",
+        isFavorite: true,
         rules: ["Bertahan hidup selama mungkin.", "Kalahkan target yang datang."],
         playUrl: "https://zigma.gameforsmart.com",
         screenshots: [

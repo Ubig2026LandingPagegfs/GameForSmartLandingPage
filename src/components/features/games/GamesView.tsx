@@ -28,12 +28,15 @@ export default function GamesView() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const games = allItemsData.filter((item) => item.type === "game");
+  const games = allItemsData
+    .filter((item) => item.type === "game")
+    .sort((a, b) => b.id - a.id);
 
-  const filteredGames =
-    activeTab === "All"
-      ? games
-      : games.filter((game) => game.status === activeTab);
+  const filteredGames = games.filter((game) => {
+    if (activeTab === "All") return true;
+    if (activeTab === "Favorit") return game.isFavorite;
+    return game.status === activeTab;
+  });
 
   return (
     <>
@@ -62,6 +65,7 @@ export default function GamesView() {
                     <ul className="tablinks d-none d-md-flex flex-nowrap align-items-center justify-content-lg-center gap-3 list-unstyled m-0 p-2 overflow-x-auto scrollbar-hide w-100" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                       {[
                         "All",
+                        "Favorit",
                         "Action",
                         "Racing",
                         "Puzzle",
@@ -107,6 +111,7 @@ export default function GamesView() {
                           >
                             {[
                               "All",
+                              "Favorit",
                               "Action",
                               "Racing",
                               "Puzzle",
@@ -151,6 +156,7 @@ export default function GamesView() {
                         players={game.players}
                         link={`/games/${game.slug}`}
                         playUrl={game.playUrl}
+                        isFavorite={game.isFavorite}
                       />
                     </div>
                   ))}
