@@ -70,7 +70,7 @@ export default function Banner() {
     .slice(0, 4);
 
   return (
-    <section className="banner-section pb-6 pt-lg-1 pt-sm-1 mt-lg-8 mt-4">
+    <section className="banner-section pb-2 pt-lg-1 pt-sm-1 mt-lg-12 mt-8">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
 

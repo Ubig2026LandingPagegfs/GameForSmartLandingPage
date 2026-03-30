@@ -106,10 +106,10 @@ export default function TournamentSection() {
         };
 
   return (
-    <section className="py-24 overflow-hidden">
+    <section className="pt-20 pb-20 overflow-hidden">
       <div className="container mx-auto px-6">
         {/* HEADER */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-4">
           <p className="text-xs tracking-[0.3em] text-gray-400 mb-3">
             KOMPETISI
           </p>
@@ -141,7 +141,7 @@ export default function TournamentSection() {
 
           {/* SWIPER */}
           <div className="swiper tournament-swiper !overflow-visible">
-            <div className="swiper-wrapper py-10">
+            <div className="swiper-wrapper py-4">
               {visibleTournaments.map((tournament) => {
                 const sc = statusColor(tournament.status);
                 return (
@@ -272,7 +272,7 @@ export default function TournamentSection() {
           </div>
 
           {/* DOTS */}
-          <div className="flex justify-center gap-2 mt-12">
+          <div className="flex justify-center gap-2 mt-6">
             {visibleTournaments.map((_, i) => (
               <button
                 suppressHydrationWarning
@@ -284,7 +284,7 @@ export default function TournamentSection() {
           </div>
 
           {/* VIEW ALL */}
-          <div className="text-center mt-10">
+          <div className="text-center mt-6">
             <Link
               href="/competitions"
               className="text-gray-400 hover:text-white text-sm transition-colors group inline-flex items-center"

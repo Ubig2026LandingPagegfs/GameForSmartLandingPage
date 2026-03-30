@@ -45,6 +45,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                     players={game.players}
                     videoUrl={game.videoUrl}
                     playUrl={game.playUrl}
+                    logo={game.logo}
                     onOpenTrailer={() => setIsVideoModalOpen(true)}
                 />
             </GameHero>

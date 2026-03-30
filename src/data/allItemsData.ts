@@ -26,6 +26,7 @@ export interface TournamentInfo {
     features?: { icon: string; title: string; description: string }[];
     playUrl?: string;
     isFavorite?: boolean;
+    logo?: string;
 }
 
 export const allItemsData: TournamentInfo[] = [
@@ -218,6 +219,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         slug: "6",
         href: "/games/6",
         isFavorite: true,
+        logo: "/assets/logo/logoaxiom.png",
         rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
         playUrl: "https://axiom.gameforsmart.com",
         screenshots: [

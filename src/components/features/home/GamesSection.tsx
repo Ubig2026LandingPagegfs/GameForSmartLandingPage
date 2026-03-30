@@ -19,7 +19,7 @@ export default function GamesSection() {
     .slice(0, 4);
 
   return (
-    <section className="tournament-section game-section pt-20 pb-10">
+    <section className="tournament-section game-section pt-10 pb-10">
       <div className="tournament-wrapper alt">
         <div className="container-fluid px-lg-15 px-md-10 px-6">
           <div className="row justify-content-between align-items-end mb-lg-8 mb-sm-6 mb-4 g-3">

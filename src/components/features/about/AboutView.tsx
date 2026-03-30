@@ -75,13 +75,13 @@ export default function AboutView() {
           font-weight: 500;
           letter-spacing: 2.5px;
           text-transform: uppercase;
-          color: #ff8c00;
+          color: #ea580c;
           margin-bottom: 16px;
         }
         .av-eyebrow::before {
           content: '';
           width: 22px; height: 1px;
-          background: #ff8c00;
+          background: #ea580c;
           opacity: 0.6;
         }
 
@@ -97,7 +97,7 @@ export default function AboutView() {
         }
         .av-title em {
           font-style: normal;
-          color: #ff8c00;
+          color: #ea580c;
         }
 
         /* ── Body text ── */
@@ -126,16 +126,16 @@ export default function AboutView() {
           transition: background 0.2s, border-color 0.2s;
         }
         .av-feat:hover {
-          background: rgba(255,140,0,0.05);
-          border-color: rgba(255,140,0,0.18);
+          background: rgba(234, 88, 12, 0.05);
+          border-color: rgba(234, 88, 12, 0.18);
         }
 
         .av-feat-icon {
           width: 36px; height: 36px;
           border-radius: 10px;
-          background: rgba(255,140,0,0.1);
-          border: 1px solid rgba(255,140,0,0.18);
-          color: #ff8c00;
+          background: rgba(234, 88, 12, 0.1);
+          border: 1px solid rgba(234, 88, 12, 0.18);
+          color: #ea580c;
           display: flex; align-items: center; justify-content: center;
           margin-bottom: 12px;
         }
@@ -161,7 +161,7 @@ export default function AboutView() {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          background: #ff8c00;
+          background: #ea580c;
           color: #fff;
           font-family: 'Chakra Petch', sans-serif;
           font-size: 14px;
@@ -174,7 +174,7 @@ export default function AboutView() {
         }
         .av-cta:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(255,140,0,0.3);
+          box-shadow: 0 10px 30px rgba(234, 88, 12, 0.3);
           color: #fff;
           text-decoration: none;
         }
@@ -217,14 +217,14 @@ export default function AboutView() {
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(255,140,0,0.3), transparent);
+          background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.3), transparent);
         }
 
         .av-stat-value {
           font-family: 'Chakra Petch', sans-serif;
           font-size: 32px;
           font-weight: 800;
-          color: #ff8c00;
+          color: #ea580c;
           letter-spacing: -1px;
           line-height: 1;
           margin: 0 0 5px;
@@ -240,8 +240,8 @@ export default function AboutView() {
 
         /* ── Mission card ── */
         .av-mission {
-          background: rgba(255,140,0,0.06);
-          border: 1px solid rgba(255,140,0,0.15);
+          background: rgba(234, 88, 12, 0.06);
+          border: 1px solid rgba(234, 88, 12, 0.15);
           border-radius: 16px;
           padding: 24px 22px;
           position: relative;
@@ -252,7 +252,7 @@ export default function AboutView() {
           position: absolute;
           top: 0; left: 0; bottom: 0;
           width: 3px;
-          background: linear-gradient(180deg, #ff8c00, #ff6a00);
+          background: linear-gradient(180deg, #ea580c, #c2410c);
           border-radius: 3px 0 0 3px;
         }
 
@@ -261,7 +261,7 @@ export default function AboutView() {
           font-weight: 500;
           letter-spacing: 2px;
           text-transform: uppercase;
-          color: #ff8c00;
+          color: #ea580c;
           margin: 0 0 10px;
         }
 
@@ -352,13 +352,7 @@ export default function AboutView() {
                   </div>
 
                   <Link href="/games" className="av-cta">
-                    Mulai Bermain Sekarang
-                    <span className="av-cta-arrow">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="7" y1="17" x2="17" y2="7"/>
-                        <polyline points="7 7 17 7 17 17"/>
-                      </svg>
-                    </span>
+                    Main Sekarang
                   </Link>
                 </div>
 

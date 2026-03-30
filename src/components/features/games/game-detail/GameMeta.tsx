@@ -12,6 +12,7 @@ interface GameMetaProps {
   videoUrl?: string;
   playUrl?: string;
   onOpenTrailer: () => void;
+  logo?: string;
 }
 
 export default function GameMeta({
@@ -23,6 +24,7 @@ export default function GameMeta({
   videoUrl,
   playUrl,
   onOpenTrailer,
+  logo,
 }: GameMetaProps) {
   const handleShare = async () => {
     const shareData = {
@@ -46,8 +48,14 @@ export default function GameMeta({
   return (
     <>
       <div className="gps-meta">
-        {/* Title & Subtitle */}
-        <h1 className="gps-title">{title}</h1>
+        {/* Title/Logo & Subtitle */}
+        {logo ? (
+          <div className="gps-logo-wrap">
+            <img src={logo} alt={title} className="gps-logo" />
+          </div>
+        ) : (
+          <h1 className="gps-title">{title}</h1>
+        )}
         <div className="gps-subtitle">
             <span className="gps-developer">Gameforsmart.com</span>
             <p className="gps-ad-info">Gratis dimainkan · Langsung di browser</p>
@@ -290,7 +298,25 @@ export default function GameMeta({
           color: #fff;
         }
 
+        .gps-logo-wrap {
+          margin-bottom: 8px;
+          max-width: 400px;
+        }
+        .gps-logo {
+          width: 100%;
+          height: auto;
+          max-height: 120px;
+          object-fit: contain;
+          filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
         @media (max-width: 768px) {
+          .gps-logo-wrap {
+            max-width: 280px;
+          }
+          .gps-logo {
+            max-height: 80px;
+          }
           .gps-meta {
             padding: 16px 0 0;
           }
