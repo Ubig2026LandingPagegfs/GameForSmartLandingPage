@@ -109,6 +109,7 @@ export const gamesData = [
         teams: "12/12", 
         href: "/games/6", 
         playUrl: "https://axiom.gameforsmart.com",
+        videoUrl: "https://youtu.be/mUln-7dZvWI?si=sM1KoQ-hLEcL81Pi",
         description: "Susun strategimu dan taklukkan lawan di Axiom.",
         screenshots: [
             "/assets/img/Axiom/photo_2026-03-26_20-04-21.jpg",

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 import { SearchProvider } from "@/context/SearchContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 export default function RootLayout({
     children,
@@ -35,14 +36,16 @@ export default function RootLayout({
                 <link rel="shortcut icon" href="/assets/img/logo-favicon.png" type="image/x-icon" />
             </head>
             <body className={`${inter.className} overflow-x-hidden relative max-w-[1920px] mx-auto`}>
-                <SearchProvider>
-                    <Preloader />   
-                    <div className="cursor"></div>
-                    <NotificationArea />
-                    <ConnectWalletModal />
-                    <UserAccountPopup />
-                    {children}
-                </SearchProvider>
+                <AuthProvider>
+                    <SearchProvider>
+                        <Preloader />   
+                        <div className="cursor"></div>
+                        <NotificationArea />
+                        <ConnectWalletModal />
+                        <UserAccountPopup />
+                        {children}
+                    </SearchProvider>
+                </AuthProvider>
 
                 {/* Legacy Scripts */}
                 <Script src="/assets/js/jquery.min.js" strategy="beforeInteractive" />

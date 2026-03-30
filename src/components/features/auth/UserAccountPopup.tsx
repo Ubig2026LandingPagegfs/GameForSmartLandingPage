@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
 
 export default function UserAccountPopup({
   isOpen,
@@ -8,6 +10,13 @@ export default function UserAccountPopup({
   isOpen?: boolean;
   onClose?: () => void;
 }) {
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    if (onClose) onClose();
+  };
+
   return (
     <div className={`user-account-popup p-4 ${isOpen ? "open" : ""}`}>
       <div className="account-items d-grid gap-1">
@@ -39,7 +48,7 @@ export default function UserAccountPopup({
         <Button
           variant="ghost"
           className="w-full justify-start account-item text-danger p-2 hover-lift text-base font-normal hover:bg-[#1a1a1a] hover:text-danger"
-          onClick={onClose}
+          onClick={handleLogout}
         >
           Keluar
         </Button>

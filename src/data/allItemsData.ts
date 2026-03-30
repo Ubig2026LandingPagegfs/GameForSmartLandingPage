@@ -219,6 +219,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         slug: "6",
         href: "/games/6",
         isFavorite: true,
+        videoUrl: "https://youtu.be/mUln-7dZvWI?si=sM1KoQ-hLEcL81Pi",
         logo: "/assets/logo/logoaxiom.png",
         rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
         playUrl: "https://axiom.gameforsmart.com",
