@@ -134,8 +134,7 @@ export default function Header() {
               href="/"
             >
               <img
-                className="d-block"
-                style={{ width: "250px", minWidth: "250px", height: "auto" }}
+                className="d-block header-logo"
                 src="/images/gameforsmartlogo.webp"
                 alt="GameForSmart Logo"
               />
@@ -352,6 +351,23 @@ export default function Header() {
       <style jsx>{`
         .header-fixed {
           z-index: 10001;
+        }
+        .header-logo {
+          width: 250px;
+          height: auto;
+          transition: width 0.3s ease;
+        }
+        @media (max-width: 1399px) {
+          .header-logo { width: 220px; }
+        }
+        @media (max-width: 1199px) {
+          .header-logo { width: 180px; }
+        }
+        @media (max-width: 991px) {
+          .header-logo { width: 160px; }
+        }
+        @media (max-width: 575px) {
+          .header-logo { width: 140px; }
         }
         .header-search-bar {
           max-width: 400px;
