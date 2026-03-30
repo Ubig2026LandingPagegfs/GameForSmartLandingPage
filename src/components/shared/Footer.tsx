@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="footer bgn-4 bt position-relative overflow-hidden w-100">
-      <div className="container-fluid position-relative footer-inner-container">
+      <div className="mx-xxl-10 mx-md-8 mx-2 position-relative footer-inner-container">
         <div className="row justify-content-between">
           <div className="col-lg-3 col-sm-6 br py-lg-12 pt-sm-10 pt-6 footer-card-area">
             <div className="py-lg-10">
@@ -14,7 +14,8 @@ export default function Footer() {
                   className="d-block footer-brand-link"
                 >
                   <img
-                    className="w-100"
+                    className="d-block"
+                    style={{ width: "250px", minWidth: "250px", height: "auto" }}
                     src="/images/gameforsmartlogo.webp"
                     alt="logo"
                   />
@@ -184,11 +185,6 @@ export default function Footer() {
       <style jsx>{`
         .footer-inner-container {
           z-index: 2;
-        }
-
-        .footer-brand-link {
-          max-width: 240px;
-          width: 100%;
         }
 
         .footer-mascot {

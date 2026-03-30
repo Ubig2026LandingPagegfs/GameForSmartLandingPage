@@ -130,11 +130,12 @@ export default function Header() {
               <span></span>
             </button>
             <Link
-              className="navbar-brand d-flex align-items-center gap-4 header-logo-link"
+              className="navbar-brand d-flex align-items-center gap-4"
               href="/"
             >
               <img
-                className="w-100 d-block"
+                className="d-block"
+                style={{ width: "250px", minWidth: "250px", height: "auto" }}
                 src="/images/gameforsmartlogo.webp"
                 alt="GameForSmart Logo"
               />
@@ -352,10 +353,6 @@ export default function Header() {
         .header-fixed {
           z-index: 10001;
         }
-        .header-logo-link {
-          max-width: 240px;
-          width: 100%;
-        }
         .header-search-bar {
           max-width: 400px;
           width: 100%;
@@ -384,9 +381,6 @@ export default function Header() {
         }
 
         @media (max-width: 991px) {
-          .header-logo-link {
-            max-width: 150px;
-          }
           .d-between {
              flex-wrap: nowrap;
           }
