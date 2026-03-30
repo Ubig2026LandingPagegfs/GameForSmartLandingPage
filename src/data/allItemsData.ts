@@ -246,7 +246,13 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         href: "/games/7",
         rules: ["Bertahan hidup selama mungkin.", "Kalahkan target yang datang."],
         playUrl: "https://zigma.gameforsmart.com",
-        screenshots: ["/assets/Poster/Zigma.png", "/assets/Poster/Zigma.png"],
+        screenshots: [
+            "/assets/img/Zigma/photo_2026-03-27_11-01-05.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-06.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-10.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-12.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-17.jpg"
+        ],
         features: [
             { icon: "ti ti-swords", title: "Aksi Tanpa Henti", description: "Hadapi berbagai musuh." },
             { icon: "ti ti-shield", title: "Survival", description: "Daya tahan adalah kunci utama." }

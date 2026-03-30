@@ -135,6 +135,12 @@ export const gamesData = [
         href: "/games/7", 
         playUrl: "https://zigma.gameforsmart.com",
         description: "Bertahan hidup dan kalahkan musuh di dunia Zigma.",
-        screenshots: ["/assets/Poster/Zigma.png", "/assets/Poster/Zigma.png"]
+        screenshots: [
+            "/assets/img/Zigma/photo_2026-03-27_11-01-05.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-06.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-10.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-12.jpg",
+            "/assets/img/Zigma/photo_2026-03-27_11-01-17.jpg"
+        ]
     }
 ];
