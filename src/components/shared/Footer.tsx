@@ -9,13 +9,14 @@ export default function Footer() {
           <div className="col-lg-3 col-sm-6 br py-lg-12 pt-sm-10 pt-6 footer-card-area">
             <div className="py-lg-10">
               <div className="footer-logo mb-4">
-                <Link
-                  href="/"
-                  className="d-block footer-brand-link"
-                >
+                <Link href="/" className="d-block footer-brand-link">
                   <img
                     className="d-block"
-                    style={{ width: "250px", minWidth: "250px", height: "auto" }}
+                    style={{
+                      width: "250px",
+                      minWidth: "250px",
+                      height: "auto",
+                    }}
                     src="/images/gameforsmartlogo.webp"
                     alt="logo"
                   />
@@ -45,102 +46,71 @@ export default function Footer() {
               </div>
             </div>
           </div>
+          {/* Kolom 2 */}
           <div className="col-lg-3 col-sm-6 br br-res py-lg-12 pt-sm-10 pt-6 footer-card-area">
-            <div className="py-lg-10 ps-lg-10 ps-5">
+            <div className="py-lg-10 footer-menu-col">
               <h4 className="footer-title mb-8 title-anim">Produk</h4>
-              <ul className="footer-list d-grid gap-2">
+              <ul className="footer-menu-list">
                 <li>
-                  <Link
-                    href="/games"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/games" className="footer-link tcn-6">
                     Game
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/competitions"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/competitions" className="footer-link tcn-6">
                     Mode Kompetisi
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/games"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/games" className="footer-link tcn-6">
                     Peringkat
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
+
+          {/* Kolom 3 */}
           <div className="col-lg-3 col-sm-6 br py-lg-12 pt-sm-10 pt-6 footer-card-area">
-            <div className="py-lg-10 ps-lg-10 ps-5">
+            <div className="py-lg-10 footer-menu-col">
               <h4 className="footer-title mb-8 title-anim">Dukungan</h4>
-              <ul className="footer-list d-grid gap-2">
+              <ul className="footer-menu-list">
                 <li>
-                  <Link
-                    href="/faq"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/faq" className="footer-link tcn-6">
                     Pusat Bantuan
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/contact"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/contact" className="footer-link tcn-6">
                     Kontak
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/faq"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/faq" className="footer-link tcn-6">
                     FAQ
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
+
+          {/* Kolom 4 */}
           <div className="col-lg-3 col-sm-6 py-lg-12 pt-sm-10 pt-6 footer-card-area">
-            <div className="py-lg-10 ps-lg-10 ps-5">
+            <div className="py-lg-10 footer-menu-col">
               <h4 className="footer-title mb-8 title-anim">Perusahaan</h4>
-              <ul className="footer-list d-grid gap-2">
+              <ul className="footer-menu-list">
                 <li>
-                  <Link
-                    href="/about"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/about" className="footer-link tcn-6">
                     Tentang Kami
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/teams"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/teams" className="footer-link tcn-6">
                     Tim
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/contact"
-                    className="footer-link d-flex align-items-center tcn-6"
-                  >
-                    {" "}
+                  <Link href="/contact" className="footer-link tcn-6">
                     Karir
                   </Link>
                 </li>
@@ -197,7 +167,26 @@ export default function Footer() {
           pointer-events: none;
           object-fit: contain;
         }
-        
+
+        .footer-menu-col {
+          text-align: left;
+        }
+
+        .footer-menu-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .footer-menu-list li {
+          margin-bottom: 10px;
+        }
+
+        .footer-menu-list a {
+          display: inline-block;
+          text-decoration: none;
+        }
+
         @media (max-width: 991px) {
           .footer-mascot {
             display: none;
