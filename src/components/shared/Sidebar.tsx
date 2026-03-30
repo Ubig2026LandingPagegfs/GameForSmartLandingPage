@@ -110,8 +110,8 @@ export default function Sidebar() {
         ref={wrapperRef}
         className={`sidebar-wrapper ${open ? "show-menu" : ""}`}
       >
-        <div className="sidebar-menu-capsule py-xxl-20 py-sm-15 py-10 px-6">
-          <div className="d-grid gap-sm-12 gap-8 sidebar-menu-items text-center">
+        <div className="sidebar-menu-capsule py-xxl-12 py-sm-10 py-8 px-6">
+          <div className="d-grid gap-sm-10 gap-4 sidebar-menu-items text-center">
             <TooltipProvider delayDuration={100}>
               {menuItems.map((item) => (
                 <div key={item.href} className="p-1">
