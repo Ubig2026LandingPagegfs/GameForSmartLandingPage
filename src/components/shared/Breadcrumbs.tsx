@@ -46,20 +46,29 @@ export default function Breadcrumbs({ customCrumbs }: BreadcrumbsProps) {
                 </li>
                 {breadcrumbs.map((crumb, index) => (
                     <React.Fragment key={crumb.href}>
-                        <li className="tcn-6 fs-xs">/</li>
+                        <li className="tcn-1 fs-xs">/</li>
                         <li className={`breadcrumb-item ${crumb.isLast ? 'active' : ''}`}>
                             {crumb.isLast ? (
-                                <span className="text-orange-glow fs-sm fw-bold">{crumb.label}</span>
+                                <span className="text-brand fs-sm fw-bold">{crumb.label}</span>
                             ) : (
-                                <Link href={crumb.href} className="tcn-6 fs-sm hover-orange">{crumb.label}</Link>
+                                <Link href={crumb.href} className="tcn-1 fs-sm hover-orange">{crumb.label}</Link>
                             )}
                         </li>
                     </React.Fragment>
                 ))}
             </ol>
             <style jsx>{`
+                .tcn-1 {
+                    color: #fff !important;
+                    opacity: 0.8;
+                }
                 .hover-orange:hover {
                     color: #ff8c00 !important;
+                    opacity: 1 !important;
+                }
+                .text-brand {
+                    color: #ff8c00 !important;
+                    text-shadow: 0 0 10px rgba(255, 140, 0, 0.4);
                 }
                 .breadcrumb-item.active {
                     pointer-events: none;

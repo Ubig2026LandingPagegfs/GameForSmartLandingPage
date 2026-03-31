@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import TournamentCard from "@/components/features/tournaments/TournamentCard";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
@@ -35,12 +36,15 @@ export default function TournamentsPage() {
   return (
     <>
       <Header />
-      <main className="main-container container-fluid d-flex pt-20 pb-20 px-0 position-relative">
+      <main className="main-container container-fluid d-flex pt-16 pb-20 px-0 position-relative">
         <Sidebar />
-        <article className="main-content mt-10">
+        <article className="main-content mt-0">
           <section className="tournament-section pb-120">
             <div className="tournament-wrapper alt">
               <div className="container-fluid py-lg-15 py-sm-10 py-8 px-lg-15 px-md-10 px-6">
+                <div className="mb-10">
+                  <Breadcrumbs />
+                </div>
 
                 {/* Title */}
                 <div className="row align-items-center justify-content-between mb-lg-15 mb-md-8 mb-sm-6 mb-4">

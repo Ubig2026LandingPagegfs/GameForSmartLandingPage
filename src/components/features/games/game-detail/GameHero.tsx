@@ -7,7 +7,6 @@ interface GameHeroProps {
   title: string;
   videoUrl?: string;
   children?: ReactNode;
-
 }
 
 export default function GameHero({
@@ -32,102 +31,207 @@ export default function GameHero({
   const videoId = videoUrl ? getYoutubeId(videoUrl) : null;
 
   return (
-    <section
-      className="hero-section"
-      style={{ minHeight: "70vh", backgroundColor: "#0a0c12" }}
-    >
-      {/* Background Banner — full width, absolute */}
+    <section className="hero-section">
       <div className="hero-bg">
-        {mounted && videoId ? (
-          <iframe
-            title={title}
-            loading="eager"
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playsinline=1&modestbranding=1&playlist=${videoId}`}
-            allow="autoplay; encrypted-media"
-            className="hero-video"
-          />
-        ) : (
-          <img src={image} alt={title} className="hero-img" />
-        )}
-        <div className="hero-gradient" />
+        {/* Video/image sits in the center-right area */}
+        <div className="hero-media-box">
+          {mounted && videoId ? (
+            <iframe
+              title={title}
+              loading="eager"
+              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playsinline=1&modestbranding=1&playlist=${videoId}`}
+              allow="autoplay; encrypted-media"
+              className="hero-video"
+            />
+          ) : (
+            <img src={image} alt={title} className="hero-img" />
+          )}
+        </div>
+
+        {/*
+          Four separate gradient panels — each is a solid-to-transparent strip
+          that sits directly on top of the video edges.
+          Using separate elements avoids the CSS multi-gradient blending issue.
+        */}
+        <div className="fade-left" />
+        <div className="fade-right" />
+        <div className="fade-bottom" />
+        <div className="fade-top" />
       </div>
 
-      {/* Content — padding horizontal sama dengan konten utama halaman */}
       <div className="hero-content-wrap">
         <div className="hero-content">{children}</div>
       </div>
 
-      <style jsx global>{`
-        :root {
-          --page-px: clamp(20px, 4vw, 72px);
-        }
-      `}</style>
       <style jsx>{`
         .hero-section {
           position: relative;
           width: 100%;
+          min-height: 70vh;
+          background: #0a0c12;
+          overflow: hidden;
         }
 
-        /* === BACKGROUND: selalu full width === */
         .hero-bg {
           position: absolute;
           inset: 0;
-          z-index: 0;
-          overflow: hidden;
+          background: #0a0c12;
+        }
+
+        /* Video/image covers full width — fade overlays handle left darkness */
+        .hero-media-box {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
         }
 
         .hero-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: left center;
+          display: block;
         }
 
         .hero-video {
           position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 100vw;
-          height: 56.25vw;
-          min-height: 100%;
-          min-width: 177.77vh;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           border: 0;
           pointer-events: none;
         }
 
-        .hero-gradient {
+        /* ── LEFT fade: solid dark over left 35%, feathers to transparent ── */
+        .fade-left {
           position: absolute;
-          inset: 0;
-          width: 100%;
+          top: 0;
+          left: 0;
+          width: 70%;
           height: 100%;
-          background:
-            linear-gradient(
-              to right,
-              rgba(15, 17, 24, 1) 0%,
-              rgba(15, 17, 24, 0.9) 40%,
-              rgba(15, 17, 24, 0.2) 100%
-            ),
-            linear-gradient(to top, rgba(15, 17, 24, 1) 0%, transparent 100%);
+          z-index: 2;
+          pointer-events: none;
+          background: linear-gradient(
+            to right,
+            #0a0c12 0%,
+            #0a0c12 35%,
+            rgba(10, 12, 18, 0.95) 42%,
+            rgba(10, 12, 18, 0.82) 50%,
+            rgba(10, 12, 18, 0.6) 60%,
+            rgba(10, 12, 18, 0.3) 72%,
+            rgba(10, 12, 18, 0.08) 85%,
+            rgba(10, 12, 18, 0) 100%
+          );
         }
 
-        /* === CONTENT: padding disesuaikan dengan layout utama === */
+        /* ── RIGHT fade: covers right edge firmly ── */
+        .fade-right {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 65%;
+          height: 100%;
+          z-index: 2;
+          pointer-events: none;
+          background: linear-gradient(
+            to left,
+            #0a0c12 0%,
+            #0a0c12 25%,
+            rgba(10, 12, 18, 0.95) 35%,
+            rgba(10, 12, 18, 0.8) 50%,
+            rgba(10, 12, 18, 0.55) 65%,
+            rgba(10, 12, 18, 0.25) 80%,
+            rgba(10, 12, 18, 0.08) 90%,
+            rgba(10, 12, 18, 0) 100%
+          );
+        }
+
+        /* ── BOTTOM fade ── */
+        .fade-bottom {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 45%;
+          z-index: 2;
+          pointer-events: none;
+          background: linear-gradient(
+            to top,
+            #0a0c12 0%,
+            rgba(10, 12, 18, 0.85) 20%,
+            rgba(10, 12, 18, 0.5) 40%,
+            rgba(10, 12, 18, 0.15) 60%,
+            transparent 80%
+          );
+        }
+
+        /* ── TOP fade ── */
+        .fade-top {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 25%;
+          z-index: 2;
+          pointer-events: none;
+          background: linear-gradient(
+            to bottom,
+            rgba(10, 12, 18, 0.7) 0%,
+            rgba(10, 12, 18, 0.3) 30%,
+            transparent 70%
+          );
+        }
+
+        /* Content */
         .hero-content-wrap {
           position: relative;
-          z-index: 1;
+          z-index: 3;
           display: flex;
           align-items: flex-end;
           min-height: 70vh;
-          padding-left: calc(var(--sidebar-w, 105px) + var(--page-px, clamp(20px, 4vw, 72px)));
-          padding-right: var(--page-px, clamp(20px, 4vw, 72px));
+          padding-left: calc(var(--sidebar-w, 105px) + clamp(20px, 4vw, 72px));
+          padding-right: clamp(20px, 4vw, 72px);
         }
 
         .hero-content {
           width: 100%;
+          max-width: 480px;
           text-align: left;
           padding-bottom: 64px;
         }
 
-        /* --page-px sudah pakai clamp(20px, 4vw, 72px), otomatis responsive */
+        @media (max-width: 1024px) {
+          .fade-left {
+            background: linear-gradient(
+              to right,
+              #0a0c12 0%,
+              #0a0c12 30%,
+              rgba(10, 12, 18, 0.85) 50%,
+              rgba(10, 12, 18, 0) 100%
+            );
+          }
+        }
+
+        @media (max-width: 768px) {
+          .fade-left {
+            background: linear-gradient(
+              to right,
+              #0a0c12 0%,
+              #0a0c12 25%,
+              rgba(10, 12, 18, 0.7) 50%,
+              rgba(10, 12, 18, 0) 100%
+            );
+          }
+          .fade-right {
+            width: 25%;
+          }
+          .hero-content {
+            max-width: 100%;
+          }
+        }
       `}</style>
     </section>
   );

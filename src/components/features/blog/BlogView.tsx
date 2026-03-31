@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import Footer from "@/components/shared/Footer";
 import { blogData } from "@/data/blogData";
 import BlogCard from "./BlogCard";
@@ -29,12 +30,16 @@ export default function BlogView() {
   return (
     <>
       <Header />
-      <main className="main-container container-fluid d-flex align-items-start pt-sm-20 pt-15 pb-20 px-0 position-relative" style={{ overflow: "visible" }}>
+      <main className="main-container container-fluid d-flex align-items-start pt-sm-16 pt-12 pb-20 px-0 position-relative" style={{ overflow: "visible" }}>
         <Sidebar />
         <article className="main-content mt-lg-10 blog-root">
           <section className="pb-120">
             <div className="container-fluid px-lg-15 px-md-10 px-6">
               
+              <div className="mb-10">
+                <Breadcrumbs />
+              </div>
+
               {/* HERO SECTION */}
               <div className="blog-hero text-center mb-16">
                 <motion.div
