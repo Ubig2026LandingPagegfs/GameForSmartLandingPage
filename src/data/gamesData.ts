@@ -92,7 +92,8 @@ export const gamesData = [
             "/assets/img/NitroQuiz/photo_2026-03-26_20-10-04.jpg",
             "/assets/img/NitroQuiz/photo_2026-03-26_20-10-07.jpg",
             "/assets/img/NitroQuiz/photo_2026-03-26_20-10-08.jpg"
-        ]
+        ],
+        logo: "/assets/logo/logonitroquiz.png"
     },
     { 
         id: 6, 
@@ -112,13 +113,13 @@ export const gamesData = [
         videoUrl: "https://youtu.be/mUln-7dZvWI?si=sM1KoQ-hLEcL81Pi",
         description: "Susun strategimu dan taklukkan lawan di Axiom.",
         screenshots: [
-            "/assets/img/Axiom/photo_2026-03-26_20-04-21.jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-04 (2).jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-05.jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (2).jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (3).jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-06.jpg"
-        ]
+            "/assets/img/Axiom/photo_2026-03-30_14-32-19.jpg",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20.jpg",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (2).jpg",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (3).jpg",
+            "/assets/img/Axiom/photo_2026-03-30_21-57-45.jpg"
+        ],
+        logo: "/assets/logo/logoaxiom.png"
     },
     { 
         id: 7, 
@@ -137,11 +138,12 @@ export const gamesData = [
         playUrl: "https://zigma.gameforsmart.com",
         description: "Bertahan hidup dan kalahkan musuh di dunia Zigma.",
         screenshots: [
-            "/assets/img/Zigma/photo_2026-03-27_11-01-05.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-06.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-10.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-12.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-17.jpg"
-        ]
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56.jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56 (2).jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-35.jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-38.jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-52.jpg"
+        ],
+        logo: "/assets/logo/logozigma.png"
     }
 ];

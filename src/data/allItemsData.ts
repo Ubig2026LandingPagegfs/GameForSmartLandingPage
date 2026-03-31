@@ -202,7 +202,8 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         features: [
             { icon: "ti ti-bolt", title: "Kecepatan Menjawab", description: "Waktu sangat berharga, jawab secepatnya." },
             { icon: "ti ti-trophy", title: "Leaderboard", description: "Raih skor tertinggi." }
-        ]
+        ],
+        logo: "/assets/logo/logonitroquiz.png"
     },
     {
         id: 6,
@@ -224,12 +225,11 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
         playUrl: "https://axiom.gameforsmart.com",
         screenshots: [
-            "/assets/img/Axiom/photo_2026-03-26_20-04-21.jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-04 (2).jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-05.jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (2).jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-05 (3).jpg",
-            "/assets/img/Axiom/photo_2026-03-26_20-10-06.jpg"
+            "/assets/img/Axiom/photo_2026-03-30_14-32-19.jpg",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20.jpg",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (2).jpg",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (3).jpg",
+            "/assets/img/Axiom/photo_2026-03-30_21-57-45.jpg"
         ],
         features: [
             { icon: "ti ti-chess", title: "Tantangan Strategi", description: "Pikirkan beberapa langkah ke depan." },
@@ -254,16 +254,17 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         rules: ["Bertahan hidup selama mungkin.", "Kalahkan target yang datang."],
         playUrl: "https://zigma.gameforsmart.com",
         screenshots: [
-            "/assets/img/Zigma/photo_2026-03-27_11-01-05.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-06.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-10.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-12.jpg",
-            "/assets/img/Zigma/photo_2026-03-27_11-01-17.jpg"
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56.jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56 (2).jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-35.jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-38.jpg",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-52.jpg"
         ],
         features: [
             { icon: "ti ti-swords", title: "Aksi Tanpa Henti", description: "Hadapi berbagai musuh." },
             { icon: "ti ti-shield", title: "Survival", description: "Daya tahan adalah kunci utama." }
-        ]
+        ],
+        logo: "/assets/logo/logozigma.png"
     },
     // Tournaments
     {
