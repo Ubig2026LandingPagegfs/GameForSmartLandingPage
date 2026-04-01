@@ -101,6 +101,7 @@ export default function Header() {
             {/* ── Logo & Sidebar Toggle ── */}
             <div className={`top-bar alt d-flex align-items-center gap-4 ${isMobileSearchOpen ? "d-none d-lg-flex" : ""}`}>
               <button
+                suppressHydrationWarning
                 className={`sidebar-toggle-btn responsive-toggle d-lg-none d-block ${sidebarOpen ? "open" : ""}`}
                 type="button"
                 aria-label="Toggle sidebar"
@@ -127,6 +128,7 @@ export default function Header() {
                   <div className="input-area d-flex align-items-center gap-2 w-100">
                     {isMobileSearchOpen ? (
                       <button
+                        suppressHydrationWarning
                         type="button"
                         onClick={() => setIsMobileSearchOpen(false)}
                         className="bg-transparent border-0 text-white d-lg-none d-flex align-items-center justify-content-center p-0"

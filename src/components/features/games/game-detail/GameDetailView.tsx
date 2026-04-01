@@ -27,8 +27,19 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const [activeScreenshot, setActiveScreenshot] = useState(0);
 
+    const getYoutubeId = (url: string) => {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    };
+
+    const videoId = game.videoUrl ? getYoutubeId(game.videoUrl) : null;
+    const videoThumb = videoId 
+        ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+        : (game.screenshots?.[0] || game.image);
+
     const allMedia = [
-        ...(game.videoUrl ? [{ type: 'video' as const, src: game.image }] : []),
+        ...(game.videoUrl ? [{ type: 'video' as const, src: videoThumb }] : []),
         ...(game.screenshots?.map(s => ({ type: 'image' as const, src: s })) || []),
     ];
 
