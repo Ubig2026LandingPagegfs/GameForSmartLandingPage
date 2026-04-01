@@ -17,6 +17,7 @@ import GameFeatures from '@/components/features/games/game-detail/GameFeatures';
 import GameRating   from '@/components/features/games/game-detail/GameRating';
 import GameSidebar  from '@/components/features/games/game-detail/GameSidebar';
 import VideoModal   from '@/components/features/games/game-detail/VideoModal';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 import Footer from '@/components/shared/Footer';
 
 interface GameDetailViewProps {
@@ -43,6 +44,11 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
         ...(game.screenshots?.map(s => ({ type: 'image' as const, src: s })) || []),
     ];
 
+    const customCrumbs = [
+        { href: '/games', label: 'Games', isLast: false },
+        { href: `/games/${game.slug}`, label: game.title, isLast: true }
+    ];
+
     return (
         <>
             <Header />
@@ -64,6 +70,9 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
             <main className="page-main">
                 <Sidebar />
                 <article className="page-article">
+                    <div className="breadcrumb-wrapper px-lg-18 px-md-10 px-6 mb-4">
+                        <Breadcrumbs customCrumbs={customCrumbs} />
+                    </div>
                     <div className="page-body">
 
                         {/* ── Konten Utama ── */}

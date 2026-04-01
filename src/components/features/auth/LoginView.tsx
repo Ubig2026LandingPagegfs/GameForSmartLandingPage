@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 
 export default function LoginView() {
   const router = useRouter();
@@ -57,10 +58,13 @@ export default function LoginView() {
           <img 
             src="/images/gameforsmartlogo.webp" 
             alt="GameForSmart Logo" 
-            className="login-header-logo"
+            className="login-header-logo mb-4"
             style={{ width: "240px", height: "auto" }}
           />
         </Link>
+        <div className="login-breadcrumbs">
+          <Breadcrumbs />
+        </div>
       </div>
 
       {/* Main Content */}

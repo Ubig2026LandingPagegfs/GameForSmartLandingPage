@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,6 +66,9 @@ export default function ProfilePage() {
         <Sidebar />
         <article className="main-content mt-10">
           <div className="profile-page-wrapper">
+            <div className="mb-6">
+              <Breadcrumbs />
+            </div>
             {/* ── Page Header ── */}
             <div className="prof-page-header">
               <div>

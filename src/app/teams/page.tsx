@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import TeamCard from "@/components/features/teams/TeamCard";
 import Footer from "@/components/shared/Footer";
 
@@ -157,8 +158,12 @@ export default function TeamsPage() {
       >
         <Sidebar />
         <article className="main-content mt-lg-10 mt-6">
-          <section className="teams-section">
-            <div className="container-fluid">
+          <div className="container-fluid px-lg-15 px-md-10 px-6">
+            <div className="mb-10">
+              <Breadcrumbs />
+            </div>
+            
+            <section className="teams-section">
               <div className="row mb-lg-15 mb-sm-10 mb-4 pb-lg-10 pb-sm-6">
                 <div className="col-12 mb-lg-15 mb-sm-10 mb-4">
                   <h2 className="display-four tcn-1 cursor-scale growUp title-anim">
@@ -175,11 +180,9 @@ export default function TeamsPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section className="teams-card-section pb-120">
-            <div className="container-fluid">
+            <section className="teams-card-section pb-120">
               <div className="row">
                 <div className="col-12 mb-lg-15 mb-10">
                   <h2 className="display-four tcn-1 cursor-scale growUp title-anim">
@@ -199,8 +202,8 @@ export default function TeamsPage() {
                   View More
                 </button>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </article>
       </main>
       <Footer />

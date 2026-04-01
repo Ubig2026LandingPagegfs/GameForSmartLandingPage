@@ -24,6 +24,10 @@ export default function Breadcrumbs({ customCrumbs }: BreadcrumbsProps) {
         // Manual mapping for consistency
         if (label === 'Competition') label = 'Competitions';
         if (label === 'Game') label = 'Games';
+        if (label === 'Faq') label = 'FAQ';
+        if (label === 'Terms condition') label = 'Terms & Conditions';
+        if (label === 'Blog') label = 'Blog';
+        if (label.includes('[...slug]')) label = 'Detail'; 
 
         const isLast = index === pathSegments.length - 1;
 

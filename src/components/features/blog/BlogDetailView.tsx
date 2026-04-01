@@ -6,6 +6,7 @@ import Sidebar from "@/components/shared/Sidebar";
 import Footer from "@/components/shared/Footer";
 import { BlogPost, blogData } from "@/data/blogData";
 import BlogCard from "./BlogCard";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 
 interface BlogDetailViewProps {
   post: BlogPost;
@@ -46,6 +47,11 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
     }
   };
 
+  const customCrumbs = [
+    { href: "/blog", label: "Blog", isLast: false },
+    { href: `/blog/${post.slug}`, label: post.title, isLast: true },
+  ];
+
   return (
     <>
       <Header />
@@ -57,6 +63,9 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
         <article className="main-content mt-lg-10 blog-detail-root">
           <section className="pb-120">
             <div className="container-fluid px-lg-15 px-md-10 px-6">
+              <div className="mb-8">
+                <Breadcrumbs customCrumbs={customCrumbs} />
+              </div>
               <div className="row g-10">
                 
                 {/* ── LEFT: Main Article Column ── */}

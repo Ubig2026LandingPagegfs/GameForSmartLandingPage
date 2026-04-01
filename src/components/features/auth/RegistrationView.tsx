@@ -1,9 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MathCaptcha from "@/components/shared/MathCaptcha";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
+import { supabase } from "@/lib/supabase";
 
 interface RegistrationViewProps {
   competitionTitle: string;
@@ -19,6 +21,52 @@ export default function RegistrationView({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [captchaOk, setCaptchaOk] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+
+  // Form State
+  const [formData, setFormData] = useState({
+    fullName: "",
+    institution: "",
+    email: "",
+    phone: "",
+  });
+
+  const customCrumbs = [
+    { href: "/competitions", label: "Competitions", isLast: false },
+    { href: `/competitions/${competitionSlug}`, label: competitionTitle, isLast: false },
+    { href: "#", label: "Register", isLast: true },
+  ];
+
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get("token");
+    
+    if (token) {
+      setIsVerifying(true);
+      // Verifikasi token ke Supabase
+      supabase.auth.getUser(token).then(({ data, error }) => {
+        if (data?.user) {
+          console.log("User terverifikasi:", data.user);
+          // Pre-fill form (Mapping asumsikan metadata profil)
+          setFormData(prev => ({
+            ...prev,
+            fullName: data.user.user_metadata?.full_name || data.user.user_metadata?.name || "",
+            email: data.user.email || "",
+          }));
+        } else if (error) {
+          console.error("Gagal verifikasi token:", error.message);
+        }
+        setIsVerifying(false);
+      });
+      
+      // Bersihkan token dari URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +118,9 @@ export default function RegistrationView({
   return (
     <div className="registration-view py-lg-12 py-8 px-sm-6 px-4">
       <div className="container-fluid max-w-3xl mx-auto">
+        <div className="mb-4">
+          <Breadcrumbs customCrumbs={customCrumbs} />
+        </div>
         {/* Back Button */}
         <div className="mb-8">
           <Button
@@ -92,9 +143,16 @@ export default function RegistrationView({
           <h2 className="display-five tcn-1 fw-bold mb-3">
             Formulir Pendaftaran
           </h2>
-          <p className="tcn-6 fs-five">
-            <span className="tcp-1 fw-bold">{competitionTitle}</span>
-          </p>
+          {isVerifying ? (
+            <div className="d-flex align-items-center justify-content-center gap-2 tcn-6 fs-five">
+              <i className="ti ti-loader animate-spin tcp-1"></i>
+              <span>Memverifikasi data Anda...</span>
+            </div>
+          ) : (
+            <p className="tcn-6 fs-five">
+              <span className="tcp-1 fw-bold">{competitionTitle}</span>
+            </p>
+          )}
         </div>
 
         <div className="registration-card bgn-4 p-md-8 p-6 rounded-4 border border-secondary border-opacity-10 shadow-lg position-relative overflow-hidden">
@@ -119,6 +177,9 @@ export default function RegistrationView({
                   </label>
                   <Input
                     type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
                     className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
                     placeholder="Masukkan nama lengkap"
                     required
@@ -130,6 +191,9 @@ export default function RegistrationView({
                   </label>
                   <Input
                     type="text"
+                    name="institution"
+                    value={formData.institution}
+                    onChange={handleChange}
                     className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
                     placeholder="Nama instansi"
                     required
@@ -152,6 +216,9 @@ export default function RegistrationView({
                   </label>
                   <Input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
                     placeholder="contoh@email.com"
                     required
@@ -163,6 +230,9 @@ export default function RegistrationView({
                   </label>
                   <Input
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
                     placeholder="08xx xxxx xxxx"
                     required

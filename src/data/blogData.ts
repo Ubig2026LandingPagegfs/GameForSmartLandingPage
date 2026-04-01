@@ -30,7 +30,7 @@ export const blogData: BlogPost[] = [
       <h2>3. Kebutuhan Akan 'Soft-Skills'</h2>
       <p>Di tengah dominasi mesin, kemampuan manusia dalam berkomunikasi, bernegosiasi, dan kepemimpinan justru menjadi aset yang paling berharga. Perusahaan kini lebih menghargai kecerdasan emosional (EQ) daripada sekadar kemampuan teknis yang dapat dipelajari oleh algoritma.</p>
     `,
-    image: "/assets/img/blog/blog1.png",
+    image: "/assets/img/blog/blog1.webp",
     slug: "teknologi-masa-depan-kerja"
   },
   {
@@ -52,7 +52,7 @@ export const blogData: BlogPost[] = [
       <h2>Aksesibilitas Global</h2>
       <p>Teknologi memungkinkan seorang anak di desa terpencil untuk mengakses materi pembelajaran yang sama dengan mereka yang berada di kota besar. Demokratisasi informasi adalah kunci utama dari Smart Learning di dekade ini.</p>
     `,
-    image: "/assets/img/blog/blog2.png",
+    image: "/assets/img/blog/blog2.webp",
     slug: "tren-smart-learning-ai"
   },
   {
@@ -74,7 +74,7 @@ export const blogData: BlogPost[] = [
       <h2>Komunikasi Tim yang Efektif</h2>
       <p>Di arena kompetitif, satu kesalahan komunikasi dapat berakibat fatal. Tim pemenang memiliki protokol komunikasi yang singkat, padat, dan jelas. Kepercayaan antar rekan setim adalah pondasi dari setiap kemenangan besar.</p>
     `,
-    image: "/assets/img/blog/blog3.png",
+    image: "/assets/img/blog/blog3.webp",
     slug: "strategi-menang-esports"
   },
   {
@@ -93,7 +93,7 @@ export const blogData: BlogPost[] = [
       <h2>Melatih Kesabaran dan Ketekunan</h2>
       <p>Dalam game, anak akan mengalami kegagalan berulang kali sebelum berhasil melewati level tertentu. Proses ini secara tidak langsung mengajarkan mereka untuk tidak mudah menyerah dan terus mencoba hingga berhasil.</p>
     `,
-    image: "/assets/img/blog/blog2.png",
+    image: "/assets/img/blog/blog2.webp",
     slug: "fokus-anak-game-edukasi"
   },
   {
@@ -112,7 +112,7 @@ export const blogData: BlogPost[] = [
       <h2>Audio yang Menenangkan</h2>
       <p>Meskipun menantang, Axiom dibalut dengan musik latar yang meditatif. Ini membantu pemain tetap tenang saat mencoba memecahkan teka-teki yang paling sulit sekalipun.</p>
     `,
-    image: "/assets/img/blog/blog1.png",
+    image: "/assets/img/blog/blog1.webp",
     slug: "review-axiom-puzzle"
   },
   {
@@ -131,7 +131,7 @@ export const blogData: BlogPost[] = [
       <h2>Mulai dari Proyek Kecil</h2>
       <p>Jangan mencoba membuat game AAA dalam satu malam. Mulailah dengan membuat prototipe sederhana. Game jam adalah tempat yang sempurna untuk melatih kecepatan kerja dan kolaborasi tim Anda.</p>
     `,
-    image: "/assets/img/blog/blog3.png",
+    image: "/assets/img/blog/blog3.webp",
     slug: "karier-game-development"
   }
 ];

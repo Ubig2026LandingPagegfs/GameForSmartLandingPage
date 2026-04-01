@@ -1,5 +1,6 @@
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import Footer from "@/components/shared/Footer";
 
 export const metadata = {
@@ -57,7 +58,10 @@ export default function FAQPage() {
         <Sidebar />
         <article className="main-content mt-lg-10 mt-6">
           <section className="faq-section pb-120">
-            <div className="container-fluid">
+            <div className="container-fluid px-lg-15 px-md-10 px-6">
+              <div className="mb-10">
+                <Breadcrumbs />
+              </div>
               <div className="row">
                 <div className="col-12 mb-lg-15 mb-10">
                   <h2 className="display-four tcn-1 cursor-scale growUp title-anim">
