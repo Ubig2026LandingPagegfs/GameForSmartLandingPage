@@ -134,7 +134,7 @@ export default function GameGallery({ media, activeIndex, onSelect, onOpenVideo 
                                 className={`swiper-slide gps-gallery-item${activeIndex === idx ? ' active' : ''}`}
                                 onClick={() => handleItemClick(item, idx)}
                             >
-                                <img src={item.src} alt={`Screenshot ${idx + 1}`} draggable={false} />
+                                <img src={encodeURI(item.src)} alt={`Screenshot ${idx + 1}`} draggable={false} />
                                 <div className="gps-item-hover">
                                     {item.type === "video" ? (
                                         <div className="gps-play-btn">
@@ -185,7 +185,7 @@ export default function GameGallery({ media, activeIndex, onSelect, onOpenVideo 
                             {media.map((item, idx) => (
                                 <div key={idx} className="swiper-slide d-center">
                                     <div className="gps-lb-img-wrap">
-                                        <img src={item.src} alt={`Screenshot ${idx + 1}`} className="gps-lb-img" />
+                                        <img src={encodeURI(item.src)} alt={`Screenshot ${idx + 1}`} className="gps-lb-img" />
                                     </div>
                                 </div>
                             ))}

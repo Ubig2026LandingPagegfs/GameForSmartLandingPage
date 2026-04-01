@@ -37,6 +37,7 @@ export default function CompetitionHeroContent({
 
         <div className="gps-actions-row">
           <button
+            suppressHydrationWarning
             onClick={() => {
               if (!isLoggedIn) {
                 const returnUrl = `https://gameforsmart.com/competitions/${slug}/register`;

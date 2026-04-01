@@ -229,6 +229,7 @@ export default function TournamentSection() {
                           <div>
                             <div className="flex flex-wrap gap-3 mb-5">
                               <button
+                                suppressHydrationWarning
                                 onClick={() => {
                                   if (!isLoggedIn) {
                                     const returnUrl = `https://gameforsmart.com/competitions/${tournament.slug}/register`;

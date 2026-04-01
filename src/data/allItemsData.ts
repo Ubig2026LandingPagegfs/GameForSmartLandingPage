@@ -60,7 +60,12 @@ Tersedia berbagai mode game mulai dari Time Trial untuk melatih kecepatan, hingg
         ],
         videoUrl: "https://www.youtube.com/embed/AJm-cwt0Ba8?si=jj2jNgwrt3vnggRo",
         playUrl: "https://crazyrace.gameforsmart.com",
-        screenshots: ["/images/crazyrace.webp", "/images/spacequiz.webp", "/assets/img/game-1.png"],
+        screenshots: [
+            "/assets/img/CrazyRace/1.webp",
+            "/assets/img/CrazyRace/2.webp",
+            "/assets/img/CrazyRace/3.webp",
+            "/assets/img/CrazyRace/4.webp"
+        ],
         features: [
             { icon: "ti ti-steering-wheel", title: "Kontrol Presisi Tinggi", description: "Rasakan pengalaman berkendara responsif dengan sistem kontrol yang dioptimalkan untuk kecepatan." },
             { icon: "ti ti-road", title: "Lintasan Menantang", description: "Jelajahi berbagai lintasan dengan tingkat kesulitan yang meningkat dan rintangan unik." },
@@ -90,9 +95,11 @@ Tersedia berbagai mode game mulai dari Time Trial untuk melatih kecepatan, hingg
         ],
         videoUrl: "https://www.youtube.com/embed/AJm-cwt0Ba8?si=jj2jNgwrt3vnggRo",
         screenshots: [
-            "/images/quizrush.webp",
-            "/images/spacequiz.webp",
-            "/images/memoryquiz.webp"
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25.webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (2).webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (3).webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (4).webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (5).webp"
         ],
         features: [
             { icon: "ti ti-biohazard", title: "Zombie Escape 60 Detik", description: "Jawab cepat atau tertangkap! Selesaikan tantangan dalam waktu terbatas." },
@@ -194,10 +201,10 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         rules: ["Jawab pertanyaan secepat mungkin.", "Pemain dengan skor tertinggi menang."],
         playUrl: "https://nitroquiz.gameforsmart.com",
         screenshots: [
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-04-21.jpg",
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-04.jpg",
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-07.jpg",
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-08.jpg"
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-49-07.webp",
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-57-18.webp",
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-57-18 (2).webp",
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-57-18 (3).webp"
         ],
         features: [
             { icon: "ti ti-bolt", title: "Kecepatan Menjawab", description: "Waktu sangat berharga, jawab secepatnya." },
@@ -225,11 +232,11 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         rules: ["Kembangkan strategi bermainmu.", "Hindari kesalahan untuk menang."],
         playUrl: "https://axiom.gameforsmart.com",
         screenshots: [
-            "/assets/img/Axiom/photo_2026-03-30_14-32-19.jpg",
-            "/assets/img/Axiom/photo_2026-03-30_14-32-20.jpg",
-            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (2).jpg",
-            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (3).jpg",
-            "/assets/img/Axiom/photo_2026-03-30_21-57-45.jpg"
+            "/assets/img/Axiom/photo_2026-03-30_14-32-19.webp",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20.webp",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (2).webp",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (3).webp",
+            "/assets/img/Axiom/photo_2026-03-30_21-57-45.webp"
         ],
         features: [
             { icon: "ti ti-chess", title: "Tantangan Strategi", description: "Pikirkan beberapa langkah ke depan." },
@@ -254,11 +261,11 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
         rules: ["Bertahan hidup selama mungkin.", "Kalahkan target yang datang."],
         playUrl: "https://zigma.gameforsmart.com",
         screenshots: [
-            "/assets/img/Zigma/photo_2026-03-30_15-48-56.jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-48-56 (2).jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-49-35.jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-49-38.jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-49-52.jpg"
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56.webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56 (2).webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-35.webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-38.webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-52.webp"
         ],
         features: [
             { icon: "ti ti-swords", title: "Aksi Tanpa Henti", description: "Hadapi berbagai musuh." },

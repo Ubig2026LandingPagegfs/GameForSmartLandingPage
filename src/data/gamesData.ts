@@ -15,7 +15,12 @@ export const gamesData = [
         href: "/games/1", 
         playUrl: "https://crazyrace.gameforsmart.com",
         description: "Rasakan adrenalin balap mobil dengan kecepatan tinggi dan lintasan menantang.",
-        screenshots: ["/images/crazyrace.webp", "/images/spacequiz.webp", "/assets/img/game-1.png"]
+        screenshots: [
+            "/assets/img/CrazyRace/1.webp",
+            "/assets/img/CrazyRace/2.webp",
+            "/assets/img/CrazyRace/3.webp",
+            "/assets/img/CrazyRace/4.webp"
+        ]
     },
     { 
         id: 2, 
@@ -33,7 +38,13 @@ export const gamesData = [
         href: "/games/2", 
         playUrl: "https://quizrush.gameforsmart.com",
         description: "Uji kecepatan respon dan tangkasnya tanganmu dalam tantangan aksi yang seru.",
-        screenshots: ["/images/quizrush.webp", "/images/memoryquiz.webp", "/assets/img/game-2.png"]
+        screenshots: [
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25.webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (2).webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (3).webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (4).webp",
+            "/assets/img/QuizRush/photo_2026-03-31_16-17-25 (5).webp"
+        ]
     },
     { 
         id: 3, 
@@ -88,10 +99,10 @@ export const gamesData = [
         playUrl: "https://nitroquiz.gameforsmart.com",
         description: "Tantang pengetahuanmu dengan cepat di NitroQuiz.",
         screenshots: [
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-04-21.jpg",
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-04.jpg",
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-07.jpg",
-            "/assets/img/NitroQuiz/photo_2026-03-26_20-10-08.jpg"
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-49-07.webp",
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-57-18.webp",
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-57-18 (2).webp",
+            "/assets/img/NitroQuiz/photo_2026-03-31_18-57-18 (3).webp"
         ],
         logo: "/assets/logo/logonitroquiz.png"
     },
@@ -113,11 +124,11 @@ export const gamesData = [
         videoUrl: "https://youtu.be/mUln-7dZvWI?si=sM1KoQ-hLEcL81Pi",
         description: "Susun strategimu dan taklukkan lawan di Axiom.",
         screenshots: [
-            "/assets/img/Axiom/photo_2026-03-30_14-32-19.jpg",
-            "/assets/img/Axiom/photo_2026-03-30_14-32-20.jpg",
-            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (2).jpg",
-            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (3).jpg",
-            "/assets/img/Axiom/photo_2026-03-30_21-57-45.jpg"
+            "/assets/img/Axiom/photo_2026-03-30_14-32-19.webp",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20.webp",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (2).webp",
+            "/assets/img/Axiom/photo_2026-03-30_14-32-20 (3).webp",
+            "/assets/img/Axiom/photo_2026-03-30_21-57-45.webp"
         ],
         logo: "/assets/logo/logoaxiom.png"
     },
@@ -138,11 +149,11 @@ export const gamesData = [
         playUrl: "https://zigma.gameforsmart.com",
         description: "Bertahan hidup dan kalahkan musuh di dunia Zigma.",
         screenshots: [
-            "/assets/img/Zigma/photo_2026-03-30_15-48-56.jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-48-56 (2).jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-49-35.jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-49-38.jpg",
-            "/assets/img/Zigma/photo_2026-03-30_15-49-52.jpg"
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56.webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-48-56 (2).webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-35.webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-38.webp",
+            "/assets/img/Zigma/photo_2026-03-30_15-49-52.webp"
         ],
         logo: "/assets/logo/logozigma.png"
     }
