@@ -20,6 +20,7 @@ export default function ContactView() {
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState<string | null>(null);
   const [captchaOk, setCaptchaOk] = useState(false);
+  const [resetCaptcha, setResetCaptcha] = useState(0);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -37,6 +38,7 @@ export default function ContactView() {
       setTimeout(() => {
         setSubmitted(false);
         setFormData({ name: "", email: "", subject: "", message: "" });
+        setResetCaptcha(prev => prev + 1);
       }, 3000);
     }, 1500);
   };
@@ -498,7 +500,7 @@ export default function ContactView() {
 
                       {/* CAPTCHA */}
                       <div className="col-12 mt-2">
-                        <MathCaptcha onVerify={setCaptchaOk} />
+                        <MathCaptcha onVerify={setCaptchaOk} resetKey={resetCaptcha} />
                       </div>
 
                       <button

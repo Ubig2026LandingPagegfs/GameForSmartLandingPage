@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 interface MathCaptchaProps {
   onVerify: (verified: boolean) => void;
   className?: string;
+  resetKey?: number;
 }
 
 function generateQuestion() {
@@ -29,7 +30,7 @@ function generateQuestion() {
   return { question: `${a} ${op} ${b}`, answer };
 }
 
-export default function MathCaptcha({ onVerify, className = "" }: MathCaptchaProps) {
+export default function MathCaptcha({ onVerify, className = "", resetKey = 0 }: MathCaptchaProps) {
   const [mounted, setMounted] = useState(false);
   const [qData, setQData] = useState<ReturnType<typeof generateQuestion> | null>(null);
   const [input, setInput] = useState("");
@@ -46,6 +47,12 @@ export default function MathCaptcha({ onVerify, className = "" }: MathCaptchaPro
     setStatus("idle");
     onVerify(false);
   }, [onVerify]);
+
+  useEffect(() => {
+    if (resetKey > 0) {
+      refresh();
+    }
+  }, [resetKey, refresh]);
 
   const check = (val: string) => {
     if (!qData) return;

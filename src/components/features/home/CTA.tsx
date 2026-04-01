@@ -11,6 +11,7 @@ export default function CTA() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [captchaOk, setCaptchaOk] = useState(false);
+  const [resetCaptcha, setResetCaptcha] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ export default function CTA() {
       setTimeout(() => {
         setIsSuccess(false);
         setEmail("");
+        setResetCaptcha(prev => prev + 1);
       }, 3000);
     }, 1500);
   };
@@ -70,7 +72,7 @@ export default function CTA() {
               </div>
               
               {/* CAPTCHA */}
-              <MathCaptcha onVerify={setCaptchaOk} className="mb-2" />
+              <MathCaptcha onVerify={setCaptchaOk} className="mb-2" resetKey={resetCaptcha} />
               
               <Button
                 type="submit"
