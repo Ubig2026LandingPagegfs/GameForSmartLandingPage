@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 
@@ -11,10 +12,12 @@ export default function UserAccountPopup({
   onClose?: () => void;
 }) {
   const { logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = () => {
     logout();
     if (onClose) onClose();
+    router.push("/login");
   };
 
   return (
