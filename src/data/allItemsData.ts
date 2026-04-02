@@ -393,7 +393,7 @@ Semakin tinggi level, semakin banyak kartu yang perlu diingat, semakin singkat w
     {
         id: 21,
         type: "tournament",
-        title: "Lomba Cerdas Cermat – Malangraya",
+        title: "Lomba Cerdas Cermat – Malang Raya",
         subtitle: "Edisi Khusus Jawa Timur",
         image: "/assets/Poster/malangraya.webp",
         prizeMoney: "Rp 5.000.000",
