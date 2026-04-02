@@ -1,0 +1,92 @@
+[
+  {
+    "id": 21,
+    "type": "Educational",
+    "title": "Lomba Cerdas Cermat – Malang Raya",
+    "subtitle": "Edisi Khusus Jawa Timur",
+    "image": "/images/competitions/malangraya.webp",
+    "prizeMoney": "Rp 5.000.000",
+    "ticketFee": "Rp 25.000",
+    "date": "April – Mei",
+    "teams": "100 Player",
+    "players": "100",
+    "platform": "Web",
+    "rating": "5.0",
+    "genre": "Educational",
+    "description": "Kompetisi Cerdas Cermat tingkat Malang Raya bagi siswa SD hingga SMK.",
+    "status": "Upcoming",
+    "slug": "malang-raya",
+    "href": "/competitions/malang-raya",
+    "finalRound": "Juni",
+    "rules": [
+      "Terbuka untuk siswa SD, SMP, SMA Sederajat.",
+      "Pendaftaran melalui website resmi Gameforsmart.com.",
+      "Keputusan panitia bersifat mutlak."
+    ],
+    "prizes": [
+      { "place": "JUARA 1", "amount": "Rp 2.500.000", "reward": "Trofi Eksklusif & Sertifikat Nasional Gold" },
+      { "place": "JUARA 2", "amount": "Rp 1.500.000", "reward": "Medali Perak & Sertifikat Nasional Silver" },
+      { "place": "JUARA 3", "amount": "Rp 1.000.000", "reward": "Medali Perunggu & Sertifikat Nasional Bronze" }
+    ]
+  },
+  {
+    "id": 22,
+    "type": "Provincial",
+    "title": "Lomba Cerdas Cermat – Jawa Timur",
+    "subtitle": "Tingkat Provinsi",
+    "image": "/images/competitions/jawatimur.webp",
+    "prizeMoney": "Rp 10.000.000",
+    "ticketFee": "Rp 25.000",
+    "date": "Juli-juli",
+    "teams": "100 Player",
+    "players": "100",
+    "platform": "Web",
+    "rating": "5.0",
+    "genre": "Educational",
+    "description": "Kompetisi Cerdas Cermat tingkat Jawa Timur yang mempertemukan sekolah-sekolah terbaik antar wilayah.",
+    "status": "Upcoming",
+    "slug": "jawa-timur",
+    "href": "/competitions/jawa-timur",
+    "finalRound": "Agustus",
+    "rules": [
+      "Terbuka untuk seluruh sekolah di wilayah Jawa Timur.",
+      "Setiap sekolah dapat mengirimkan lebih dari satu wakil.",
+      "Wajib mengikuti seleksi babak penyisihan."
+    ],
+    "prizes": [
+      { "place": "JUARA 1", "amount": "Rp 5.000.000", "reward": "Trofi Eksklusif & Sertifikat Nasional Gold" },
+      { "place": "JUARA 2", "amount": "Rp 3.000.000", "reward": "Medali Perak & Sertifikat Nasional Silver" },
+      { "place": "JUARA 3", "amount": "Rp 2.000.000", "reward": "Medali Perunggu & Sertifikat Nasional Bronze" }
+    ]
+  },
+  {
+    "id": 23,
+    "type": "National",
+    "title": "Lomba Cerdas Cermat – Nasional",
+    "subtitle": "Kejuaraan Indonesia Bersinar",
+    "image": "/images/competitions/nasional.webp",
+    "prizeMoney": "Rp 20.000.000",
+    "ticketFee": "Rp 50.000",
+    "date": "Agustus – September",
+    "teams": "200 Player",
+    "players": "100",
+    "platform": "Web",
+    "rating": "5.0",
+    "genre": "Educational",
+    "description": "Kompetisi prestisius tingkat Nasional yang menghadirkan elite pelajar terbaik dari seluruh Indonesia.",
+    "status": "Upcoming",
+    "slug": "nasional",
+    "href": "/competitions/nasional",
+    "finalRound": "Oktober",
+    "rules": [
+      "Kompetisi skala Nasional dengan pengawasan ketat.",
+      "Hadiah utama untuk pemenang terbaik.",
+      "Dokumentasi resmi akan disiarkan secara online."
+    ],
+    "prizes": [
+      { "place": "JUARA 1", "amount": "Rp 10.000.000", "reward": "Trofi Eksklusif & Sertifikat Nasional Gold" },
+      { "place": "JUARA 2", "amount": "Rp 5.000.000", "reward": "Medali Perak & Sertifikat Nasional Silver" },
+      { "place": "JUARA 3", "amount": "Rp 2.500.000", "reward": "Medali Perunggu & Sertifikat Nasional Bronze" }
+    ]
+  }
+]

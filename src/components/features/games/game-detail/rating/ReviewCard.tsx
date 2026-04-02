@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 import RatingStars from "./RatingStars";
-import { Review } from "@/data/rating";
+import { Review } from "@/data/types";
 
 interface ReviewCardProps {
     review: Review;

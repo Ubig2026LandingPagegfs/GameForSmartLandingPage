@@ -3,8 +3,12 @@ import { useSearch } from "@/context/SearchContext";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { gamesData } from "@/data/gamesData";
-import { tournamentsData } from "@/data/tournamentsData";
+import gamesDataRaw from "@/data/games.json";
+import competitionsDataRaw from "@/data/competitions.json";
+import { TournamentInfo } from "@/data/types";
+
+const gamesData = gamesDataRaw as TournamentInfo[];
+const tournamentsData = competitionsDataRaw as TournamentInfo[];
 import UserAccountPopup from "@/components/features/auth/UserAccountPopup";
 import NotificationArea from "@/components/shared/NotificationArea";
 import { useAuth } from "@/context/AuthContext";

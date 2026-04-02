@@ -8,7 +8,10 @@ import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import TournamentCard from "@/components/features/tournaments/TournamentCard";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
-import { tournamentsData } from "@/data/tournamentsData";
+import competitionsRaw from "@/data/competitions.json";
+import { TournamentInfo } from "@/data/types";
+
+const tournamentsData = competitionsRaw as TournamentInfo[];
 
 const FILTER_TABS = ["All", "Active", "Upcoming", "Finished"];
 

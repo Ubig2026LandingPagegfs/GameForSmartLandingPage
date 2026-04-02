@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { BlogPost } from "@/data/blogData";
+import { BlogPost } from "@/data/types";
 
 interface BlogCardProps extends BlogPost {}
 

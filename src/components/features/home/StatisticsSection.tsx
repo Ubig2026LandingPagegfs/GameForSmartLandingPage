@@ -3,6 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import statisticsRaw from "@/data/statistics.json";
+import { Statistic } from "@/data/types";
+
+const statistics = statisticsRaw as Statistic[];
 
 // Helper component for counting up animation
 function Counter({
@@ -150,66 +154,7 @@ function TiltCard({
 }
 
 export default function StatisticsSection() {
-  const statistics = [
-    {
-      id: 1,
-      label: "Current prize total",
-      value: "240.32",
-      prefix: "$",
-      icon: "🏆",
-      iconColor: "#ff8c00",
-      borderColor: "#ff8c00",
-      bgClass: "linear-gradient(180deg, #3d2b25 0%, #2b1d1a 100%)", // Darker brown gradient
-      isHighlighted: true,
-    },
-    {
-      id: 2,
-      label: "Active Games",
-      value: "20",
-      icon: "🎮",
-      iconColor: "#FF6B6B",
-      borderColor: "#FF6B6B",
-      isHighlighted: false,
-    },
-    {
-      id: 3,
-      label: "Active users",
-      value: "8,909",
-      icon: "👥",
-      iconColor: "#4DABF7",
-      borderColor: "#4DABF7",
-      isHighlighted: false,
-    },
-    {
-      id: 4,
-      label: "Total Games",
-      value: "304",
-      icon: "♟️",
-      iconColor: "#FF8C42",
-      borderColor: "#FF8C42",
-      isHighlighted: false,
-    },
-    {
-      id: 5,
-      label: "All-time prizes paid",
-      value: "17,406",
-      prefix: "$",
-      icon: "💰",
-      iconColor: "#ff8c00",
-      borderColor: "#ff8c00",
-      isHighlighted: false,
-    },
-    {
-      id: 6,
-      label: "Your Balance",
-      value: "0",
-      prefix: "$",
-      icon: "💳",
-      iconColor: "#ff8c00",
-      borderColor: "#ff8c00",
-      isHighlighted: false,
-    },
-  ];
+
 
   return (
     <section className="statistics-section pb-120 bgn-4">

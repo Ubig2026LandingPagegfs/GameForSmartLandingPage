@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { winnersData } from "@/data/winnersData";
+import winnersDataRaw from "@/data/winners.json";
+import { Winner } from "@/data/types";
+
+const winnersData = winnersDataRaw as Winner[];
 
 interface RecentPlayersCardProps {
   gameTitle: string;
@@ -208,7 +211,7 @@ export default function RecentPlayersCard({ gameTitle }: RecentPlayersCardProps)
               {player.img ? (
                 <img
                   className="pt-avatar-img"
-                  src={`/assets/img/${player.img}`}
+                  src={`/images/users/${player.img}`}
                   alt={player.name}
                 />
               ) : (

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Kurikulum Terstruktur",
+    "desc": "Belajar dari dasar hingga mahir dengan kurikulum standar industri.",
+    "image": "/images/icons/star.png"
+  },
+  {
+    "id": 2,
+    "title": "Mentor Berpengalaman",
+    "desc": "Bimbingan langsung dari praktisi teknologi yang ahli di bidangnya.",
+    "image": "/images/icons/user.png"
+  },
+  {
+    "id": 3,
+    "title": "Proyek Real-World",
+    "desc": "Bangun portofolio nyata untuk persiapan karir masa depan kamu.",
+    "image": "/images/icons/tropy2.png"
+  },
+  {
+    "id": 4,
+    "title": "Sertifikat Resmi",
+    "desc": "Dapatkan pengakuan atas keahlian kamu dengan sertifikat internasional.",
+    "image": "/images/icons/winner-prize.png"
+  }
+]

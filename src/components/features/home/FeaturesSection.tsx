@@ -1,32 +1,11 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import featuresRaw from "@/data/features.json";
+import { Feature } from "@/data/types";
+
+const features = featuresRaw as Feature[];
 
 export default function FeaturesSection() {
-  const features = [
-    {
-      id: 1,
-      title: "Kurikulum Terstruktur",
-      desc: "Belajar dari dasar hingga mahir dengan kurikulum standar industri.",
-      image: "/assets/img/star.png",
-    },
-    {
-      id: 2,
-      title: "Mentor Berpengalaman",
-      desc: "Bimbingan langsung dari praktisi teknologi yang ahli di bidangnya.",
-      image: "/assets/img/user.png",
-    },
-    {
-      id: 3,
-      title: "Proyek Real-World",
-      desc: "Bangun portofolio nyata untuk persiapan karir masa depan kamu.",
-      image: "/assets/img/tropy2.png",
-    },
-    {
-      id: 4,
-      title: "Sertifikat Resmi",
-      desc: "Dapatkan pengakuan atas keahlian kamu dengan sertifikat internasional.",
-      image: "/assets/img/winner-prize.png",
-    },
-  ];
+
 
   return (
     <section className="features-section pb-120 bgn-4">

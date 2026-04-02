@@ -8,7 +8,10 @@ import RatingOverview  from "./rating/RatingOverview";
 import ReviewForm      from "./rating/ReviewForm";
 import ReviewCard      from "./rating/ReviewCard";
 import ReviewListModal from "./rating/ReviewListModal";
-import { DUMMY_REVIEWS } from "@/data/rating";
+import ratingsRaw from "@/data/ratings.json";
+import { Review } from "@/data/types";
+
+const DUMMY_REVIEWS = (ratingsRaw as any).reviews as Review[];
 
 interface GameRatingProps {
     title: string;

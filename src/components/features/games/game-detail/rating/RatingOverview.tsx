@@ -1,7 +1,9 @@
 // components/features/games/game-detail/rating/RatingOverview.tsx
 
 import RatingStars from "./RatingStars";
-import { RATING_BARS } from "@/data/rating";
+import ratingsRaw from "@/data/ratings.json";
+
+const RATING_BARS = (ratingsRaw as any).ratingBars as { star: number; pct: number }[];
 
 interface RatingOverviewProps {
     rating: string;

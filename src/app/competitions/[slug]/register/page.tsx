@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
-import { allItemsData } from '@/data/allItemsData';
+import competitionsRaw from '@/data/competitions.json';
+import { TournamentInfo } from '@/data/types';
+const allItemsData = competitionsRaw as TournamentInfo[];
 import { notFound } from 'next/navigation';
 import RegistrationView from "@/components/features/auth/RegistrationView";
 import Header from "@/components/shared/Header";
@@ -9,7 +11,7 @@ import Sidebar from "@/components/shared/Sidebar";
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const params = await props.params;
     const item = allItemsData.find(
-        (t) => t.slug === params.slug || String(t.id) === String(params.slug)
+        (t: TournamentInfo) => t.slug === params.slug || String(t.id) === String(params.slug)
     );
 
     if (!item) {
@@ -27,7 +29,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 export default async function RegistrationPage(props: { params: Promise<{ slug: string }> }) {
     const params = await props.params;
     const item = allItemsData.find(
-        (t) => t.slug === params.slug || String(t.id) === String(params.slug)
+        (t: TournamentInfo) => t.slug === params.slug || String(t.id) === String(params.slug)
     );
 
     if (!item || item.type === 'game') {

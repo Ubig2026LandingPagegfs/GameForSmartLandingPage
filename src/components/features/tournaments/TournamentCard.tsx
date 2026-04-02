@@ -1,8 +1,15 @@
 "use client";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
+import { 
+  Calendar, 
+  Trophy, 
+  GraduationCap, 
+  Lock 
+} from "lucide-react";
 
 interface TournamentCardProps {
   id: number;
@@ -37,171 +44,125 @@ export default function TournamentCard({
   competitionAttempts,
   link,
 }: TournamentCardProps) {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [isTruncated, setIsTruncated] = useState(false);
-  const textRef = useRef<HTMLParagraphElement>(null);
-
-  const fullDescription =
-    description ||
-    "Kompetisi menguji kemampuan siswa dalam menyelesaikan tantangan yang tersedia sebagai latihan.";
-
-  const detailHref = link || `/competitions/${slug || id}`;
-  const registerHref = `/competitions/${slug || id}/register`;
-
   const { isLoggedIn } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (textRef.current) {
-      const element = textRef.current;
-      setIsTruncated(element.scrollHeight > element.clientHeight);
+  const statusColor = (status: string) => {
+    switch(status) {
+      case "Active":
+        return {
+          dot: "bg-emerald-400",
+          text: "text-emerald-400",
+          border: "border-emerald-500/40",
+          bg: "bg-emerald-500/10",
+        };
+      case "Coming Soon":
+        return {
+          dot: "bg-gray-400",
+          text: "text-gray-400",
+          border: "border-gray-500/40",
+          bg: "bg-gray-500/10",
+        };
+      default: // Upcoming
+        return {
+          dot: "bg-orange-400",
+          text: "text-orange-400",
+          border: "border-orange-500/40",
+          bg: "bg-orange-500/10",
+        };
     }
-  }, [fullDescription]);
+  };
+
+  const sc = statusColor(status);
+  const detailHref = link || `/competitions/${slug || id}`;
+  const registerHref = `/competitions/${slug || id}/register`;
+  const firstLineDescription = (description || "Lomba menguji kemampuan siswa dalam menyelesaikan tantangan.").split("\n")[0];
 
   return (
-    <div className="tournament-card p-xl-4 p-3 pb-xl-8 bgn-4 d-flex flex-column h-100 w-100">
-      <div
-        className="tournament-img mb-8 position-relative w-100"
-        style={{ flexShrink: 0 }}
-      >
-        <Link href={detailHref} className="d-block card-img-link">
-          <div className="img-area overflow-hidden position-relative w-100 rounded d-flex align-items-center justify-content-center">
-            <img
-              className="w-100 h-auto block object-fit-contain"
-              src={image}
-              alt="tournament"
-              style={{
-                backgroundColor: 'rgba(0,0,0,0.2)',
-                ...(status === "Coming Soon"
-                  ? { filter: "blur(4px) brightness(0.4)" }
-                  : {})
-              }}
-            />
-            {status === "Coming Soon" && (
-              <div className="position-absolute top-50 start-50 translate-middle text-center w-100">
-                <i className="ti ti-lock display-four tcn-1 mb-2"></i>
-                <h5 className="tcn-1 text-uppercase fw-bold">Segera Hadir</h5>
-              </div>
-            )}
-          </div>
-        </Link>
-        {status === "Popular" ? (
-          <span
-            className="card-status position-absolute top-0 end-0 py-1 px-4 tcn-1 fs-sm fw-bold shadow-sm"
-            style={{
-              backgroundColor: "#ff4d4d",
-              borderRadius: "0 0 0 20px",
-              zIndex: 2,
-            }}
-          >
-            Populer
-          </span>
-        ) : (
-          status === "New" && (
-            <span
-              className="card-status position-absolute top-0 end-0 py-1 px-4 bgn-1 tcn-1 fs-sm fw-bold shadow-sm"
-              style={{ borderRadius: "0 0 0 20px", zIndex: 2 }}
-            >
-              Baru
-            </span>
-          )
-        )}
-      </div>
-      <div className="tournament-content px-xxl-4 d-flex flex-column flex-grow-1">
-        <div className="tournament-info mb-5">
-          <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-1">
-            <Link href={detailHref} className="d-block card-title-link">
-              <h4 className="tournament-title tcn-1 mb-0 fs-five">{title}</h4>
-            </Link>
-            {status !== "Popular" &&
-              status !== "New" &&
-              (status === "Coming Soon" ? (
-                <span
-                  className="py-2 px-3 tcn-1 d-flex align-items-center gap-2"
-                  style={{
-                    backgroundColor: "#F6471C",
-                    border: "1px solid #F6471C",
-                    borderRadius: "20px",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: "8px",
-                      height: "8px",
-                      backgroundColor: "#fff",
-                      borderRadius: "50%",
-                    }}
-                  ></span>
-                  <span className="fw-bold fs-sm text-nowrap">
-                    Segera Hadir
-                  </span>
-                </span>
-              ) : (
-                <span
-                  className="py-2 px-3 tcn-1 d-flex align-items-center gap-2"
-                  style={{
-                    backgroundColor: "rgba(114, 255, 0, 0.1)",
-                    border: "1px solid #72ff00",
-                    borderRadius: "20px",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: "8px",
-                      height: "8px",
-                      backgroundColor: "#72ff00",
-                      borderRadius: "50%",
-                    }}
-                  ></span>
-                  <span className="fs-sm text-nowrap">
-                    {status || "Berlangsung"}
-                  </span>
-                </span>
-              ))}
-          </div>
-          <span className="tcn-6 fs-sm">{type}</span>
-        </div>
-        <div className="hr-line line3"></div>
-        <div
-          className="card-info d-flex flex-column gap-2 my-5 position-relative flex-grow-1"
-          onMouseEnter={() => isTruncated && setShowTooltip(true)}
-          onMouseLeave={() => setShowTooltip(false)}
-        >
-          <p ref={textRef} className="tcn-6 fs-sm mb-0 line-clamp-2">
-            {fullDescription}
-          </p>
-          {showTooltip && isTruncated && (
-            <div className="custom-tooltip-box rounded-3 p-3 bgn-3 tcn-1 shadow-lg">
-              {fullDescription}
+    <Card className="relative h-full overflow-hidden border border-orange-500/30 bg-[#161920] backdrop-blur-xl transition-all duration-300 tournament-card flex flex-col">
+      {/* TOP BAR */}
+      <div className="h-[3px] w-full bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500" />
+
+      {/* IMAGE AREA - BLURRED BACKDROP TECHNIQUE */}
+      <div className="relative aspect-square w-full overflow-hidden bg-black/40 group/img">
+        <Link href={detailHref} className="block w-full h-full relative">
+          {/* Blurred Background Layer */}
+          <img
+            src={image}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
+          />
+          
+          {/* Main Content Layer (Un-cropped) */}
+          <img
+            src={image}
+            alt={title}
+            className={`relative w-full h-full object-contain transition-transform duration-700 group-hover/img:scale-105 ${
+              status === "Coming Soon" ? "filter blur-sm brightness-[0.4]" : ""
+            }`}
+          />
+
+          {/* Coming Soon Lock */}
+          {status === "Coming Soon" && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20">
+              <Lock size={40} className="text-white/40 mb-2" />
+              <span className="text-xs font-bold text-white/50 tracking-[0.3em] uppercase">Coming Soon</span>
             </div>
           )}
-        </div>
-        <div className="hr-line line3 mt-auto"></div>
-        <div className="card-more-info d-flex align-items-center gap-2 mt-6">
-          <Link
-            href={detailHref}
-            className="d-flex align-items-center justify-content-center gap-2 flex-grow-1"
-            style={{
-              height: "44px",
-              border: "1px solid rgba(255, 140, 0, 0.6)",
-              borderRadius: "50px",
-              color: "#ff8c00",
-              fontWeight: 600,
-              fontSize: "0.875rem",
-              textDecoration: "none",
-              background: "transparent",
-              transition: "background 0.25s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "rgba(255, 140, 0, 0.12)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-            }}
+        </Link>
+      </div>
+
+      <CardContent className="p-6 flex flex-col flex-grow relative overflow-hidden">
+        {/* Subtle glow */}
+        <div className="absolute top-12 left-8 w-40 h-40 rounded-full bg-orange-500/5 blur-3xl pointer-events-none" />
+
+        {/* STATUS BADGE */}
+        <div className="mb-4">
+          <span
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-semibold tracking-widest uppercase border ${sc.text} ${sc.border} ${sc.bg}`}
           >
-            <i className="ti ti-info-circle"></i>
-            <span>Detail</span>
-          </Link>
+            <span className={`w-1.5 h-1.5 rounded-full ${sc.dot} ${status !== "Coming Soon" ? "animate-pulse" : ""}`} />
+            {status}
+          </span>
+        </div>
+
+        {/* TITLE */}
+        <Link href={detailHref} className="block group/title">
+          <h4 className="text-lg font-extrabold text-white mb-2 leading-snug group-hover/title:text-orange-500 transition-colors line-clamp-2 min-h-[56px]">
+            {title}
+          </h4>
+        </Link>
+
+        <span className="text-[11px] font-medium text-gray-500 uppercase tracking-widest mb-3 block">
+          {type}
+        </span>
+
+        {/* DIVIDER */}
+        <div className="w-8 h-[2px] rounded-full bg-gradient-to-r from-orange-500 to-transparent mb-4" />
+
+        {/* DESCRIPTION */}
+        <p className="text-gray-400 text-xs leading-relaxed mb-6 line-clamp-2 min-h-[32px]">
+          {firstLineDescription}
+        </p>
+
+        {/* INFO TAGS */}
+        <div className="flex flex-wrap gap-2 mb-6 mt-auto">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1.25 rounded-lg text-[10px] font-medium bg-white/5 border border-white/10 text-gray-300">
+            <Calendar size={10} className="opacity-70" />
+            {date}
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1.25 rounded-lg text-[10px] font-semibold bg-yellow-400/10 border border-yellow-400/30 text-yellow-300">
+            <Trophy size={10} className="opacity-80" />
+            {prizeMoney}
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1.25 rounded-lg text-[10px] font-medium bg-sky-400/8 border border-sky-400/20 text-sky-300">
+            <GraduationCap size={10} className="opacity-70" />
+            {teams}
+          </span>
+        </div>
+
+        {/* CTA BUTTONS */}
+        <div className="flex gap-2">
           <button
             suppressHydrationWarning
             onClick={() => {
@@ -212,92 +173,29 @@ export default function TournamentCard({
                 router.push(registerHref);
               }
             }}
-            className="gps-btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-2 border-0 bg-transparent"
-            style={{ 
-              background: "linear-gradient(135deg, #ea580c 0%, #f97316 100%)",
-              color: "#fff",
-              cursor: "pointer"
-            }}
+            className="gps-btn-primary py-2.5 flex-1 text-xs font-bold"
           >
-            <i className="ti ti-pencil-plus"></i>
-            <span className="fs-six">Daftar</span>
+            Daftar
           </button>
+          <Link
+            href={detailHref}
+            className="gps-btn-outline py-2.5 w-max px-4 text-xs"
+          >
+            Detail
+          </Link>
         </div>
-      </div>
+      </CardContent>
       <style jsx>{`
-        .custom-tooltip-box {
-          position: absolute;
-          bottom: 100%;
-          left: 0;
-          width: 100%;
-          max-width: 300px;
-          background: #090b10;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          z-index: 100;
-          margin-bottom: 10px;
-          font-size: 14px;
-          line-height: 1.5;
-          pointer-events: none;
-          animation: tooltipFadeIn 0.3s ease-in-out;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        .tournament-card {
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          border-color: rgba(255, 255, 255, 0.05);
         }
-        @keyframes tooltipFadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .card-img-link {
-          display: block;
-        }
-        .card-img-link img {
-          transition: transform 0.35s ease, filter 0.35s ease;
-        }
-        .card-img-link:hover img {
-          transform: scale(1.04);
-          filter: brightness(0.85);
-        }
-        .card-title-link {
-          text-decoration: none;
-        }
-        .card-title-link:hover .tournament-title {
-          color: #ff8c00 !important;
-          transition: color 0.2s ease;
-        }
-        .btn-detail-outline {
-          height: 44px;
-          border: 1px solid rgba(255, 140, 0, 0.45);
-          border-radius: 50px;
-          color: #ff8c00;
-          font-weight: 600;
-          font-size: 0.875rem;
-          text-decoration: none;
-          background: transparent;
-          transition: background 0.25s ease, border-color 0.25s ease;
-        }
-        .btn-detail-outline:hover {
-          background: rgba(255, 140, 0, 0.12);
-          border-color: rgba(255, 140, 0, 0.8);
-          color: #ff8c00;
-        }
-        .gps-btn-primary {
-          height: 44px;
-          border-radius: 8px;
-          text-decoration: none;
-        }
-        @media (max-width: 575px) {
-          .tournament-card {
-            padding: 15px !important;
-          }
-          .tournament-title {
-            font-size: 1rem !important;
-          }
+        .tournament-card:hover {
+          border-color: rgba(249, 115, 22, 0.4);
+          box-shadow: 0 0 30px rgba(249, 115, 22, 0.1);
+          transform: translateY(-4px);
         }
       `}</style>
-    </div>
+    </Card>
   );
 }

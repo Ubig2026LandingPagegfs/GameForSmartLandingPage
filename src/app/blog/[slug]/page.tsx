@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { blogData } from '@/data/blogData';
+import blogDataRaw from '@/data/blog.json';
+import { BlogPost } from '@/data/types';
+const blogData = blogDataRaw as BlogPost[];
 import BlogDetailView from '@/components/features/blog/BlogDetailView';
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {

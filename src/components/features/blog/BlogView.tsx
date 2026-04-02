@@ -4,7 +4,10 @@ import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import Footer from "@/components/shared/Footer";
-import { blogData } from "@/data/blogData";
+import blogDataRaw from "@/data/blog.json";
+import { BlogPost } from "@/data/types";
+
+const blogData = blogDataRaw as BlogPost[];
 import BlogCard from "./BlogCard";
 import { motion, AnimatePresence } from "framer-motion";
 

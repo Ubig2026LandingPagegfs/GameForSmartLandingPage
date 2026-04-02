@@ -1,7 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { winnersData } from "@/data/winnersData";
+import winnersDataRaw from "@/data/winners.json";
+import { Winner } from "@/data/types";
+
+const winnersData = winnersDataRaw as Winner[];
 
 const getInitials = (name: string) =>
   name.split(" ").map((n) => n[0]).join("").toUpperCase().substring(0, 2);

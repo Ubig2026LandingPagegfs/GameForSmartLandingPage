@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Cristofer Dorwart",
+    "game": "Crazy Race",
+    "img": "msg-sender1.png",
+    "time": "2 minutes ago"
+  },
+  {
+    "id": 2,
+    "name": "Sajin Tamang",
+    "game": "Quiz Rush",
+    "img": "msg-sender2.png",
+    "time": "5 minutes ago"
+  },
+  {
+    "id": 3,
+    "name": "Junaid Khan",
+    "game": "Memory Quiz",
+    "img": "msg-sender3.png",
+    "time": "12 minutes ago"
+  },
+  {
+    "id": 4,
+    "name": "Alex Thompson",
+    "game": "Space Quiz",
+    "img": "msg-sender4.png",
+    "time": "20 minutes ago"
+  }
+]

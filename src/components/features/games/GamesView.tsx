@@ -9,7 +9,10 @@ import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import GameCard from "@/components/features/games/GameCard";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
-import { allItemsData } from "@/data/allItemsData";
+import gamesRaw from "@/data/games.json";
+import { TournamentInfo } from "@/data/types";
+
+const allItemsData = gamesRaw as TournamentInfo[];
 
 export default function GamesView() {
   const [activeTab, setActiveTab] = useState("All");
@@ -29,8 +32,7 @@ export default function GamesView() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const games = allItemsData
-    .filter((item) => item.type === "game")
+  const games = [...allItemsData]
     .sort((a, b) => b.id - a.id);
 
   const filteredGames = games.filter((game) => {

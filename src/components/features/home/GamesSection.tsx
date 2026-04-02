@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import GameCard from "@/components/features/games/GameCard";
 import { useSearch } from "@/context/SearchContext";
-import { gamesData } from "@/data/gamesData";
+import gamesDataRaw from "@/data/games.json";
+import { TournamentInfo } from "@/data/types";
+
+const gamesData = gamesDataRaw as TournamentInfo[];
 
 export default function GamesSection() {
   const { searchQuery } = useSearch();

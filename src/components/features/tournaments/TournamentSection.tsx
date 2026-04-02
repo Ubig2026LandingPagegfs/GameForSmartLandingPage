@@ -4,15 +4,17 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
-import { tournamentsData } from "@/data/tournamentsData";
+import competitionsDataRaw from "@/data/competitions.json";
+import { TournamentInfo } from "@/data/types";
 import {
   ChevronLeft,
   ChevronRight,
   Calendar,
   Trophy,
   GraduationCap,
-  Users,
 } from "lucide-react";
+
+const tournamentsData = competitionsDataRaw as TournamentInfo[];
 
 export default function TournamentSection() {
   const { isLoggedIn } = useAuth();
@@ -249,29 +251,6 @@ export default function TournamentSection() {
                                 Detail
                               </Link>
                             </div>
-
-                            {/* SOCIAL PROOF */}
-                           {/*  <div className="flex items-center gap-3">
-                              <div className="flex">
-                                {["A", "B", "C"].map((char, i) => (
-                                  <div
-                                    key={i}
-                                    className={`w-6 h-6 rounded-full border-2 border-[#0f1118] flex items-center justify-center text-[9px] font-bold text-white ${i > 0 ? "-ml-2" : ""} ${["bg-orange-600", "bg-blue-600", "bg-emerald-600"][i]}`}
-                                  >
-                                    {char}
-                                  </div>
-                                ))}
-                                <div className="-ml-2 w-6 h-6 rounded-full border-2 border-[#0f1118] bg-white/10 flex items-center justify-center text-[8px] text-gray-400 font-semibold">
-                                  +9
-                                </div>
-                              </div>
-                              <p className="text-xs text-gray-500">
-                                <span className="text-gray-300 font-semibold">
-                                  120+ sekolah
-                                </span>{" "}
-                                sudah mendaftar
-                              </p>
-                            </div> */}
                           </div>
                         </CardContent>
                       </div>

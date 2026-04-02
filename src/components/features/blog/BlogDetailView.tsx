@@ -4,7 +4,10 @@ import Link from "next/link";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import Footer from "@/components/shared/Footer";
-import { BlogPost, blogData } from "@/data/blogData";
+import blogDataRaw from "@/data/blog.json";
+import { BlogPost } from "@/data/types";
+
+const blogData = blogDataRaw as BlogPost[];
 import BlogCard from "./BlogCard";
 import Breadcrumbs from "@/components/shared/Breadcrumbs";
 

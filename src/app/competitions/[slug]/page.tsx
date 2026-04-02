@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
-import { allItemsData } from '@/data/allItemsData';
+import competitionsRaw from '@/data/competitions.json';
+import { TournamentInfo } from '@/data/types';
+const allItemsData = competitionsRaw as TournamentInfo[];
 import CompetitionDetailView from "@/components/features/competitions/detail/CompetitionDetailView";
 import { notFound } from 'next/navigation';
 

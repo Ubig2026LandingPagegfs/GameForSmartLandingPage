@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Bagaimana Teknologi Mengubah Masa Depan Dunia Kerja di 2024",
+    "author": "Taufik Hidayat",
+    "date": "16 Oktober 2024",
+    "category": ["TEKNOLOGI", "BISNIS"],
+    "excerpt": "Di dunia yang terus berkembang saat ini, mendongeng telah menjadi alat yang ampuh untuk koneksi.",
+    "content": "Memasuki tahun 2024, lanskap profesional dunia mengalami transformasi besar...",
+    "image": "/images/blog/blog-1.webp",
+    "slug": "teknologi-masa-depan-kerja"
+  },
+  {
+    "id": 2,
+    "title": "Masa Depan Pembelajaran: Tren Smart Learning dan AI",
+    "author": "Siti Aminah",
+    "date": "29 September 2024",
+    "category": ["EDUKASI", "TREN"],
+    "excerpt": "Cari tahu mengapa tahun 2024 diprediksi menjadi tahun penting bagi teknologi pembelajaran.",
+    "content": "Dunia pendidikan tidak luput dari revolusi digital. Smart Learning kini hadir...",
+    "image": "/images/blog/blog-2.webp",
+    "slug": "tren-smart-learning-ai"
+  },
+  {
+    "id": 3,
+    "title": "Strategi Menang di Arena Esports Nasional",
+    "author": "Budi Santoso",
+    "date": "12 September 2024",
+    "category": ["ESPORTS", "GAME"],
+    "excerpt": "Kuasai panggung kompetisi dengan strategi pro. Pelajari bagaimana atlet esports papan atas mempersiapkan diri.",
+    "content": "Esports kini telah diakui sebagai cabang olahraga resmi yang prestisius.",
+    "image": "/images/blog/blog-3.webp",
+    "slug": "strategi-menang-esports"
+  },
+  {
+    "id": 4,
+    "title": "Meningkatkan Fokus Anak Melalui Game Edukasi",
+    "author": "Dr. Laila",
+    "date": "05 September 2024",
+    "category": ["EDUKASI", "PARENTING"],
+    "excerpt": "Game tidak selalu buruk. Temukan bagaimana game yang dirancang khusus dapat membantu meningkatkan kognitif.",
+    "content": "Sebagai orang tua, kita sering merasa khawatir tentang 'screen time' anak.",
+    "image": "/images/blog/blog-2.webp",
+    "slug": "fokus-anak-game-edukasi"
+  },
+  {
+    "id": 5,
+    "title": "Review: Axiom - Game Puzzle Paling Menantang Tahun Ini",
+    "author": "Admin Game",
+    "date": "01 September 2024",
+    "category": ["GAME", "REVIEW"],
+    "excerpt": "Kami mengupas tuntas mekanisme gameplay Axiom, game yang sedang viral.",
+    "content": "Game Axiom telah mengambil alih dunia game puzzle dengan badai.",
+    "image": "/images/blog/blog-1.webp",
+    "slug": "review-axiom-puzzle"
+  },
+  {
+    "id": 6,
+    "title": "Membangun Karier di Industri Game Development",
+    "author": "Kevin Flynn",
+    "date": "25 Agustus 2024",
+    "category": ["KARIER", "TEKNOLOGI"],
+    "excerpt": "Ingin bekerja di industri game? Berikut adalah langkah-langkah konkret yang harus Anda ambil.",
+    "content": "Industri game global bernilai miliaran dolar, dan permintaannya akan talenta baru...",
+    "image": "/images/blog/blog-3.webp",
+    "slug": "karier-game-development"
+  }
+]

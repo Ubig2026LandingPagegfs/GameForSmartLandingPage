@@ -6,7 +6,7 @@
 import { useState } from "react";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
-import { TournamentInfo } from "@/data/allItemsData";
+import { TournamentInfo } from "@/data/types";
 import GameHero from "@/components/features/games/game-detail/GameHero";
 import VideoModal from "@/components/features/games/game-detail/VideoModal";
 import Footer from "@/components/shared/Footer";

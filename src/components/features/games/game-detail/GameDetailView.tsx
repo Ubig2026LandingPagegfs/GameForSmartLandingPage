@@ -6,8 +6,9 @@
 import { useState } from 'react';
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
-import { TournamentInfo } from '@/data/allItemsData';
-import { gamesData } from '@/data/gamesData';
+import { TournamentInfo } from '@/data/types';
+import gamesRaw from '@/data/games.json';
+const gamesData = gamesRaw as TournamentInfo[];
 
 import GameHero     from '@/components/features/games/game-detail/GameHero';
 import GameMeta     from '@/components/features/games/game-detail/GameMeta';
@@ -41,7 +42,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
 
     const allMedia = [
         ...(game.videoUrl ? [{ type: 'video' as const, src: videoThumb }] : []),
-        ...(game.screenshots?.map(s => ({ type: 'image' as const, src: s })) || []),
+        ...(game.screenshots?.map((s: string) => ({ type: 'image' as const, src: s })) || []),
     ];
 
     const customCrumbs = [
