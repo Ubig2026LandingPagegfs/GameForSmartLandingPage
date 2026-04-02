@@ -55,7 +55,7 @@
     "title": "Space Quiz",
     "type": "game",
     "genre": "Trivia",
-    "image": "/images/games/Space-Quiz/hero.webp",
+    "image": "/images/games/space-quiz/hero.webp",
     "status": "Trivia",
     "platform": "Web",
     "rating": "4.7",
@@ -68,11 +68,11 @@
     "playUrl": "https://spacequiz.gameforsmart.com",
     "description": "Eksplorasi wawasan luar angkasamu dan jawab pertanyaan-pertanyaan mematikan.",
     "screenshots": [
-      "/images/games/Space-Quiz/photo_2026-04-01_15-49-22.webp",
-      "/images/games/Space-Quiz/photo_2026-04-01_20-15-32.webp",
-      "/images/games/Space-Quiz/photo_2026-04-01_20-15-32 (2).webp",
-      "/images/games/Space-Quiz/photo_2026-04-01_20-15-33.webp",
-      "/images/games/Space-Quiz/photo_2026-04-01_20-15-33 (2).webp"
+      "/images/games/space-quiz/photo_2026-04-01_15-49-22.webp",
+      "/images/games/space-quiz/photo_2026-04-01_20-15-32.webp",
+      "/images/games/space-quiz/photo_2026-04-01_20-15-32 (2).webp",
+      "/images/games/space-quiz/photo_2026-04-01_20-15-33.webp",
+      "/images/games/space-quiz/photo_2026-04-01_20-15-33 (2).webp"
     ],
     "slug": "3"
   },
@@ -81,7 +81,7 @@
     "title": "Memory Quiz",
     "type": "game",
     "genre": "Puzzle",
-    "image": "/images/games/Memory-Quiz/hero.webp",
+    "image": "/images/games/memory-quiz/hero.webp",
     "status": "Puzzle",
     "platform": "Web",
     "rating": "5.0",
@@ -94,7 +94,7 @@
     "playUrl": "https://memoryquiz.gameforsmart.com",
     "description": "Latih daya ingatmu dengan memecahkan teka-teki memori tingkat tinggi.",
     "screenshots": [
-      "/images/games/Memory-Quiz/hero.webp",
+      "/images/games/memory-quiz/hero.webp",
       "/images/games/quiz-rush/hero.webp"
     ],
     "slug": "4"
