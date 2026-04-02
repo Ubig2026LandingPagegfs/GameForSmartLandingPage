@@ -32,7 +32,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const handleLogout = () => {
     clearAuth();
-    window.location.href = "/login";
+    const redirectUrl = window.location.origin;
+    window.location.href = `${AUTH_BASE_URL}/login?redirect=${encodeURIComponent(redirectUrl)}`;
   };
 
   const verifyToken = async (token: string) => {
