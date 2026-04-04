@@ -72,6 +72,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("user", JSON.stringify(userData));
       if (userProfile) {
         localStorage.setItem("profile", JSON.stringify(userProfile));
+      } else {
+        localStorage.removeItem("profile");
       }
       localStorage.setItem("token_time", Date.now().toString());
       
@@ -116,12 +118,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               setUser(data.user);
               if (savedProfile) {
                 setProfile(JSON.parse(savedProfile));
-              } else {
-                const userProfile = await fetchProfile(data.user.id);
-                setProfile(userProfile);
-                if (userProfile) localStorage.setItem("profile", JSON.stringify(userProfile));
               }
               setIsLoggedIn(true);
+              
+              // Always fetch fresh profile data from Supabase
+              const userProfile = await fetchProfile(data.user.id);
+              setProfile(userProfile);
+              if (userProfile) {
+                localStorage.setItem("profile", JSON.stringify(userProfile));
+              } else {
+                localStorage.removeItem("profile");
+              }
             } else {
               clearAuth();
             }

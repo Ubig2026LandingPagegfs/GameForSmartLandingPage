@@ -7,6 +7,7 @@ import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/AuthContext";
 
 type TabId = "info" | "edit" | "games" | "connected" | "security";
 
@@ -35,6 +36,16 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<TabId>("info");
   const [connectedGames, setConnectedGames] = useState<Set<string>>(new Set());
   const [toast, setToast] = useState<string | null>(null);
+  
+  const { user, profile } = useAuth();
+  
+  const getInitials = (name: string) => {
+    if (!name) return "U";
+    return name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+  };
+
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || "User";
+  const avatarUrl = profile?.avatar_url || user?.user_metadata?.avatar_url;
 
   useEffect(() => { document.title = "Profil | GameForSmart"; }, []);
 
@@ -83,8 +94,14 @@ export default function ProfilePage() {
             <div className="prof-card">
               <div className="prof-header-inner">
                 <div className="prof-avatar-wrap">
-                  <div className="prof-avatar">
-                    <img src="/assets/img/user-profile.png" alt="avatar" />
+                  <div className="prof-avatar d-flex align-items-center justify-content-center" style={{ backgroundColor: '#1e2130' }}>
+                    {avatarUrl ? (
+                      <img src={avatarUrl} alt="avatar" style={{ objectFit: 'cover' }} />
+                    ) : (
+                      <div className="w-100 h-100 d-flex align-items-center justify-content-center text-white fw-bold" style={{ background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)', fontSize: '32px' }}>
+                        {getInitials(displayName)}
+                      </div>
+                    )}
                   </div>
                   <button
                     className="prof-avatar-edit"
@@ -96,11 +113,11 @@ export default function ProfilePage() {
 
                 <div className="prof-info">
                   <div className="prof-name">
-                    Mohammad Rony
+                    {displayName}
                     <span className="prof-verified">✓</span>
                   </div>
                   <div className="prof-handle">
-                    @mohammadRony · Member sejak 2022
+                    @{user?.user_metadata?.name || user?.email?.split('@')[0] || "member"} · Member sejak 2024
                   </div>
                   <div className="prof-socials">
                     {["𝑓", "𝕏", "📷", "💬"].map((icon, i) => (
