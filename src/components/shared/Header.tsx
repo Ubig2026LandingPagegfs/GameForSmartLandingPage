@@ -32,8 +32,8 @@ export default function Header() {
   const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || "User";
   
   let avatarUrl = profile?.avatar_url;
-  // Ignore local default images if they somehow got stored in the database
-  if (!avatarUrl || avatarUrl.includes('/assets/img/')) {
+  // Ignore any local paths completely. A valid database/Google SSO avatar should always use an absolute HTTP/HTTPS URL.
+  if (typeof avatarUrl !== 'string' || !avatarUrl.startsWith('http')) {
     avatarUrl = null;
   }
 
