@@ -15,7 +15,7 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function Header() {
   const { searchQuery, setSearchQuery } = useSearch();
-  const { isLoggedIn, user, loading, handleLogin, handleRegister } = useAuth();
+  const { isLoggedIn, user, profile, loading, handleLogin, handleRegister } = useAuth();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isNtfOpen, setIsNtfOpen] = useState(false);
@@ -23,6 +23,14 @@ export default function Header() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const getInitials = (name: string) => {
+    if (!name) return "U";
+    return name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+  };
+
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || "User";
+  const avatarUrl = profile?.avatar_url || user?.user_metadata?.avatar_url;
 
   const headerRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -272,11 +280,17 @@ export default function Header() {
                       onClick={() => { setIsProfileOpen(!isProfileOpen); setIsNtfOpen(false); setIsSearchActive(false); }}
                     >
                       <div className="profile-wrapper d-flex align-items-center gap-3">
-                        <div className="img-area overflow-hidden">
-                          <img className="w-100" src="/assets/img/profile.png" alt="profile" />
+                        <div className="img-area overflow-hidden d-flex align-items-center justify-content-center" style={{ width: '44px', height: '44px', borderRadius: '50%', backgroundColor: '#1e2130' }}>
+                          {avatarUrl ? (
+                            <img className="w-100 h-100" src={avatarUrl} alt="profile" style={{ objectFit: 'cover' }} />
+                          ) : (
+                            <div className="w-100 h-100 d-flex align-items-center justify-content-center text-white fw-bold" style={{ background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)', fontSize: '18px' }}>
+                              {getInitials(displayName)}
+                            </div>
+                          )}
                         </div>
                         <span className="user-name d-none d-xxl-block text-nowrap">
-                          {user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0]}
+                          {displayName}
                         </span>
                         <i className="ti ti-chevron-down d-none d-xxl-block"></i>
                       </div>
