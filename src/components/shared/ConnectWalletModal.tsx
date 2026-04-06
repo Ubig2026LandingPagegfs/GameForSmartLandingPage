@@ -38,7 +38,7 @@ export default function ConnectWalletModal({
                                 <a href="#" className="d-between">
                                     <span>Connect with Metamask</span>
                                     <div className="wallet-item-thumb">
-                                        <img className="w-100" src="/assets/img/metamask.png" alt="metamask" />
+                                        <img className="w-100" src="/assets/img/metamask.webp" alt="metamask" />
                                     </div>
                                 </a>
                             </li>
@@ -46,7 +46,7 @@ export default function ConnectWalletModal({
                                 <a href="#" className="d-between">
                                     <span>Connect with Wallet Connect </span>
                                     <div className="wallet-item-thumb">
-                                        <img className="w-100" src="/assets/img/walletconnect.png" alt="wallet connect" />
+                                        <img className="w-100" src="/assets/img/walletconnect.webp" alt="wallet connect" />
                                     </div>
                                 </a>
                             </li>

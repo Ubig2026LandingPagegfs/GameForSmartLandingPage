@@ -146,7 +146,7 @@ export default function Footer() {
 
         {/* Mascot relocated inside container-fluid */}
         <img
-          src="/assets/img/astronaut-mascot.png"
+          src="/assets/img/astronaut-mascot.webp"
           alt="Astronaut"
           className="footer-mascot"
         />

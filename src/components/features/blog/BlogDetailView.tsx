@@ -83,7 +83,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
                   <div className="d-flex align-items-center gap-3 article-meta mb-6">
                     <div className="author-avatar">
                       <img
-                        src="/assets/img/profile.png"
+                        src="/assets/img/profile.webp"
                         alt={post.author}
                         className="w-100 h-100 object-fit-cover"
                       />

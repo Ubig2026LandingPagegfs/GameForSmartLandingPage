@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "Crazy Race",
+    "title": "CrazyRace",
     "type": "game",
     "genre": "Racing",
     "image": "/images/games/crazy-race/hero.webp",
@@ -26,7 +26,7 @@
   },
   {
     "id": 2,
-    "title": "Quiz Rush",
+    "title": "QuizRush",
     "type": "game",
     "genre": "Action",
     "image": "/images/games/quiz-rush/hero.webp",
@@ -52,7 +52,7 @@
   },
   {
     "id": 3,
-    "title": "Space Quiz",
+    "title": "SpaceQuiz",
     "type": "game",
     "genre": "Trivia",
     "image": "/images/games/space-quiz/hero.webp",
@@ -78,7 +78,7 @@
   },
   {
     "id": 4,
-    "title": "Memory Quiz",
+    "title": "MemoryQuiz",
     "type": "game",
     "genre": "Puzzle",
     "image": "/images/games/memory-quiz/hero.webp",
@@ -122,7 +122,7 @@
       "/images/games/nitro-quiz/photo_2026-03-31_18-57-18 (2).webp",
       "/images/games/nitro-quiz/photo_2026-03-31_18-57-18 (3).webp"
     ],
-    "logo": "/images/logos/logonitroquiz.png",
+    "logo": "/images/logos/logonitroquiz.webp",
     "slug": "5"
   },
   {
@@ -150,7 +150,7 @@
       "/images/games/axiom/photo_2026-03-30_14-32-20 (3).webp",
       "/images/games/axiom/photo_2026-03-30_21-57-45.webp"
     ],
-    "logo": "/images/logos/logoaxiom.png",
+    "logo": "/images/logos/logoaxiom.webp",
     "slug": "6"
   },
   {
@@ -177,7 +177,7 @@
       "/images/games/zigma/photo_2026-03-30_15-49-38.webp",
       "/images/games/zigma/photo_2026-03-30_15-49-52.webp"
     ],
-    "logo": "/images/logos/logozigma.png",
+    "logo": "/images/logos/logozigma.webp",
     "slug": "7"
   }
 ]

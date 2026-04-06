@@ -28,7 +28,7 @@ export default function NotificationArea({
               <div className="card-img-area">
                 <img
                   className="w-100 rounded-circle"
-                  src={`/assets/img/avatar${id}.png`}
+                  src={`/assets/img/avatar${id}.webp`}
                   alt="profile"
                 />
               </div>

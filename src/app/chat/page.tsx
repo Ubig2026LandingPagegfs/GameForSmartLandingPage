@@ -2,12 +2,12 @@ import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 
 const chatList = [
-    { id: 1, name: "Bessie Cooper", lastMsg: "Let’s play now!", time: "2d", online: true, img: "/assets/img/msg-sender1.png" },
-    { id: 2, name: "Ronald Richards", lastMsg: "You:I will go to sleep", time: "17m", online: false, img: "/assets/img/msg-sender2.png", unread: 3 },
-    { id: 3, name: "Robert Fox", lastMsg: "Are you here?", time: "2d", online: true, img: "/assets/img/msg-sender3.png" },
-    { id: 4, name: "Jacob Jones", lastMsg: "Let’s play now!", time: "10m", online: true, img: "/assets/img/msg-sender4.png", unread: 4 },
-    { id: 5, name: "Bessie Cooper", lastMsg: "Let’s play now!", time: "2d", online: false, img: "/assets/img/msg-sender5.png" },
-    { id: 6, name: "Guy Hawkins", lastMsg: "I will go AFK", time: "2d", online: false, img: "/assets/img/msg-sender6.png" },
+    { id: 1, name: "Bessie Cooper", lastMsg: "Let’s play now!", time: "2d", online: true, img: "/assets/img/msg-sender1.webp" },
+    { id: 2, name: "Ronald Richards", lastMsg: "You:I will go to sleep", time: "17m", online: false, img: "/assets/img/msg-sender2.webp", unread: 3 },
+    { id: 3, name: "Robert Fox", lastMsg: "Are you here?", time: "2d", online: true, img: "/assets/img/msg-sender3.webp" },
+    { id: 4, name: "Jacob Jones", lastMsg: "Let’s play now!", time: "10m", online: true, img: "/assets/img/msg-sender4.webp", unread: 4 },
+    { id: 5, name: "Bessie Cooper", lastMsg: "Let’s play now!", time: "2d", online: false, img: "/assets/img/msg-sender5.webp" },
+    { id: 6, name: "Guy Hawkins", lastMsg: "I will go AFK", time: "2d", online: false, img: "/assets/img/msg-sender6.webp" },
 ];
 
 export default function ChatPage() {
@@ -23,7 +23,7 @@ export default function ChatPage() {
                                 <div className="chat-list-area px-lg-6 px-4 py-lg-8 py-4 bgn-4 rounded">
                                     <div className="msg-list-user-info d-between mb-lg-4 mb-2">
                                         <div className="msg-list-user-thumb">
-                                            <img className="w-100 rounded-circle" src="/assets/img/player1.png" alt="user thumb" />
+                                            <img className="w-100 rounded-circle" src="/assets/img/player1.webp" alt="user thumb" />
                                         </div>
                                         <div className="msg-list-user-info d-flex gap-6">
                                             <button className="edit-user bttn outline-0">
@@ -76,7 +76,7 @@ export default function ChatPage() {
                                                 <i className="ti ti-menu-2 tcn-1 fs-2xl"></i>
                                             </button>
                                             <div className="msg-receiver-user-thumb">
-                                                <img className="w-100 rounded-circle" src="/assets/img/msg-sender1.png" alt="user thumb" />
+                                                <img className="w-100 rounded-circle" src="/assets/img/msg-sender1.webp" alt="user thumb" />
                                             </div>
                                         </div>
                                         <div className="msg-more-option">
@@ -92,7 +92,7 @@ export default function ChatPage() {
                                         <div className="chat-msg-area d-grid gap-lg-6 gap-4 w-100">
                                             <div className="chat-msg sender">
                                                 <div className="msg-sender-thumb mb-4">
-                                                    <img className="w-100 rounded-circle" src="/assets/img/msg-sender1.png" alt="user thumb" />
+                                                    <img className="w-100 rounded-circle" src="/assets/img/msg-sender1.webp" alt="user thumb" />
                                                 </div>
                                                 <div className="msg-content">
                                                     <div className="msg-text">
@@ -107,7 +107,7 @@ export default function ChatPage() {
                                                     </div>
                                                 </div>
                                                 <div className="msg-receiver-thumb mt-2 ms-auto">
-                                                    <img className="w-100 rounded-circle" src="/assets/img/msg-sender2.png" alt="user thumb" />
+                                                    <img className="w-100 rounded-circle" src="/assets/img/msg-sender2.webp" alt="user thumb" />
                                                 </div>
                                             </div>
                                         </div>

@@ -1,0 +1,330 @@
+{
+  "total": 151,
+  "notWebp": [
+    {
+      "path": "\\assets\\img\\astronaut-mascot-transparent.png",
+      "ext": ".png",
+      "sizeKB": 314
+    },
+    {
+      "path": "\\assets\\img\\astronaut-mascot.png",
+      "ext": ".png",
+      "sizeKB": 131
+    },
+    {
+      "path": "\\assets\\img\\avatar1.png",
+      "ext": ".png",
+      "sizeKB": 4
+    },
+    {
+      "path": "\\assets\\img\\avatar2.png",
+      "ext": ".png",
+      "sizeKB": 4
+    },
+    {
+      "path": "\\assets\\img\\avatar3.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\assets\\img\\banner-bg-quiz.png",
+      "ext": ".png",
+      "sizeKB": 632
+    },
+    {
+      "path": "\\assets\\img\\banner-inner-img1.png",
+      "ext": ".png",
+      "sizeKB": 37
+    },
+    {
+      "path": "\\assets\\img\\banner-inner-img2.png",
+      "ext": ".png",
+      "sizeKB": 43
+    },
+    {
+      "path": "\\assets\\img\\banner-mascot-quiz.png",
+      "ext": ".png",
+      "sizeKB": 542
+    },
+    {
+      "path": "\\assets\\img\\chess-queen.png",
+      "ext": ".png",
+      "sizeKB": 0
+    },
+    {
+      "path": "\\assets\\img\\error.png",
+      "ext": ".png",
+      "sizeKB": 8
+    },
+    {
+      "path": "\\assets\\img\\favicon.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\assets\\img\\fbanner.png",
+      "ext": ".png",
+      "sizeKB": 95
+    },
+    {
+      "path": "\\assets\\img\\game-console.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\assets\\img\\game-x1.png",
+      "ext": ".png",
+      "sizeKB": 40
+    },
+    {
+      "path": "\\assets\\img\\game-x10.png",
+      "ext": ".png",
+      "sizeKB": 55
+    },
+    {
+      "path": "\\assets\\img\\game-x2.png",
+      "ext": ".png",
+      "sizeKB": 42
+    },
+    {
+      "path": "\\assets\\img\\game-x4.png",
+      "ext": ".png",
+      "sizeKB": 44
+    },
+    {
+      "path": "\\assets\\img\\game-x5.png",
+      "ext": ".png",
+      "sizeKB": 39
+    },
+    {
+      "path": "\\assets\\img\\game-x6.png",
+      "ext": ".png",
+      "sizeKB": 31
+    },
+    {
+      "path": "\\assets\\img\\game-x7.png",
+      "ext": ".png",
+      "sizeKB": 44
+    },
+    {
+      "path": "\\assets\\img\\game-x8.png",
+      "ext": ".png",
+      "sizeKB": 45
+    },
+    {
+      "path": "\\assets\\img\\game-x9.png",
+      "ext": ".png",
+      "sizeKB": 47
+    },
+    {
+      "path": "\\assets\\img\\game2.png",
+      "ext": ".png",
+      "sizeKB": 53
+    },
+    {
+      "path": "\\assets\\img\\game3.png",
+      "ext": ".png",
+      "sizeKB": 55
+    },
+    {
+      "path": "\\assets\\img\\game4.png",
+      "ext": ".png",
+      "sizeKB": 61
+    },
+    {
+      "path": "\\assets\\img\\google.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\assets\\img\\hero-banner-bg.png",
+      "ext": ".png",
+      "sizeKB": 44
+    },
+    {
+      "path": "\\assets\\img\\logo.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\assets\\img\\logo2.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\assets\\img\\metamask.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\assets\\img\\msg-sender1.png",
+      "ext": ".png",
+      "sizeKB": 2
+    },
+    {
+      "path": "\\assets\\img\\msg-sender2.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\assets\\img\\msg-sender3.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\assets\\img\\msg-sender4.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\assets\\img\\msg-sender5.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\assets\\img\\msg-sender6.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\assets\\img\\new-boy-mascot-removebg-preview.png",
+      "ext": ".png",
+      "sizeKB": 257
+    },
+    {
+      "path": "\\assets\\img\\new-boy-mascot1.png",
+      "ext": ".png",
+      "sizeKB": 333
+    },
+    {
+      "path": "\\assets\\img\\player1.png",
+      "ext": ".png",
+      "sizeKB": 2
+    },
+    {
+      "path": "\\assets\\img\\player2.png",
+      "ext": ".png",
+      "sizeKB": 2
+    },
+    {
+      "path": "\\assets\\img\\player3.png",
+      "ext": ".png",
+      "sizeKB": 2
+    },
+    {
+      "path": "\\assets\\img\\player4.png",
+      "ext": ".png",
+      "sizeKB": 2
+    },
+    {
+      "path": "\\assets\\img\\profile-banner.png",
+      "ext": ".png",
+      "sizeKB": 224
+    },
+    {
+      "path": "\\assets\\img\\profile.png",
+      "ext": ".png",
+      "sizeKB": 4
+    },
+    {
+      "path": "\\assets\\img\\runner-mascot.png",
+      "ext": ".png",
+      "sizeKB": 186
+    },
+    {
+      "path": "\\assets\\img\\running-game.png",
+      "ext": ".png",
+      "sizeKB": 81
+    },
+    {
+      "path": "\\assets\\img\\tour-details-banner.png",
+      "ext": ".png",
+      "sizeKB": 14
+    },
+    {
+      "path": "\\assets\\img\\tournament-banner.png",
+      "ext": ".png",
+      "sizeKB": 201
+    },
+    {
+      "path": "\\assets\\img\\user-profile.png",
+      "ext": ".png",
+      "sizeKB": 31
+    },
+    {
+      "path": "\\assets\\logo\\logo-favicon.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\assets\\logo\\logoaxiom.png",
+      "ext": ".png",
+      "sizeKB": 396
+    },
+    {
+      "path": "\\assets\\logo\\logonitroquiz.png",
+      "ext": ".png",
+      "sizeKB": 255
+    },
+    {
+      "path": "\\assets\\logo\\logozigma.png",
+      "ext": ".png",
+      "sizeKB": 110
+    },
+    {
+      "path": "\\assets\\logoAxiom.jpg",
+      "ext": ".jpg",
+      "sizeKB": 61
+    },
+    {
+      "path": "\\images\\astronaut.png",
+      "ext": ".png",
+      "sizeKB": 131
+    },
+    {
+      "path": "\\images\\logos\\logo-favicon.png",
+      "ext": ".png",
+      "sizeKB": 1
+    },
+    {
+      "path": "\\images\\logos\\logoaxiom.png",
+      "ext": ".png",
+      "sizeKB": 396
+    },
+    {
+      "path": "\\images\\logos\\logonitroquiz.png",
+      "ext": ".png",
+      "sizeKB": 255
+    },
+    {
+      "path": "\\images\\logos\\logozigma.png",
+      "ext": ".png",
+      "sizeKB": 110
+    },
+    {
+      "path": "\\images\\runner.png",
+      "ext": ".png",
+      "sizeKB": 186
+    },
+    {
+      "path": "\\images\\users\\msg-sender1.png",
+      "ext": ".png",
+      "sizeKB": 2
+    },
+    {
+      "path": "\\images\\users\\msg-sender2.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\images\\users\\msg-sender3.png",
+      "ext": ".png",
+      "sizeKB": 3
+    },
+    {
+      "path": "\\images\\users\\msg-sender4.png",
+      "ext": ".png",
+      "sizeKB": 3
+    }
+  ]
+}
