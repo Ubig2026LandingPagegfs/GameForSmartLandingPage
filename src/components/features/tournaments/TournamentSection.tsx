@@ -233,12 +233,7 @@ export default function TournamentSection() {
                               <button
                                 suppressHydrationWarning
                                 onClick={() => {
-                                  if (!isLoggedIn) {
-                                    const returnUrl = `https://gameforsmart.com/competitions/${tournament.slug}/register`;
-                                    window.location.href = `https://app.gameforsmart.com/login?redirect=${encodeURIComponent(returnUrl)}`;
-                                  } else {
-                                    router.push(`/competitions/${tournament.slug}/register`);
-                                  }
+                                  router.push(`/competitions/${tournament.slug}/register`);
                                 }}
                                 className="gps-btn-primary whitespace-nowrap flex-1 text-center"
                               >

@@ -39,12 +39,7 @@ export default function CompetitionHeroContent({
           <button
             suppressHydrationWarning
             onClick={() => {
-              if (!isLoggedIn) {
-                const returnUrl = `https://gameforsmart.com/competitions/${slug}/register`;
-                window.location.href = `https://app.gameforsmart.com/login?redirect=${encodeURIComponent(returnUrl)}`;
-              } else {
-                router.push(`/competitions/${slug}/register`);
-              }
+              router.push(`/competitions/${slug}/register`);
             }}
             className="gps-btn-primary"
           >

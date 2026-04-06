@@ -246,12 +246,7 @@ export default function CompetitionInfoCard({
             <button
               suppressHydrationWarning
               onClick={() => {
-                if (!isLoggedIn) {
-                  const returnUrl = `https://gameforsmart.com/competitions/${slug}/register`;
-                  window.location.href = `https://app.gameforsmart.com/login?redirect=${encodeURIComponent(returnUrl)}`;
-                } else {
-                  router.push(`/competitions/${slug}/register`);
-                }
+                router.push(`/competitions/${slug}/register`);
               }}
               className="d-flex align-items-center justify-content-center gap-2 w-100 fw-bold text-decoration-none text-white rounded-3 border-0"
               style={{

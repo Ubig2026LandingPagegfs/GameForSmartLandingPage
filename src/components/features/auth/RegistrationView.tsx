@@ -41,12 +41,6 @@ export default function RegistrationView({
   const { user, isLoggedIn, loading: authLoading, handleLogin } = useAuth();
 
   useEffect(() => {
-    if (!authLoading && !isLoggedIn) {
-      handleLogin();
-    }
-  }, [authLoading, isLoggedIn, handleLogin]);
-
-  useEffect(() => {
     if (user) {
       setFormData(prev => ({
         ...prev,
@@ -56,15 +50,6 @@ export default function RegistrationView({
     }
   }, [user]);
 
-  if (authLoading || !isLoggedIn) {
-    return (
-      <div className="min-vh-100 bgn-4 d-center flex-column gap-4">
-        <div className="ti ti-loader animate-spin display-four tcp-1"></div>
-        <p className="tcn-6">Memverifikasi sesi Anda...</p>
-      </div>
-    );
-  }
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -73,6 +58,13 @@ export default function RegistrationView({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!captchaOk) return;
+
+    if (!isLoggedIn) {
+      const returnUrl = `https://gameforsmart.com/competitions/${competitionSlug}/register`;
+      window.location.href = `https://app.gameforsmart.com/login?redirect=${encodeURIComponent(returnUrl)}`;
+      return;
+    }
+
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
