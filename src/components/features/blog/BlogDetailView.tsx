@@ -44,8 +44,15 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank");
         break;
       case "copy":
-        navigator.clipboard.writeText(url);
-        alert("Link berhasil disalin!");
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(url).then(() => {
+            alert("Link berhasil disalin!");
+          }).catch(() => {
+            prompt("Salin URL berikut:", url);
+          });
+        } else {
+          prompt("Salin URL berikut:", url);
+        }
         break;
     }
   };
