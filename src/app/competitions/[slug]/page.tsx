@@ -1,19 +1,44 @@
 import { Metadata } from 'next';
-import competitionsRaw from '@/data/competitions.json';
-import { TournamentInfo } from '@/data/types';
-const allItemsData = competitionsRaw as TournamentInfo[];
 import CompetitionDetailView from "@/components/features/competitions/detail/CompetitionDetailView";
+import { supabase } from "@/lib/supabase";
 import { notFound } from 'next/navigation';
 
 interface Props {
     params: { slug: string };
 }
 
+async function getCompetitionBySlug(slug: string) {
+    const { data } = await supabase.from('competitions').select('*').eq('slug', slug).single();
+    if (!data) return null;
+    
+    // Map to TournamentInfo
+    return {
+        id: data.id,
+        type: data.category || 'Educational',
+        title: data.title,
+        subtitle: "Ajang Prestasi",
+        image: data.poster_url || "/images/competitions/nasional.webp",
+        prizeMoney: data.prize_pool || "Lihat Detail",
+        ticketFee: data.registration_fee || "Free Entry",
+        date: "Sesuai Jadwal",
+        teams: "Peserta Terbatas",
+        players: "100",
+        platform: "Web",
+        rating: "5.0",
+        genre: data.category || 'Educational',
+        description: data.description || "Kompetisi terbaru",
+        status: data.status === "published" ? "Active" : "Upcoming",
+        slug: data.slug,
+        href: `/competitions/${data.slug}`,
+        finalRound: "TBA",
+        rules: data.rules || [],
+        prizes: []
+    } as any;
+}
+
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const params = await props.params;
-    const item = allItemsData.find(
-        (t) => t.slug === params.slug || String(t.id) === String(params.slug)
-    );
+    const item = await getCompetitionBySlug(params.slug);
 
     if (!item) {
         return {
@@ -21,29 +46,11 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
         };
     }
 
-    const baseTitle = "GameForSmart 2026";
-    let title = "";
-
-    if (item.type === 'game') {
-        title = `${item.title} | ${baseTitle}`;
-    } else {
-        // Special mapping for tournaments
-        if (item.slug === 'malang-raya') {
-            title = `Malang Raya Competition | ${baseTitle}`;
-        } else if (item.slug === 'jawa-timur') {
-            title = `Jawa Timur Competition | ${baseTitle}`;
-        } else if (item.slug === 'nasional') {
-            title = `National Competition | ${baseTitle}`;
-        } else {
-            title = `${item.title} Competition | ${baseTitle}`;
-        }
-    }
-
     return {
-        title: title,
+        title: `${item.title} | GameForSmart 2026`,
         description: item.description.substring(0, 160),
         openGraph: {
-            title: title,
+            title: `${item.title} | GameForSmart 2026`,
             description: item.description.substring(0, 160),
             images: [item.image],
         },
@@ -52,9 +59,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
 export default async function Page(props: { params: Promise<{ slug: string }> }) {
     const params = await props.params;
-    const item = allItemsData.find(
-        (t) => t.slug === params.slug || String(t.id) === String(params.slug)
-    );
+    const item = await getCompetitionBySlug(params.slug);
 
     if (!item) {
         notFound();

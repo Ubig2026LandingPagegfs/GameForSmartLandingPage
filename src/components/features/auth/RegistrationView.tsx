@@ -23,13 +23,15 @@ export default function RegistrationView({
   const [isSuccess, setIsSuccess] = useState(false);
   const [captchaOk, setCaptchaOk] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [localUser, setLocalUser] = useState<any>(null);
+  const [debugMsg, setDebugMsg] = useState("");
 
   // Form State
   const [formData, setFormData] = useState({
     fullName: "",
     institution: "",
     email: "",
-    phone: "",
+    category: "",
   });
 
   const customCrumbs = [
@@ -50,27 +52,167 @@ export default function RegistrationView({
     }
   }, [user]);
 
+  useEffect(() => {
+    // Tangkap token dari URL seperti saran teman
+    const rawToken = new URLSearchParams(window.location.search).get("token");
+    if (rawToken) {
+      setDebugMsg("Menemukan token di URL. Memverifikasi...");
+      
+      let cleanToken = rawToken;
+      // Jika user tidak sengaja copy seluruh JSON object dari localstorage
+      if (rawToken.startsWith("{") && rawToken.includes("access_token")) {
+        try {
+          const parsed = JSON.parse(rawToken);
+          if (parsed.access_token) cleanToken = parsed.access_token;
+        } catch (e) {}
+      }
+
+      setIsVerifying(true);
+      supabase.auth.getUser(cleanToken).then(({ data, error }) => {
+        if (error) {
+           setDebugMsg("Error verifikasi token: " + error.message);
+        } else if (data?.user) {
+          setDebugMsg("Token valid. User: " + data.user.email);
+          setLocalUser(data.user);
+          setFormData(prev => ({
+            ...prev,
+            fullName: data.user.user_metadata?.full_name || data.user.user_metadata?.name || "",
+            email: data.user.email || "",
+          }));
+          // Bersihkan token 
+          window.history.replaceState({}, '', window.location.pathname);
+        } else {
+           setDebugMsg("Tidak ada error tapi user kosong?");
+        }
+        setIsVerifying(false);
+      }).catch(err => {
+         setDebugMsg("Exception: " + err.message);
+         setIsVerifying(false);
+      });
+    }
+  }, []);
+
+  const activeUser = user || localUser;
+
+  // Hapus tanda redirect jika user berhasil login, sehingga dia bisa di-redirect otomatis lagi di masa depan jika logout
+  useEffect(() => {
+    if (activeUser) {
+      sessionStorage.removeItem("gfs_login_redirected");
+    }
+  }, [activeUser]);
+
+  // Redirect otomatis dengan pencegahan infinite loop
+  useEffect(() => {
+    // Tunggu sampai loading context selesai dan cek lokal verifikasi selesai
+    if (!authLoading && !isVerifying && !activeUser) {
+      // Cek apakah URL masih punya token (jika iya, kita sedang proses)
+      if (typeof window !== 'undefined' && !new URLSearchParams(window.location.search).has("token")) {
+        const hasRedirected = sessionStorage.getItem("gfs_login_redirected");
+        
+        if (!hasRedirected) {
+          // Tandai bahwa kita pernah redirect dia
+          sessionStorage.setItem("gfs_login_redirected", "true");
+          // Lakukan redirect
+          handleLogin();
+        }
+      }
+    }
+  }, [authLoading, isVerifying, activeUser, handleLogin]);
+
+  if (isVerifying || (authLoading && !localUser)) {
+    return (
+      <div className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100" style={{ minHeight: "60vh" }}>
+        <i className="ti ti-loader animate-spin display-five tcp-1 mb-4"></i>
+        <h3 className="tcn-1">Memverifikasi Otorisasi Anda...</h3>
+        <p className="tcn-6">Mohon tunggu sebentar, kami sedang menyiapkan sesi aman Anda.</p>
+      </div>
+    );
+  }
+
+  // Blokir jika sama sekali tidak ada activeUser 
+  const hasRedirected = typeof window !== 'undefined' ? sessionStorage.getItem("gfs_login_redirected") : false;
+
+  if (!activeUser && typeof window !== 'undefined') {
+    return (
+      <div className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100" style={{ minHeight: "60vh" }}>
+        
+        {!hasRedirected ? (
+           <>
+             <i className="ti ti-loader animate-spin display-five tcp-1 mb-4"></i>
+             <h3 className="tcn-1">Membuka Portal Login...</h3>
+             <p className="tcn-6">Mengarahkan Anda secara otomatis ke halaman login.</p>
+           </>
+        ) : (
+           <>
+            <div className="mb-6 p-4 rounded-circle" style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)' }}>
+              <i className="ti ti-lock display-five" style={{ color: '#f97316' }}></i>
+            </div>
+            <h3 className="tcn-1 fw-bold mb-3">Login Gagal / Sesi Ditolak</h3>
+            <p className="tcn-6 max-w-md mx-auto mb-4">Sistem gagal memasukkan Anda ke kompetisi secara otomatis. Anda harus masuk (login) secara manual untuk memastikan keamanan data Anda.</p>
+            
+            {/* DEBUGGING TEXT */}
+            {debugMsg && (
+              <div className="mb-6 p-4 rounded" style={{ backgroundColor: "#2a1508", border: "1px dashed #f97316", color: "#ffa266", width: "100%", maxWidth: "500px", wordBreak: "break-all", textAlign: "left" }}>
+                <span className="d-block fw-bold mb-2"><i className="ti ti-bug"></i> Terminal Lacak Debug:</span>
+                <small className="d-block font-monospace">{debugMsg}</small>
+              </div>
+            )}
+
+            <Button
+              onClick={handleLogin}
+              className="btn-half-border position-relative d-inline-flex py-4 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none text-white fs-five"
+            >
+              Coba Masuk Lagi
+            </Button>
+           </>
+        )}
+      </div>
+    );
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaOk) return;
 
-    if (!isLoggedIn) {
-      const returnUrl = `https://gameforsmart.com/competitions/${competitionSlug}/register`;
-      window.location.href = `https://app.gameforsmart.com/login?redirect=${encodeURIComponent(returnUrl)}`;
+    if (!activeUser) {
+      alert("Sesi Anda tidak valid. Silakan login kembali.");
+      handleLogin();
+      return;
+    }
+
+    if (!formData.category) {
+      alert("Silakan pilih Kategori/Tingkat Pendidikan Anda.");
       return;
     }
 
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    
+    try {
+      const isPaid = fee === "Free Entry" || fee === "Gratis";
+
+      const { error } = await supabase.from('competition_participants').insert({
+        competition_id: competitionSlug,
+        user_id: activeUser.id,
+        category: formData.category,
+        is_paid: isPaid,
+        registered_at: new Date().toISOString()
+      });
+
+      if (error) {
+        console.error("Supabase Insert Error:", error);
+        throw error;
+      }
+
       setIsSuccess(true);
-    }, 1500);
+    } catch (err) {
+      alert("Gagal mendaftar. Silakan coba lagi nanti.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -220,25 +362,25 @@ export default function RegistrationView({
                 </div>
                 <div className="col-md-6">
                   <label className="tcn-1 fs-sm fw-medium mb-2 d-block">
-                    No. WhatsApp <span className="tcp-1">*</span>
+                    Kategori / Tingkat Pendidikan <span className="tcp-1">*</span>
                   </label>
-                  <Input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange as any}
                     className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
-                    placeholder="08xx xxxx xxxx"
                     required
-                  />
+                  >
+                    <option value="" disabled hidden>Pilih Kategori</option>
+                    <option value="SD">Sekolah Dasar (SD)</option>
+                    <option value="SMP">Sekolah Menengah Pertama (SMP)</option>
+                    <option value="SMA Sederajat">SMA / Sederajat</option>
+                  </select>
                 </div>
               </div>
             </div>
 
-            {/* CAPTCHA */}
-            <div className="mt-2">
-              <MathCaptcha onVerify={setCaptchaOk} />
-            </div>
+            {/* CAPTCHA Dihapus karena pengguna dijamin sudah login / verified */}
 
             {/* Summary & Submit */}
             <div className="mt-4 p-4 bgn-3 rounded-3 border border-secondary border-opacity-10 d-flex flex-wrap align-items-center justify-content-between gap-4">
@@ -253,8 +395,7 @@ export default function RegistrationView({
               <Button
                 type="submit"
                 className="btn-half-border position-relative d-inline-flex py-5 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none hover:bg-transparent text-white"
-                disabled={isSubmitting || !captchaOk}
-                style={!captchaOk ? { opacity: 0.45, cursor: 'not-allowed' } : {}}
+                disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="d-flex align-items-center gap-2">

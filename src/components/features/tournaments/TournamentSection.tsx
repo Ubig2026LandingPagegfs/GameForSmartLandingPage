@@ -13,6 +13,7 @@ import {
   Trophy,
   GraduationCap,
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const tournamentsData = competitionsDataRaw as TournamentInfo[];
 
@@ -21,15 +22,49 @@ export default function TournamentSection() {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<any>(null);
+  const [tournaments, setTournaments] = useState<any[]>(tournamentsData);
 
-  const visibleTournaments = tournamentsData.filter(
-    (t) => t.status === "Active" || t.status === "Upcoming",
+  useEffect(() => {
+    const fetchCompetitions = async () => {
+      try {
+        const { data, error } = await supabase.from('competitions').select('*');
+        if (data && !error) {
+          const mapped = data.map(db => ({
+            id: db.id,
+            status: db.status === "published" ? "Published" : (db.status === "coming_soon" ? "Coming Soon" : db.status),
+            href: `/competitions/${db.slug}`,
+            image: db.poster_url || "/images/competitions/nasional.webp", // Fallback if no poster
+            title: db.title,
+            description: db.description || "Kompetisi terbaru GameforSmart",
+            date: "Sesuai Jadwal", 
+            prizeMoney: db.prize_pool || "Lihat Detail",
+            type: db.category || "Umum",
+            slug: db.slug
+          }));
+          
+          if (mapped.length > 0) {
+            setTournaments(mapped);
+          }
+        }
+      } catch (err) {
+        console.error("Gagal memuat kompetisi dari Supabase", err);
+      }
+    };
+    
+    fetchCompetitions();
+  }, []);
+
+  const visibleTournaments = tournaments.filter(
+    (t) => t.status === "Published" || t.status === "Coming Soon",
   );
 
   useEffect(() => {
     let swiperInstance: any = null;
     let retryCount = 0;
     const maxRetries = 20;
+
+    // Check if there are elements to render. If not, do not initialize.
+    if (visibleTournaments.length === 0) return;
 
     const initSwiper = () => {
       if (typeof window !== "undefined" && (window as any).Swiper) {
@@ -84,7 +119,7 @@ export default function TournamentSection() {
     return () => {
       if (swiperInstance) swiperInstance.destroy();
     };
-  }, []);
+  }, [tournaments]);
 
   const next = () => {
     if (swiperRef.current) swiperRef.current.slideNext();
@@ -97,7 +132,7 @@ export default function TournamentSection() {
   };
 
   const statusColor = (status: string) =>
-    status === "Active"
+    status === "Published" || status === "Active"
       ? {
           dot: "bg-emerald-400",
           text: "text-emerald-400",

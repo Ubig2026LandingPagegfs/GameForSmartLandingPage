@@ -1,18 +1,20 @@
+import { supabase } from "@/lib/supabase";
 import { Metadata } from 'next';
-import competitionsRaw from '@/data/competitions.json';
-import { TournamentInfo } from '@/data/types';
-const allItemsData = competitionsRaw as TournamentInfo[];
 import { notFound } from 'next/navigation';
 import RegistrationView from "@/components/features/auth/RegistrationView";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Sidebar from "@/components/shared/Sidebar";
 
+async function getCompetitionBySlug(slug: string) {
+    const { data } = await supabase.from('competitions').select('*').eq('slug', slug).single();
+    if (!data) return null;
+    return data;
+}
+
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const params = await props.params;
-    const item = allItemsData.find(
-        (t: TournamentInfo) => t.slug === params.slug || String(t.id) === String(params.slug)
-    );
+    const item = await getCompetitionBySlug(params.slug);
 
     if (!item) {
         return {
@@ -28,12 +30,9 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
 export default async function RegistrationPage(props: { params: Promise<{ slug: string }> }) {
     const params = await props.params;
-    const item = allItemsData.find(
-        (t: TournamentInfo) => t.slug === params.slug || String(t.id) === String(params.slug)
-    );
+    const item = await getCompetitionBySlug(params.slug);
 
-    if (!item || item.type === 'game') {
-        // We only allow registration for tournaments, not games
+    if (!item) {
         notFound();
     }
 
@@ -45,8 +44,8 @@ export default async function RegistrationPage(props: { params: Promise<{ slug: 
                 <article className="main-content w-100">
                     <RegistrationView
                         competitionTitle={item.title}
-                        competitionSlug={item.slug}
-                        fee={item.ticketFee || 'Free Entry'}
+                        competitionSlug={item.id} // Passing REAL UUID to match Database Foreign Key requirement
+                        fee={item.registration_fee || 'Free Entry'}
                     />
                 </article>
             </main>
