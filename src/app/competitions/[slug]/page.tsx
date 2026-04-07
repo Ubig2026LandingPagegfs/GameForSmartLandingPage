@@ -11,6 +11,33 @@ async function getCompetitionBySlug(slug: string) {
     const { data } = await supabase.from('competitions').select('*').eq('slug', slug).single();
     if (!data) return null;
     
+    const formatDateRange = (startStr: string | null, endStr: string | null) => {
+      if (!startStr && !endStr) return "Sesuai Jadwal";
+      try {
+        const startObj = startStr ? new Date(startStr) : null;
+        const endObj = endStr ? new Date(endStr) : null;
+        
+        if (startObj && endObj) {
+            const startMonth = startObj.toLocaleString('id-ID', { month: 'long' });
+            const startYear = startObj.getFullYear();
+            const endMonth = endObj.toLocaleString('id-ID', { month: 'long' });
+            const endYear = endObj.getFullYear();
+            
+            if (startYear === endYear) {
+               if (startMonth === endMonth) {
+                  return `${startMonth} ${startYear}`;
+               }
+               return `${startMonth} - ${endMonth} ${startYear}`;
+            }
+            return `${startMonth} ${startYear} - ${endMonth} ${endYear}`;
+        }
+        if (startObj) return `${startObj.toLocaleString('id-ID', { month: 'long' })} ${startObj.getFullYear()}`;
+        return "Sesuai Jadwal";
+      } catch (e) {
+         return "Sesuai Jadwal";
+      }
+    };
+
     // Map to TournamentInfo
     return {
         id: data.id,
@@ -20,7 +47,7 @@ async function getCompetitionBySlug(slug: string) {
         image: data.poster_url || "/images/competitions/nasional.webp",
         prizeMoney: data.prize_pool || "Lihat Detail",
         ticketFee: data.registration_fee || "Free Entry",
-        date: "Sesuai Jadwal",
+        date: formatDateRange(data.qualification_start_date || data.registration_start_date, data.final_end_date || data.qualification_end_date || data.registration_end_date),
         teams: "Peserta Terbatas",
         players: "100",
         platform: "Web",

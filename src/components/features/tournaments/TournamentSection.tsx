@@ -24,6 +24,33 @@ export default function TournamentSection() {
   const swiperRef = useRef<any>(null);
   const [tournaments, setTournaments] = useState<any[]>(tournamentsData);
 
+  const formatDateRange = (startStr: string | null, endStr: string | null) => {
+    if (!startStr && !endStr) return "Sesuai Jadwal";
+    try {
+      const startObj = startStr ? new Date(startStr) : null;
+      const endObj = endStr ? new Date(endStr) : null;
+      
+      if (startObj && endObj) {
+          const startMonth = startObj.toLocaleString('id-ID', { month: 'long' });
+          const startYear = startObj.getFullYear();
+          const endMonth = endObj.toLocaleString('id-ID', { month: 'long' });
+          const endYear = endObj.getFullYear();
+          
+          if (startYear === endYear) {
+             if (startMonth === endMonth) {
+                return `${startMonth} ${startYear}`;
+             }
+             return `${startMonth} - ${endMonth} ${startYear}`;
+          }
+          return `${startMonth} ${startYear} - ${endMonth} ${endYear}`;
+      }
+      if (startObj) return `${startObj.toLocaleString('id-ID', { month: 'long' })} ${startObj.getFullYear()}`;
+      return "Sesuai Jadwal";
+    } catch (e) {
+       return "Sesuai Jadwal";
+    }
+  };
+
   useEffect(() => {
     const fetchCompetitions = async () => {
       try {
@@ -36,7 +63,7 @@ export default function TournamentSection() {
             image: db.poster_url || "/images/competitions/nasional.webp", // Fallback if no poster
             title: db.title,
             description: db.description || "Kompetisi terbaru GameforSmart",
-            date: "Sesuai Jadwal", 
+            date: formatDateRange(db.qualification_start_date || db.registration_start_date, db.final_end_date || db.qualification_end_date || db.registration_end_date), 
             prizeMoney: db.prize_pool || "Lihat Detail",
             type: db.category || "Umum",
             slug: db.slug
@@ -268,7 +295,13 @@ export default function TournamentSection() {
                               <button
                                 suppressHydrationWarning
                                 onClick={() => {
-                                  router.push(`/competitions/${tournament.slug}/register`);
+                                  if (!isLoggedIn) {
+                                    const authUrl = process.env.NEXT_PUBLIC_AUTH_BASE_URL || 'https://app.gameforsmart.com/login';
+                                    const nextUrl = encodeURIComponent(`${window.location.origin}/competitions/${tournament.slug}/register`);
+                                    window.location.href = `${authUrl}?next=${nextUrl}`;
+                                  } else {
+                                    router.push(`/competitions/${tournament.slug}/register`);
+                                  }
                                 }}
                                 className="gps-btn-primary whitespace-nowrap flex-1 text-center"
                               >
