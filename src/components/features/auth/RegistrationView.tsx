@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MathCaptcha from "@/components/shared/MathCaptcha";
-import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
 
@@ -255,7 +254,6 @@ export default function RegistrationView({
     <div className="registration-view py-lg-12 py-8 px-sm-6 px-4">
       <div className="container-fluid max-w-3xl mx-auto">
         <div className="mb-4">
-          <Breadcrumbs customCrumbs={customCrumbs} />
         </div>
         {/* Back Button */}
         <div className="mb-8">
@@ -402,7 +400,7 @@ export default function RegistrationView({
                     <i className="ti ti-loader animate-spin"></i> Memproses...
                   </span>
                 ) : (
-                  "Konfirmasi Pendaftaran"
+                  "Kirim"
                 )}
               </Button>
             </div>
