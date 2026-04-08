@@ -255,8 +255,6 @@ export default function RegistrationView({
       setIsSuccess(true);
     } catch (err) {
       alert("Gagal mendaftar. Silakan coba lagi nanti.");
-      console.error("Registration Error:", err);
-      console.log("Profile:", profile);
     } finally {
       setIsSubmitting(false);
     }
