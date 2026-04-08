@@ -41,7 +41,7 @@ export default function RegistrationView({
     { href: "#", label: "Register", isLast: true },
   ];
 
-  const { user, isLoggedIn, loading: authLoading, handleLogin } = useAuth();
+  const { user, isLoggedIn, loading: authLoading, handleLogin, profile } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -239,9 +239,8 @@ export default function RegistrationView({
       const isPaid = fee === "Free Entry" || fee === "Gratis";
 
       const { error } = await supabase.from('competition_participants').insert({
-        id: partId,
         competition_id: competitionSlug,
-        user_id: activeUser.id,
+        user_id: profile.id,
         category: formData.category,
         is_paid: isPaid,
         registered_at: new Date().toISOString()
