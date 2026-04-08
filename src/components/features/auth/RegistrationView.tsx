@@ -70,16 +70,22 @@ export default function RegistrationView({
       }
 
       setIsVerifying(true);
-      supabase.auth.getUser(cleanToken).then(({ data, error }) => {
+      // PENTING: Gunakan setSession agar client Supabase benar-benar login, bukan cuma fetch data user.
+      // Dengan setSession, token JWT akan dibawa di header untuk menembus RLS database.
+      supabase.auth.setSession({
+        access_token: cleanToken,
+        refresh_token: cleanToken // Jika ada
+      }).then(({ data, error }) => {
         if (error) {
-           setDebugMsg("Error verifikasi token: " + error.message);
-        } else if (data?.user) {
-          setDebugMsg("Token valid. User: " + data.user.email);
-          setLocalUser(data.user);
+           setDebugMsg("Error setSession: " + error.message);
+        } else if (data?.session?.user) {
+          const sessionUser = data.session.user;
+          setDebugMsg("Token valid. User: " + sessionUser.email);
+          setLocalUser(sessionUser);
           setFormData(prev => ({
             ...prev,
-            fullName: data.user.user_metadata?.full_name || data.user.user_metadata?.name || "",
-            email: data.user.email || "",
+            fullName: sessionUser.user_metadata?.full_name || sessionUser.user_metadata?.name || "",
+            email: sessionUser.email || "",
           }));
           // Bersihkan token 
           window.history.replaceState({}, '', window.location.pathname);
