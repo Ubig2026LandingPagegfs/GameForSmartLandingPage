@@ -124,14 +124,16 @@ export default function RegistrationView({
     if (!authLoading && !isVerifying && !activeUser) {
       if (typeof window !== 'undefined') {
         const params = new URLSearchParams(window.location.search);
+        const hasToken = params.has("token");
+        const hasRedirected = sessionStorage.getItem("redirected_to_login") === "true";
+
         // Jangan redirect jika:
         // 1. Ada token di URL (sedang proses verifikasi)
-        // 2. Ada param "from=login" (sudah pernah redirect, cegah loop)
-        if (!params.has("token") && !params.has("from")) {
+        // 2. Sudah pernah redirect sebelumnya di sesi ini (cegah loop)
+        if (!hasToken && !hasRedirected) {
+          sessionStorage.setItem("redirected_to_login", "true");
           const authUrl = process.env.NEXT_PUBLIC_AUTH_BASE_URL || 'https://app.gameforsmart.com/login';
-          const currentUrl = new URL(window.location.href);
-          currentUrl.searchParams.set("from", "login");
-          const nextUrl = encodeURIComponent(currentUrl.toString());
+          const nextUrl = encodeURIComponent(window.location.href.split('?')[0]); // Gunakan URL bersih tanpa query params
           window.location.href = `${authUrl}?redirect=${nextUrl}`;
         }
       }
@@ -171,7 +173,7 @@ export default function RegistrationView({
 
   // Jika belum login: tampilkan loading jika auto-redirect akan terjadi, atau tombol manual jika sudah pernah redirect
   if (!activeUser) {
-    const cameFromLogin = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has("from");
+    const cameFromLogin = typeof window !== 'undefined' && sessionStorage.getItem("redirected_to_login") === "true";
     
     if (cameFromLogin) {
       // User sudah di-redirect ke login tapi masih gagal -> tampilkan tombol manual (TANPA auto-redirect lagi!)
@@ -186,10 +188,9 @@ export default function RegistrationView({
           </p>
           <Button
             onClick={async () => {
+              sessionStorage.removeItem("redirected_to_login"); // Hapus agar bisa klik manual ulang
               const authUrl = process.env.NEXT_PUBLIC_AUTH_BASE_URL || 'https://app.gameforsmart.com/login';
-              const cleanUrl = new URL(window.location.href);
-              cleanUrl.searchParams.delete("from");
-              const nextUrl = encodeURIComponent(cleanUrl.toString());
+              const nextUrl = encodeURIComponent(window.location.href.split('?')[0]);
               window.location.href = `${authUrl}?redirect=${nextUrl}`;
             }}
             className="btn-half-border position-relative d-inline-flex py-4 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none text-white fs-five"
