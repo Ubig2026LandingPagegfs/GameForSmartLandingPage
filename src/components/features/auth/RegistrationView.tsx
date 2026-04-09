@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MathCaptcha from "@/components/shared/MathCaptcha";
@@ -18,6 +19,7 @@ export default function RegistrationView({
   competitionSlug,
   fee,
 }: RegistrationViewProps) {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [captchaOk, setCaptchaOk] = useState(false);
@@ -304,18 +306,15 @@ export default function RegistrationView({
         {/* Back Button */}
         <div className="mb-8">
           <Button
-            asChild
+            onClick={() => router.back()}
             variant="outline"
             className="rounded-circle p-0 transition-all hover-scale bg-orange-gradient neon-orange-glow border-none hover:bg-transparent"
             style={{ width: "40px", height: "40px" }}
-            title="Kembali ke Detail"
+            title="Kembali Sebelumnya"
           >
-            <Link
-              href={`/competitions/${competitionSlug}`}
-              className="d-inline-flex align-items-center justify-content-center"
-            >
+            <div className="d-inline-flex align-items-center justify-content-center w-100 h-100">
               <i className="ti ti-arrow-left fs-xl text-white"></i>
-            </Link>
+            </div>
           </Button>
         </div>
 
