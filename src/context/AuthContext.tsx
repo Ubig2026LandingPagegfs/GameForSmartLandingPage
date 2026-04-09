@@ -45,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", userId)
+        .eq("auth_user_id", userId)
         .single();
       if (!error && data) {
         return data;
@@ -110,28 +110,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const tokenTime = localStorage.getItem("token_time");
 
         if (accessToken && savedUser && tokenTime) {
-          const hoursSinceLogin = (Date.now() - parseInt(tokenTime)) / (1000 * 60 * 60);
+          const hoursPassed = (Date.now() - parseInt(tokenTime)) / (1000 * 60 * 60);
           
-          if (hoursSinceLogin < 24) {
-            const { data } = await supabase.auth.getUser(accessToken);
-            if (data?.user) {
-              setUser(data.user);
-              if (savedProfile) {
-                setProfile(JSON.parse(savedProfile));
-              }
-              setIsLoggedIn(true);
-              
-              // Always fetch fresh profile data from Supabase
-              const userProfile = await fetchProfile(data.user.id);
-              setProfile(userProfile);
-              if (userProfile) {
-                localStorage.setItem("profile", JSON.stringify(userProfile));
-              } else {
-                localStorage.removeItem("profile");
-              }
-            } else {
-              clearAuth();
+          if (hoursPassed < 24) {
+            // TERNYATA INI PENYAKITNYA! localStorage dikembalikan tapi Supabase client tetap anonim!
+            // Kita wajib menyetel ulang session ke dalam Supabase Client di sini!
+            await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: accessToken // Gunakan token utama
+            });
+
+            setUser(JSON.parse(savedUser));
+            if (savedProfile && savedProfile !== "undefined") {
+              setProfile(JSON.parse(savedProfile));
             }
+            setIsLoggedIn(true);
           } else {
             clearAuth();
           }
@@ -144,7 +137,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initAuth();
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const currentUrl = window.location.href;
     window.location.href = `${AUTH_BASE_URL}/login?redirect=${encodeURIComponent(currentUrl)}`;
   };

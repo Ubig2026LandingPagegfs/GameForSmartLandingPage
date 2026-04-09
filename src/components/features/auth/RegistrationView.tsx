@@ -22,6 +22,8 @@ export default function RegistrationView({
   const [isSuccess, setIsSuccess] = useState(false);
   const [captchaOk, setCaptchaOk] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
+  const [checkingRegistration, setCheckingRegistration] = useState(false);
   const [localUser, setLocalUser] = useState<any>(null);
   const [debugMsg, setDebugMsg] = useState("");
 
@@ -39,7 +41,7 @@ export default function RegistrationView({
     { href: "#", label: "Register", isLast: true },
   ];
 
-  const { user, isLoggedIn, loading: authLoading, handleLogin } = useAuth();
+  const { profile, user, isLoggedIn, loading: authLoading, handleLogin } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -67,16 +69,22 @@ export default function RegistrationView({
       }
 
       setIsVerifying(true);
-      supabase.auth.getUser(cleanToken).then(({ data, error }) => {
+      // PENTING: Gunakan setSession agar client Supabase benar-benar login, bukan cuma fetch data user.
+      // Dengan setSession, token JWT akan dibawa di header untuk menembus RLS database.
+      supabase.auth.setSession({
+        access_token: cleanToken,
+        refresh_token: cleanToken // Jika ada
+      }).then(({ data, error }) => {
         if (error) {
-           setDebugMsg("Error verifikasi token: " + error.message);
-        } else if (data?.user) {
-          setDebugMsg("Token valid. User: " + data.user.email);
-          setLocalUser(data.user);
+           setDebugMsg("Error setSession: " + error.message);
+        } else if (data?.session?.user) {
+          const sessionUser = data.session.user;
+          setDebugMsg("Token valid. User: " + sessionUser.email);
+          setLocalUser(sessionUser);
           setFormData(prev => ({
             ...prev,
-            fullName: data.user.user_metadata?.full_name || data.user.user_metadata?.name || "",
-            email: data.user.email || "",
+            fullName: sessionUser.user_metadata?.full_name || sessionUser.user_metadata?.name || "",
+            email: sessionUser.email || "",
           }));
           // Bersihkan token 
           window.history.replaceState({}, '', window.location.pathname);
@@ -86,85 +94,119 @@ export default function RegistrationView({
         setIsVerifying(false);
       }).catch(err => {
          setDebugMsg("Exception: " + err.message);
-         setIsVerifying(false);
       });
     }
   }, []);
 
   const activeUser = user || localUser;
 
-  // Hapus tanda redirect jika user berhasil login, sehingga dia bisa di-redirect otomatis lagi di masa depan jika logout
+  // Cek apakah user ini sudah terdaftar sebelumnya
   useEffect(() => {
-    if (activeUser) {
-      sessionStorage.removeItem("gfs_login_redirected");
+    if (activeUser && competitionSlug) {
+      setCheckingRegistration(true);
+      supabase
+        .from('competition_participants')
+        .select('id')
+        .eq('competition_id', competitionSlug)
+        .eq('user_id', activeUser.id)
+        .single()
+        .then(({ data }) => {
+          if (data) {
+            setIsAlreadyRegistered(true);
+          }
+          setCheckingRegistration(false);
+        });
     }
-  }, [activeUser]);
+  }, [activeUser, competitionSlug]);
 
-  // Redirect otomatis dengan pencegahan infinite loop
+  // Redirect otomatis ke login jika belum login (dengan perlindungan anti-loop)
   useEffect(() => {
-    // Tunggu sampai loading context selesai dan cek lokal verifikasi selesai
     if (!authLoading && !isVerifying && !activeUser) {
-      // Cek apakah URL masih punya token (jika iya, kita sedang proses)
-      if (typeof window !== 'undefined' && !new URLSearchParams(window.location.search).has("token")) {
-        const hasRedirected = sessionStorage.getItem("gfs_login_redirected");
-        
-        if (!hasRedirected) {
-          // Tandai bahwa kita pernah redirect dia
-          sessionStorage.setItem("gfs_login_redirected", "true");
-          // Lakukan redirect
-          handleLogin();
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const hasToken = params.has("token");
+        const hasRedirected = sessionStorage.getItem("redirected_to_login") === "true";
+
+        // Jangan redirect jika:
+        // 1. Ada token di URL (sedang proses verifikasi)
+        // 2. Sudah pernah redirect sebelumnya di sesi ini (cegah loop)
+        if (!hasToken && !hasRedirected) {
+          sessionStorage.setItem("redirected_to_login", "true");
+          const authUrl = process.env.NEXT_PUBLIC_AUTH_BASE_URL || 'https://app.gameforsmart.com/login';
+          const nextUrl = encodeURIComponent(window.location.href.split('?')[0]); // Gunakan URL bersih tanpa query params
+          window.location.href = `${authUrl}?redirect=${nextUrl}`;
         }
       }
     }
-  }, [authLoading, isVerifying, activeUser, handleLogin]);
+  }, [authLoading, isVerifying, activeUser]);
 
-  if (isVerifying || (authLoading && !localUser)) {
+  if (isVerifying || (authLoading && !localUser) || checkingRegistration) {
     return (
       <div className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100" style={{ minHeight: "60vh" }}>
         <i className="ti ti-loader animate-spin display-five tcp-1 mb-4"></i>
         <h3 className="tcn-1">Memverifikasi Otorisasi Anda...</h3>
-        <p className="tcn-6">Mohon tunggu sebentar, kami sedang menyiapkan sesi aman Anda.</p>
+        <p className="tcn-6">Mohon tunggu sebentar, kami sedang menyiapkan sinkronisasi data Anda.</p>
       </div>
     );
   }
 
-  // Blokir jika sama sekali tidak ada activeUser 
-  const hasRedirected = typeof window !== 'undefined' ? sessionStorage.getItem("gfs_login_redirected") : false;
-
-  if (!activeUser && typeof window !== 'undefined') {
+  // Jika sudah terdaftar, cegah form tampil dan beri info sukses/sudah daftar
+  if (isAlreadyRegistered) {
     return (
       <div className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100" style={{ minHeight: "60vh" }}>
-        
-        {!hasRedirected ? (
-           <>
-             <i className="ti ti-loader animate-spin display-five tcp-1 mb-4"></i>
-             <h3 className="tcn-1">Membuka Portal Login...</h3>
-             <p className="tcn-6">Mengarahkan Anda secara otomatis ke halaman login.</p>
-           </>
-        ) : (
-           <>
-            <div className="mb-6 p-4 rounded-circle" style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)' }}>
-              <i className="ti ti-lock display-five" style={{ color: '#f97316' }}></i>
-            </div>
-            <h3 className="tcn-1 fw-bold mb-3">Login Gagal / Sesi Ditolak</h3>
-            <p className="tcn-6 max-w-md mx-auto mb-4">Sistem gagal memasukkan Anda ke kompetisi secara otomatis. Anda harus masuk (login) secara manual untuk memastikan keamanan data Anda.</p>
-            
-            {/* DEBUGGING TEXT */}
-            {debugMsg && (
-              <div className="mb-6 p-4 rounded" style={{ backgroundColor: "#2a1508", border: "1px dashed #f97316", color: "#ffa266", width: "100%", maxWidth: "500px", wordBreak: "break-all", textAlign: "left" }}>
-                <span className="d-block fw-bold mb-2"><i className="ti ti-bug"></i> Terminal Lacak Debug:</span>
-                <small className="d-block font-monospace">{debugMsg}</small>
-              </div>
-            )}
+        <div className="mb-6 p-4 rounded-circle" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)' }}>
+          <i className="ti ti-circle-check display-five" style={{ color: '#22c55e' }}></i>
+        </div>
+        <h3 className="tcn-1 fw-bold mb-3">Telah Terdaftar</h3>
+        <p className="tcn-6 max-w-md mx-auto mb-6">
+          Anda sudah terdaftar sebagai peserta pada kompetisi <strong className="tcn-1">{competitionTitle}</strong>! Data registrasi Anda sudah tersimpan dengan aman di dalam sistem kami.
+        </p>
+        <Link 
+          href={`/competitions`}
+          className="btn-half-border position-relative d-inline-flex py-4 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none text-white fs-five"
+        >
+          Lihat Kompetisi Lain
+        </Link>
+      </div>
+    );
+  }
 
-            <Button
-              onClick={handleLogin}
-              className="btn-half-border position-relative d-inline-flex py-4 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none text-white fs-five"
-            >
-              Coba Masuk Lagi
-            </Button>
-           </>
-        )}
+  // Jika belum login: tampilkan loading jika auto-redirect akan terjadi, atau tombol manual jika sudah pernah redirect
+  if (!activeUser) {
+    const cameFromLogin = typeof window !== 'undefined' && sessionStorage.getItem("redirected_to_login") === "true";
+    
+    if (cameFromLogin) {
+      // User sudah di-redirect ke login tapi masih gagal -> tampilkan tombol manual (TANPA auto-redirect lagi!)
+      return (
+        <div className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100" style={{ minHeight: "60vh" }}>
+          <div className="mb-6 p-4 rounded-circle" style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)' }}>
+            <i className="ti ti-lock display-five" style={{ color: '#f97316' }}></i>
+          </div>
+          <h3 className="tcn-1 fw-bold mb-3">Silakan Login Terlebih Dahulu</h3>
+          <p className="tcn-6 max-w-md mx-auto mb-6">
+            Anda perlu masuk ke akun Anda untuk mendaftar kompetisi ini.
+          </p>
+          <Button
+            onClick={async () => {
+              sessionStorage.removeItem("redirected_to_login"); // Hapus agar bisa klik manual ulang
+              const authUrl = process.env.NEXT_PUBLIC_AUTH_BASE_URL || 'https://app.gameforsmart.com/login';
+              const nextUrl = encodeURIComponent(window.location.href.split('?')[0]);
+              window.location.href = `${authUrl}?redirect=${nextUrl}`;
+            }}
+            className="btn-half-border position-relative d-inline-flex py-4 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none text-white fs-five"
+          >
+            Masuk Sekarang
+          </Button>
+        </div>
+      );
+    }
+    
+    // Belum pernah redirect -> tampilkan spinner (auto-redirect akan terjadi dari useEffect)
+    return (
+      <div className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100" style={{ minHeight: "60vh" }}>
+        <i className="ti ti-loader animate-spin display-five tcp-1 mb-4"></i>
+        <h3 className="tcn-1">Mengarahkan ke halaman login...</h3>
+        <p className="tcn-6">Mohon tunggu sebentar.</p>
       </div>
     );
   }
@@ -191,11 +233,15 @@ export default function RegistrationView({
     setIsSubmitting(true);
     
     try {
+      // Create random XID/UUID string for ID (Math.random as simple alternative if no nanoid available)
+      const partId = "p_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+      
       const isPaid = fee === "Free Entry" || fee === "Gratis";
 
       const { error } = await supabase.from('competition_participants').insert({
+        id: partId,
         competition_id: competitionSlug,
-        user_id: activeUser.id,
+        user_id: profile.id,
         category: formData.category,
         is_paid: isPaid,
         registered_at: new Date().toISOString()
@@ -387,7 +433,7 @@ export default function RegistrationView({
                   Biaya Pendaftaran
                 </span>
                 <span className="tcn-1 fs-five fw-bold tcp-1">
-                  {fee !== "Free Entry" ? fee : "Gratis"}
+                  {fee !== "Free Entry" ? fee.replace(/^Rp\./i, 'Rp ') : "Gratis"}
                 </span>
               </div>
               <Button
