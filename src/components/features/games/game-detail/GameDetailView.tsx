@@ -180,7 +180,7 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                     color: var(--text-primary);
                     font-family: 'Outfit', 'DM Sans', system-ui, sans-serif;
                     overflow-x: hidden;
-                    max-width: 100vw;
+                    max-width: 100%;
                     box-sizing: border-box;
                     padding-top: var(--space-xl);
                     padding-bottom: var(--space-xl);

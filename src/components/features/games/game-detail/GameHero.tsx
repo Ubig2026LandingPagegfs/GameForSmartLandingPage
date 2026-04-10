@@ -67,9 +67,9 @@ export default function GameHero({
         .hero-section {
           position: relative;
           width: 100%;
-          max-width: 100vw;
+          max-width: 100%;
           box-sizing: border-box;
-          min-height: 70vh;
+          min-height: clamp(450px, 70vh, 900px);
           background: #0a0c12;
           overflow: hidden;
         }
@@ -77,6 +77,7 @@ export default function GameHero({
         .hero-bg {
           position: absolute;
           inset: 0;
+          top: 90px; /* Offset so the fixed header doesn't overlap the top of the image */
           background: #0a0c12;
         }
 
@@ -93,7 +94,7 @@ export default function GameHero({
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: center center;
+          object-position: top;
           display: block;
         }
 
@@ -193,10 +194,11 @@ export default function GameHero({
           z-index: 3;
           display: flex;
           align-items: flex-end;
-          min-height: 70vh;
+          min-height: clamp(450px, 70vh, 900px);
           width: 100%;
-          max-width: 100vw;
+          max-width: 100%;
           box-sizing: border-box;
+          padding-top: 100px;
           padding-left: calc(var(--sidebar-w, 105px) + clamp(20px, 4vw, 72px));
           padding-right: clamp(20px, 4vw, 72px);
         }
