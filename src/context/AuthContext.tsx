@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { supabase, getSessionFromCookie } from "@/lib/supabase";
+import { supabase, getSessionFromCookie, syncSessionCookie } from "@/lib/supabase";
 
 interface AuthContextType {
   user: any;
@@ -34,8 +34,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoggedIn(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // 1. Logout dari sistem utama Supabase
+    await supabase.auth.signOut();
+    
+    // 2. Hancurkan cookie SSO gameforsmart
+    syncSessionCookie(null);
+    
+    // 3. Bersihkan sisa localStorage
     clearAuth();
+    
+    // 4. Redirect ke halaman login induk
     const redirectUrl = window.location.origin;
     window.location.href = `${AUTH_BASE_URL}/login?redirect=${encodeURIComponent(redirectUrl)}`;
   };
