@@ -67,19 +67,3 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
         detectSessionInUrl: true,
     },
 });
-
-// Listener untuk menyamakan/broadcasting token di Landing Page ke semua ekosistem gameforsmart
-if (typeof window !== 'undefined') {
-    supabase.auth.onAuthStateChange((event, session) => {
-        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION') {
-            if (session) {
-                syncSessionCookie({
-                    access_token: session.access_token,
-                    refresh_token: session.refresh_token
-                });
-            }
-        } else if (event === 'SIGNED_OUT') {
-            syncSessionCookie(null);
-        }
-    });
-}
