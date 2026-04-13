@@ -2,11 +2,23 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase, getSessionFromCookie, syncSessionCookie } from "@/lib/supabase";
 
+interface Profile {
+    id: string
+    username: string
+    email: string
+    nickname?: string
+    fullname?: string
+    avatar_url?: string
+    auth_user_id: string
+    role?: string
+}
+
 interface AuthContextType {
   user: any;
-  profile: any;
+  profile: Profile | null;
   isLoggedIn: boolean;
   loading: boolean;
+  isRestoringSession: boolean;
   handleLogin: () => void;
   handleRegister: () => void;
   handleLogout: () => void;
@@ -18,170 +30,230 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AUTH_BASE_URL = process.env.NEXT_PUBLIC_AUTH_BASE_URL || "https://app.gameforsmart.com";
 
+// Retry helper dengan exponential backoff seperti di Axiom
+async function ensureProfileWithRetry(
+    currentUser: any,
+    onSuccess: (profile: Profile) => void,
+    onFallback: (profile: Profile) => void,
+    maxRetries = 3
+) {
+    let retryCount = 0
+    const baseDelay = 500
+
+    const attempt = async (): Promise<void> => {
+        try {
+            const { data: existing, error: selectError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('auth_user_id', currentUser.id)
+                .single()
+
+            if (selectError && selectError.code !== 'PGRST116') throw selectError
+
+            if (existing) {
+                onSuccess(existing)
+                return
+            }
+
+            const profileData = {
+                auth_user_id: currentUser.id,
+                username: currentUser.user_metadata?.username || currentUser.email?.split('@')[0] || 'user',
+                email: currentUser.email || '',
+                fullname: currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || '',
+                avatar_url: currentUser.user_metadata?.avatar_url || currentUser.user_metadata?.picture || '',
+                updated_at: new Date().toISOString()
+            }
+
+            const { data, error: insertError } = await supabase
+                .from('profiles')
+                .insert(profileData)
+                .select()
+                .single()
+
+            if (insertError) throw insertError
+
+            onSuccess(data)
+        } catch (error: any) {
+            retryCount++
+            if (retryCount < maxRetries) {
+                const delay = baseDelay * Math.pow(2, retryCount - 1)
+                await new Promise(resolve => setTimeout(resolve, delay))
+                return attempt()
+            }
+            onFallback({
+                id: 'fallback-' + currentUser.id,
+                username: currentUser.email?.split('@')[0] || 'user',
+                email: currentUser.email || '',
+                nickname: '',
+                fullname: '',
+                avatar_url: '',
+                auth_user_id: currentUser.id
+            })
+        }
+    }
+
+    return attempt()
+}
+
+// Helper: fetch profile lalu set state
+async function loadProfile(
+    currentUser: any,
+    setProfile: (p: Profile | null) => void,
+    setIsLoggedIn: (v: boolean) => void,
+    setLoading?: (v: boolean) => void
+) {
+    await ensureProfileWithRetry(
+        currentUser,
+        (profile) => {
+            setProfile(profile)
+            setIsLoggedIn(true)
+            if (setLoading) setLoading(false)
+        },
+        (fallbackProfile) => {
+            setProfile(fallbackProfile)
+            setIsLoggedIn(true)
+            if (setLoading) setLoading(false)
+        }
+    )
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isRestoringSession, setIsRestoringSession] = useState(true);
 
-  const clearAuth = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("profile");
-    localStorage.removeItem("token_time");
+  useEffect(() => {
+        const getUser = async () => {
+            try {
+                // 1. Cek local sesi
+                let { data: { session } } = await supabase.auth.getSession()
+
+                // 2. Fallback baca SSO Token di URL (dari sistem legacy landing page)
+                const urlParams = new URLSearchParams(window.location.search);
+                const tokenFromUrl = urlParams.get("token");
+
+                if (tokenFromUrl && !session) {
+                    const { data, error } = await supabase.auth.getUser(tokenFromUrl);
+                    if (!error && data?.user) {
+                         // PENTING: Gunakan setSession agar supabase tercatat fully login
+                         await supabase.auth.setSession({ access_token: tokenFromUrl, refresh_token: tokenFromUrl })
+                         const url = new URL(window.location.href);
+                         url.searchParams.delete("token");
+                         window.history.replaceState({}, '', url.toString());
+                         const localSessionInfo = await supabase.auth.getSession()
+                         session = localSessionInfo.data.session
+                    }
+                }
+
+                // 3. Fallback SSO Cookie
+                if (!session) {
+                    const cookieSession = getSessionFromCookie()
+                    if (cookieSession) {
+                        const { data, error } = await supabase.auth.setSession(cookieSession)
+                        if (!error && data.session) {
+                            session = data.session
+                        } else {
+                            syncSessionCookie(null)
+                        }
+                    }
+                }
+
+                const currentUser = session?.user ?? null
+                setUser(currentUser)
+
+                if (currentUser && session) {
+                    // Sync tokens ke shared cookie
+                    syncSessionCookie({
+                        access_token: session.access_token,
+                        refresh_token: session.refresh_token
+                    })
+                    await loadProfile(currentUser, setProfile, setIsLoggedIn, setLoading)
+                } else {
+                    setUser(null)
+                    setProfile(null)
+                    setIsLoggedIn(false)
+                    setLoading(false)
+                }
+            } catch (error) {
+                setUser(null)
+                setProfile(null)
+                setIsLoggedIn(false)
+                setLoading(false)
+            }
+            setIsRestoringSession(false)
+        }
+        getUser()
+
+        const { data: listener } = supabase.auth.onAuthStateChange(
+            async (event, session) => {
+                const currentUser = session?.user ?? null
+                setUser(currentUser)
+
+                if (event === 'SIGNED_IN' && currentUser && session) {
+                    syncSessionCookie({
+                        access_token: session.access_token,
+                        refresh_token: session.refresh_token
+                    })
+                    loadProfile(currentUser, setProfile, setIsLoggedIn).catch(console.error)
+                } else if (event === 'TOKEN_REFRESHED' && session) {
+                    syncSessionCookie({
+                        access_token: session.access_token,
+                        refresh_token: session.refresh_token
+                    })
+                } else if (!currentUser || event === 'SIGNED_OUT') {
+                    syncSessionCookie(null)
+                    setProfile(null)
+                    setIsLoggedIn(false)
+                }
+            }
+        )
+
+        // SINKRONISASI ANTAR-TAB: Axiom logic
+        const syncFromCookie = async () => {
+            const cookieSession = getSessionFromCookie()
+
+            if (!cookieSession) {
+                const { data: { session: localSession } } = await supabase.auth.getSession()
+                if (localSession) {
+                    await supabase.auth.signOut()
+                }
+                return
+            }
+
+            const { data: { session: localSession } } = await supabase.auth.getSession()
+            if (!localSession || localSession.access_token !== cookieSession.access_token) {
+                await supabase.auth.setSession(cookieSession)
+            }
+        }
+
+        window.addEventListener('focus', syncFromCookie)
+        const onVisibilityChange = () => {
+            if (document.visibilityState === 'visible') syncFromCookie()
+        }
+        window.addEventListener('visibilitychange', onVisibilityChange)
+
+        return () => {
+            listener.subscription.unsubscribe()
+            window.removeEventListener('focus', syncFromCookie)
+            window.removeEventListener('visibilitychange', onVisibilityChange)
+        }
+  }, [])
+
+  const handleLogout = async () => {
+    try {
+        await supabase.auth.signOut();
+    } catch(e) {}
+    syncSessionCookie(null);
     setUser(null);
     setProfile(null);
     setIsLoggedIn(false);
-  };
-
-  const handleLogout = async () => {
-    // 1. Logout dari sistem utama Supabase
-    await supabase.auth.signOut();
     
-    // 2. Hancurkan cookie SSO gameforsmart
-    syncSessionCookie(null);
-    
-    // 3. Bersihkan sisa localStorage
-    clearAuth();
-    
-    // 4. Redirect ke halaman login induk
+    // Redirect ke halaman login induk
     const redirectUrl = window.location.origin;
     window.location.href = `${AUTH_BASE_URL}/login?redirect=${encodeURIComponent(redirectUrl)}`;
   };
-
-  const fetchProfile = async (userId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("auth_user_id", userId)
-        .single();
-      if (!error && data) {
-        return data;
-      }
-    } catch (err) {
-      console.error("Error fetching profile:", err);
-    }
-    return null;
-  };
-
-  const verifyToken = async (token: string) => {
-    try {
-      const { data, error } = await supabase.auth.getUser(token);
-      if (error || !data?.user) {
-        console.error("Token verification failed:", error?.message);
-        clearAuth();
-        return null;
-      }
-      
-      const userData = data.user;
-      const userProfile = await fetchProfile(userData.id);
-
-      localStorage.setItem("access_token", token);
-      localStorage.setItem("user", JSON.stringify(userData));
-      if (userProfile) {
-        localStorage.setItem("profile", JSON.stringify(userProfile));
-      } else {
-        localStorage.removeItem("profile");
-      }
-      localStorage.setItem("token_time", Date.now().toString());
-      
-      setUser(userData);
-      setProfile(userProfile);
-      setIsLoggedIn(true);
-      return userData;
-    } catch (err) {
-      console.error("Error verifying token:", err);
-      clearAuth();
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    const initAuth = async () => {
-      setLoading(true);
-      
-      const checkLocalFallback = async () => {
-        const accessToken = localStorage.getItem("access_token");
-        const savedUser = localStorage.getItem("user");
-        const savedProfile = localStorage.getItem("profile");
-        const tokenTime = localStorage.getItem("token_time");
-
-        if (accessToken && savedUser && tokenTime) {
-          const hoursPassed = (Date.now() - parseInt(tokenTime)) / (1000 * 60 * 60);
-          
-          if (hoursPassed < 24) {
-            try {
-              // Kita wajib menyetel ulang session ke dalam Supabase Client di sini!
-              await supabase.auth.setSession({
-                access_token: accessToken,
-                refresh_token: accessToken // Gunakan token utama
-              });
-            } catch(e) {}
-
-            setUser(JSON.parse(savedUser));
-            if (savedProfile && savedProfile !== "undefined") {
-              setProfile(JSON.parse(savedProfile));
-            }
-            setIsLoggedIn(true);
-            return true;
-          } else {
-            clearAuth();
-          }
-        }
-        return false;
-      };
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const tokenFromUrl = urlParams.get("token");
-      const cookieSession = getSessionFromCookie();
-
-      if (tokenFromUrl) {
-        const verifiedUser = await verifyToken(tokenFromUrl);
-        
-        if (verifiedUser) {
-          const url = new URL(window.location.href);
-          url.searchParams.delete("token");
-          window.history.replaceState({}, '', url.toString());
-        }
-      } else if (cookieSession) {
-        // Otomatis login menggunakan SSO Cookie (gfs-session) jika tersedia
-        try {
-          const { data, error } = await supabase.auth.setSession({
-            access_token: cookieSession.access_token,
-            refresh_token: cookieSession.refresh_token
-          });
-          
-          if (!error && data?.session?.user) {
-            const userData = data.session.user;
-            const userProfile = await fetchProfile(userData.id);
-            
-            setUser(userData);
-            setProfile(userProfile);
-            setIsLoggedIn(true);
-
-            // Perbarui localStorage untuk sinkronisasi library lawas
-            localStorage.setItem("access_token", data.session.access_token);
-            localStorage.setItem("user", JSON.stringify(userData));
-            if (userProfile) {
-              localStorage.setItem("profile", JSON.stringify(userProfile));
-            }
-            localStorage.setItem("token_time", Date.now().toString());
-          } else {
-            await checkLocalFallback();
-          }
-        } catch (e) {
-          await checkLocalFallback();
-        }
-      } else {
-        await checkLocalFallback();
-      }
-      
-      setLoading(false);
-    };
-
-    initAuth();
-  }, []);
 
   const handleLogin = async () => {
     const currentUrl = window.location.href;
@@ -199,11 +271,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       profile,
       isLoggedIn, 
       loading, 
+      isRestoringSession,
       handleLogin, 
       handleRegister, 
       handleLogout,
-      login: handleLogin, // Legacy support
-      logout: handleLogout // Legacy support
+      login: handleLogin, 
+      logout: handleLogout 
     }}>
       {children}
     </AuthContext.Provider>

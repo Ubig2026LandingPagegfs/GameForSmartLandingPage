@@ -34,7 +34,7 @@ export default function Header() {
   let avatarUrl = profile?.avatar_url;
   // Ignore any local paths completely. A valid database/Google SSO avatar should always use an absolute HTTP/HTTPS URL.
   if (typeof avatarUrl !== 'string' || !avatarUrl.startsWith('http')) {
-    avatarUrl = null;
+    avatarUrl = undefined;
   }
 
   const headerRef = useRef<HTMLDivElement>(null);
