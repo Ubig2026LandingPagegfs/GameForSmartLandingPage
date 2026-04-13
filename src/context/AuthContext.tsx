@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase, getSessionFromCookie } from "@/lib/supabase";
 
 interface AuthContextType {
   user: any;
@@ -92,18 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const initAuth = async () => {
       setLoading(true);
       
-      const urlParams = new URLSearchParams(window.location.search);
-      const tokenFromUrl = urlParams.get("token");
-
-      if (tokenFromUrl) {
-        const verifiedUser = await verifyToken(tokenFromUrl);
-        
-        if (verifiedUser) {
-          const url = new URL(window.location.href);
-          url.searchParams.delete("token");
-          window.history.replaceState({}, '', url.toString());
-        }
-      } else {
+      const checkLocalFallback = async () => {
         const accessToken = localStorage.getItem("access_token");
         const savedUser = localStorage.getItem("user");
         const savedProfile = localStorage.getItem("profile");
@@ -113,22 +102,70 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const hoursPassed = (Date.now() - parseInt(tokenTime)) / (1000 * 60 * 60);
           
           if (hoursPassed < 24) {
-            // TERNYATA INI PENYAKITNYA! localStorage dikembalikan tapi Supabase client tetap anonim!
-            // Kita wajib menyetel ulang session ke dalam Supabase Client di sini!
-            await supabase.auth.setSession({
-              access_token: accessToken,
-              refresh_token: accessToken // Gunakan token utama
-            });
+            try {
+              // Kita wajib menyetel ulang session ke dalam Supabase Client di sini!
+              await supabase.auth.setSession({
+                access_token: accessToken,
+                refresh_token: accessToken // Gunakan token utama
+              });
+            } catch(e) {}
 
             setUser(JSON.parse(savedUser));
             if (savedProfile && savedProfile !== "undefined") {
               setProfile(JSON.parse(savedProfile));
             }
             setIsLoggedIn(true);
+            return true;
           } else {
             clearAuth();
           }
         }
+        return false;
+      };
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const tokenFromUrl = urlParams.get("token");
+      const cookieSession = getSessionFromCookie();
+
+      if (tokenFromUrl) {
+        const verifiedUser = await verifyToken(tokenFromUrl);
+        
+        if (verifiedUser) {
+          const url = new URL(window.location.href);
+          url.searchParams.delete("token");
+          window.history.replaceState({}, '', url.toString());
+        }
+      } else if (cookieSession) {
+        // Otomatis login menggunakan SSO Cookie (gfs-session) jika tersedia
+        try {
+          const { data, error } = await supabase.auth.setSession({
+            access_token: cookieSession.access_token,
+            refresh_token: cookieSession.refresh_token
+          });
+          
+          if (!error && data?.session?.user) {
+            const userData = data.session.user;
+            const userProfile = await fetchProfile(userData.id);
+            
+            setUser(userData);
+            setProfile(userProfile);
+            setIsLoggedIn(true);
+
+            // Perbarui localStorage untuk sinkronisasi library lawas
+            localStorage.setItem("access_token", data.session.access_token);
+            localStorage.setItem("user", JSON.stringify(userData));
+            if (userProfile) {
+              localStorage.setItem("profile", JSON.stringify(userProfile));
+            }
+            localStorage.setItem("token_time", Date.now().toString());
+          } else {
+            await checkLocalFallback();
+          }
+        } catch (e) {
+          await checkLocalFallback();
+        }
+      } else {
+        await checkLocalFallback();
       }
       
       setLoading(false);
