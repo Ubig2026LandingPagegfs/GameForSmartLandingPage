@@ -43,6 +43,7 @@ export default function CompetitionDetailView({ tournament }: CompetitionDetailV
         <CompetitionHeroContent
           title={tournament.title}
           slug={tournament.slug}
+          status={tournament.status}
           videoUrl={defaultVideoUrl}
           onOpenVideo={() => setIsVideoModalOpen(true)}
         />
@@ -72,6 +73,7 @@ export default function CompetitionDetailView({ tournament }: CompetitionDetailV
                     ticketFee={tournament.ticketFee}
                     currentRegistered={MOCK_REGISTERED}
                     maxQuota={maxQuota}
+                    status={tournament.status}
                   />
                 </div>
               </div>

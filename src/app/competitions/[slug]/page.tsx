@@ -54,7 +54,7 @@ async function getCompetitionBySlug(slug: string) {
         rating: "5.0",
         genre: data.category || 'Educational',
         description: data.description || "Kompetisi terbaru",
-        status: data.status === "published" ? "Active" : "Upcoming",
+        status: data.status === "published" ? "Active" : (data.status === "coming_soon" ? "Coming Soon" : "Upcoming"),
         slug: data.slug,
         href: `/competitions/${data.slug}`,
         finalRound: "TBA",

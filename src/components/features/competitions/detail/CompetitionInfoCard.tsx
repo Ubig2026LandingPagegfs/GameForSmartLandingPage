@@ -14,6 +14,7 @@ interface CompetitionInfoCardProps {
   ticketFee?: string;
   currentRegistered: number;
   maxQuota: number;
+  status?: string;
 }
 
 export default function CompetitionInfoCard({
@@ -25,12 +26,14 @@ export default function CompetitionInfoCard({
   ticketFee,
   currentRegistered,
   maxQuota,
+  status,
 }: CompetitionInfoCardProps) {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
 
   const progressPercent = Math.min((currentRegistered / maxQuota) * 100, 100);
   const isFull = currentRegistered >= maxQuota;
+  const isComingSoon = status === "Coming Soon";
   const slotsLeft = maxQuota - currentRegistered;
 
   const stats = [
@@ -228,7 +231,22 @@ export default function CompetitionInfoCard({
           </div>
 
           {/* ── CTA Button ── */}
-          {isFull ? (
+          {isComingSoon ? (
+            <button
+              className="btn w-100 fw-bold py-3 rounded-3"
+              disabled
+              style={{
+                background: "rgba(255,255,255,0.07)",
+                color: "rgba(255,255,255,0.35)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                cursor: "not-allowed",
+                fontSize: 15,
+                opacity: 0.5,
+              }}
+            >
+              Belum Dibuka
+            </button>
+          ) : isFull ? (
             <button
               className="btn w-100 fw-bold py-3 rounded-3"
               disabled
