@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 interface CompetitionHeroContentProps {
   title: string;
   slug: string;
+  status?: string;
   videoUrl?: string;
   onOpenVideo: () => void;
 }
@@ -16,6 +17,7 @@ interface CompetitionHeroContentProps {
 export default function CompetitionHeroContent({
   title,
   slug,
+  status,
   videoUrl,
   onOpenVideo,
 }: CompetitionHeroContentProps) {
@@ -38,12 +40,24 @@ export default function CompetitionHeroContent({
         <div className="gps-actions-row">
           <button
             suppressHydrationWarning
-            onClick={() => {
-              router.push(`/competitions/${slug}/register`);
-            }}
+            onClick={
+              status === "Coming Soon"
+                ? undefined
+                : () => {
+                    router.push(`/competitions/${slug}/register`);
+                  }
+            }
+            disabled={status === "Coming Soon"}
             className="gps-btn-primary"
+            style={status === "Coming Soon" ? { opacity: 0.5, cursor: "not-allowed" } : {}}
           >
-            Daftar Sekarang <i className="ti ti-chevron-right" />
+            {status === "Coming Soon" ? (
+              "Belum Dibuka"
+            ) : (
+              <>
+                Daftar Sekarang <i className="ti ti-chevron-right" />
+              </>
+            )}
           </button>
 
           {videoUrl && (

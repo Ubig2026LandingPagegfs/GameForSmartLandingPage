@@ -16,6 +16,7 @@ import GameMeta     from '@/components/features/games/game-detail/GameMeta';
 import GameGallery  from '@/components/features/games/game-detail/GameGallery';
 import GameAbout    from '@/components/features/games/game-detail/GameAbout';
 import GameFeatures from '@/components/features/games/game-detail/GameFeatures';
+import GameExtraDetails from '@/components/features/games/game-detail/GameExtraDetails';
 import GameRating   from '@/components/features/games/game-detail/GameRating';
 import GameSidebar  from '@/components/features/games/game-detail/GameSidebar';
 import VideoModal   from '@/components/features/games/game-detail/VideoModal';
@@ -95,6 +96,12 @@ export default function GameDetailView({ game }: GameDetailViewProps) {
                             <GameFeatures
                                 features={game.features || []}
                                 image={game.image}
+                            />
+                            <GameExtraDetails 
+                                howToPlay={game.howToPlay}
+                                characters={game.characters}
+                                charactersTitle={game.charactersTitle}
+                                categories={game.categories}
                             />
                             <GameRating
                                 title={game.title}

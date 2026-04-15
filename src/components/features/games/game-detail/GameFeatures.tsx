@@ -29,7 +29,11 @@ export default function GameFeatures({ features, image }: GameFeaturesProps) {
                     {features.map((feature, idx) => (
                         <li key={idx} className="gps-feat-item">
                             <div className="gps-feat-icon-wrap">
-                                <i className={`${feature.icon} gps-feat-icon`}></i>
+                                {feature.icon && feature.icon.startsWith('ti ti-') ? (
+                                    <i className={`${feature.icon} gps-feat-icon`}></i>
+                                ) : (
+                                    <span className="gps-feat-icon" style={{ fontStyle: 'normal' }}>{feature.icon}</span>
+                                )}
                             </div>
                             <div className="gps-feat-body">
                                 <p className="gps-feat-title">{feature.title}</p>

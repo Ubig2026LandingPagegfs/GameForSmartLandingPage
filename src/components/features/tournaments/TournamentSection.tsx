@@ -294,12 +294,19 @@ export default function TournamentSection() {
                             <div className="flex flex-wrap gap-3 mb-5">
                               <button
                                 suppressHydrationWarning
-                                onClick={() => {
-                                  router.push(`/competitions/${tournament.slug}/register`);
-                                }}
-                                className="gps-btn-primary whitespace-nowrap flex-1 text-center"
+                                onClick={
+                                  tournament.status === "Coming Soon"
+                                    ? undefined
+                                    : () => {
+                                        router.push(`/competitions/${tournament.slug}/register`);
+                                      }
+                                }
+                                disabled={tournament.status === "Coming Soon"}
+                                className={`gps-btn-primary whitespace-nowrap flex-1 text-center ${
+                                  tournament.status === "Coming Soon" ? "opacity-50 cursor-not-allowed" : ""
+                                }`}
                               >
-                                Daftar
+                                {tournament.status === "Coming Soon" ? "Belum Dibuka" : "Daftar"}
                               </button>
                               <Link
                                 href={tournament.href}

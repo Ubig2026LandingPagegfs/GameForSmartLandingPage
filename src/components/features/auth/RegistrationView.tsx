@@ -227,6 +227,11 @@ export default function RegistrationView({
       return;
     }
 
+    if (!profile) {
+      alert("Data profil sedang dimuat, mohon coba sesaat lagi.");
+      return;
+    }
+
     if (!formData.category) {
       alert("Silakan pilih Kategori/Tingkat Pendidikan Anda.");
       return;

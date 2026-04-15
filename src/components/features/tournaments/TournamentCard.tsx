@@ -165,12 +165,19 @@ export default function TournamentCard({
         <div className="flex gap-2">
           <button
             suppressHydrationWarning
-            onClick={() => {
-              router.push(registerHref);
-            }}
-            className="gps-btn-primary py-2.5 flex-1 text-xs font-bold"
+            onClick={
+              status === "Coming Soon"
+                ? undefined
+                : () => {
+                    router.push(registerHref);
+                  }
+            }
+            disabled={status === "Coming Soon"}
+            className={`gps-btn-primary py-2.5 flex-1 text-xs font-bold ${
+              status === "Coming Soon" ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
-            Daftar
+            {status === "Coming Soon" ? "Belum Dibuka" : "Daftar"}
           </button>
           <Link
             href={detailHref}

@@ -66,7 +66,79 @@
     "teams": "12/12",
     "href": "/games/3",
     "playUrl": "https://spacequiz.gameforsmart.com",
-    "description": "Eksplorasi wawasan luar angkasamu dan jawab pertanyaan-pertanyaan mematikan.",
+    "description": "Space Quiz adalah game kuis interaktif bertema luar angkasa yang menggabungkan seru-nya menjawab pertanyaan dengan aksi menghindari asteroid di galaksi. Kendalikan pesawat luar angkasamu, kumpulkan bintang, dan buktikan kecerdasanmu di tengah luasnya semesta!\n\nBukan kuis biasa — antara sesi pertanyaan, kamu harus menerbangkan pesawatmu menghindari meteor dan mengumpulkan power-up. Semakin banyak soal yang kamu jawab benar, semakin tinggi skormu dan semakin besar peluang meraih gelar Space Champion!",
+    "features": [
+      {
+        "icon": "🚀",
+        "title": "Space shooter + Quiz",
+        "description": "Di antara sesi soal, kendalikan pesawatmu menghindari asteroid dan kumpulkan bintang untuk bonus poin."
+      },
+      {
+        "icon": "🎮",
+        "title": "Live session multiplayer",
+        "description": "Bergabung via game code atau scan QR — semua pemain menjawab soal yang sama secara bersamaan secara real-time."
+      },
+      {
+        "icon": "👤",
+        "title": "Avatar & username custom",
+        "description": "Pilih avatar favoritmu dari koleksi karakter beragam sebelum memasuki arena kuis luar angkasa."
+      },
+      {
+        "icon": "🏆",
+        "title": "Champions board",
+        "description": "Akhir sesi menampilkan podium pemenang — siapa yang tercepat dan terpintar akan naik ke panggung juara!"
+      },
+      {
+        "icon": "💗",
+        "title": "Power-up & nyawa",
+        "description": "Kumpulkan power-up hati untuk menambah nyawa. Hindari meteor agar pesawatmu tetap bertahan di arena."
+      },
+      {
+        "icon": "📊",
+        "title": "Progress & skor real-time",
+        "description": "Pantau skor, progress soal, dan timer secara live selama sesi berlangsung bersama seluruh peserta."
+      }
+    ],
+    "howToPlay": [
+      {
+        "step": 1,
+        "title": "Masukkan kode & pilih avatar",
+        "description": "Masukkan game code yang diberikan host atau scan QR, lalu pilih username dan avatar favoritmu."
+      },
+      {
+        "step": 2,
+        "title": "Terbang & hindari meteor",
+        "description": "Sebelum soal muncul, kendalikan pesawatmu — kumpulkan bintang dan power-up, hindari asteroid yang meluncur."
+      },
+      {
+        "step": 3,
+        "title": "Jawab soal dengan cepat",
+        "description": "Pilih jawaban yang benar sebelum timer habis. Semakin cepat menjawab, semakin besar poin yang kamu dapat."
+      },
+      {
+        "step": 4,
+        "title": "Raih gelar Champion",
+        "description": "Selesaikan semua soal dengan skor tertinggi dan namamu akan terpampang di podium Champions!"
+      }
+    ],
+    "charactersTitle": "Mekanisme Unik",
+    "characters": [
+      {
+        "name": "Kumpulkan bintang",
+        "icon": "⭐",
+        "description": "Di fase antar-soal, terbangkan pesawatmu dan ambil bintang yang melayang untuk menambah poin bonus."
+      },
+      {
+        "name": "Hindari asteroid",
+        "icon": "☄️",
+        "description": "Meteor bergerak secara acak di arena — satu tabrakan mengurangi nyawa. Tetap waspada meski sedang berpikir!"
+      },
+      {
+        "name": "Power-up hati",
+        "icon": "💗",
+        "description": "Ambil power-up berbentuk hati untuk memulihkan nyawa dan memperpanjang durasi bertahanmu di arena."
+      }
+    ],
     "screenshots": [
       "/images/games/space-quiz/photo_2026-04-01_15-49-22.webp",
       "/images/games/space-quiz/photo_2026-04-01_20-15-32.webp",
@@ -115,7 +187,91 @@
     "teams": "12/12",
     "href": "/games/5",
     "playUrl": "https://nitroquiz.gameforsmart.com",
-    "description": "Tantang pengetahuanmu dengan cepat di NitroQuiz.",
+    "description": "NitroQuiz adalah game kuis balap multiplayer yang menggabungkan seru-nya menjawab soal dengan adrenalin balapan kart di jalanan kota Indonesia. Kendalikan karaktermu, jawab pertanyaan dengan cepat dan tepat, dan pacu kendaraanmu menuju garis finish lebih dulu dari lawan!\n\nBukan sekadar kuis biasa — setiap jawaban benar memberikan NOS (Nitrous Oxide) yang mempercepat kartmu di lintasan. Semakin akurat dan cepat kamu menjawab, semakin besar nitromu dan makin jauh kamu meninggalkan lawan!",
+    "features": [
+      {
+        "icon": "🏎️",
+        "title": "Racing + Quiz",
+        "description": "Jawab soal untuk mengisi nitro dan mempercepat kart-mu secara real-time di lintasan balap kota."
+      },
+      {
+        "icon": "🌐",
+        "title": "Multiplayer online",
+        "description": "Balapan head-to-head melawan pemain nyata dari seluruh Indonesia dalam satu sesi yang seru dan kompetitif."
+      },
+      {
+        "icon": "🧠",
+        "title": "Soal beragam",
+        "description": "Ratusan pertanyaan dari berbagai kategori mulai dari sains, sejarah, budaya, hingga pop culture Indonesia."
+      },
+      {
+        "icon": "🏆",
+        "title": "Leaderboard global",
+        "description": "Pantau posisimu di papan peringkat, saingi skor tertinggi, dan buktikan bahwa kamu yang tercepat dan terpintar."
+      },
+      {
+        "icon": "🎨",
+        "title": "Visual pixel art",
+        "description": "Grafis pixel art khas retro dengan latar kota Indonesia — tampilkan CGV, Mi Gacoan, BSI, dan landmark lokal."
+      },
+      {
+        "icon": "⚡",
+        "title": "Sistem NOS",
+        "description": "Jawaban benar = nitro boost. Kombinasikan kecepatan menjawab dan ketepatan untuk memaksimalkan akselerasi kartmu."
+      }
+    ],
+    "howToPlay": [
+      {
+        "step": 1,
+        "title": "Pilih mode & masuk arena",
+        "description": "Bergabung ke sesi multiplayer publik atau buat ruang privat untuk menantang teman-temanmu langsung."
+      },
+      {
+        "step": 2,
+        "title": "Jawab soal, isi nitro",
+        "description": "Setiap jawaban benar mengisi tangki NOS kartmu. Jawab cepat dan tepat untuk mendapat boost maksimal!"
+      },
+      {
+        "step": 3,
+        "title": "Gunakan NOS di momen tepat",
+        "description": "Tekan tombol NOS saat posisi strategis untuk melesat melewati lawan dan merebut posisi terdepan."
+      },
+      {
+        "step": 4,
+        "title": "Finis pertama, raih skor tertinggi",
+        "description": "Kombinasi kecepatan balapan + skor jawaban menentukan peringkatmu di leaderboard akhir sesi."
+      }
+    ],
+    "charactersTitle": "Karakter Pemain",
+    "characters": [
+      {
+        "name": "Racoon",
+        "icon": "🦝",
+        "description": "Default. Karakter ikonik NitroQuiz. Agresif, lincah, dan penuh kejutan di lintasan."
+      },
+      {
+        "name": "Wolf",
+        "icon": "🐺",
+        "description": "Rival. Pembalap tangguh dengan kart kuat. Stabil di tikungan, sulit dikalahkan."
+      },
+      {
+        "name": "Fox",
+        "icon": "🦊",
+        "description": "Speed. Lincah dan cerdik. Kart ringan dengan akselerasi nitro terbaik."
+      }
+    ],
+    "categories": [
+      "Sains & teknologi",
+      "Sejarah Indonesia",
+      "Matematika & logika",
+      "Budaya & seni",
+      "Geografi",
+      "Bahasa & sastra",
+      "Pop culture",
+      "Pengetahuan umum",
+      "Olahraga",
+      "Kuliner Nusantara"
+    ],
     "screenshots": [
       "/images/games/nitro-quiz/photo_2026-03-31_18-49-07.webp",
       "/images/games/nitro-quiz/photo_2026-03-31_18-57-18.webp",
@@ -143,7 +299,104 @@
     "href": "/games/6",
     "playUrl": "https://axiom.gameforsmart.com",
     "videoUrl": "https://youtu.be/mUln-7dZvWI?si=0V5lLMdouJ7Fe_DS",
-    "description": "Susun strategimu dan taklukkan lawan di Axiom.",
+    "description": "Axiom adalah game space shooter berbasis web yang memadukan aksi tembak-menembak seru di luar angkasa dengan tantangan trivia. Kamu mengendalikan roket tempur, melawan gelombang musuh alien — dan senjatamu adalah pengetahuanmu. Jawab pertanyaan dengan benar untuk menembakkan peluru dan menghancurkan musuh!\n\nHadapi boss raksasa, pilih dari 6 roket unik dengan kemampuan berbeda, dan bersaing di leaderboard global. Dengan kontrol Mouse/WASD yang intuitif dan serangan otomatis, siapapun bisa langsung terjun ke medan tempur antariksa.",
+    "features": [
+      {
+        "icon": "🚀",
+        "title": "Space shooter action",
+        "description": "Tembak musuh alien di antariksa dengan kontrol Mouse/WASD yang responsif dan serangan otomatis."
+      },
+      {
+        "icon": "🧠",
+        "title": "Quiz-powered combat",
+        "description": "Jawab pertanyaan trivia dengan benar untuk mengisi amunisi dan melancarkan serangan lebih kuat."
+      },
+      {
+        "icon": "🛸",
+        "title": "6 pilihan roket",
+        "description": "Nebula Striker, Quantum UFO, Stellar Phoenix, Cosmic Ranger, Void Reaper, Galaxy Titan — masing-masing punya kekuatan unik."
+      },
+      {
+        "icon": "👾",
+        "title": "Boss fight epik",
+        "description": "Hadapi boss raksasa di tiap stage dengan HP bar penuh — butuh kombinasi kecepatan jawab dan skill manuver!"
+      },
+      {
+        "icon": "🏆",
+        "title": "Leaderboard & ranking",
+        "description": "Bersaing lewat sistem skor dan waktu. Setiap misi dicatat — siapa tercepat dan terskor tertinggi jadi juara."
+      },
+      {
+        "icon": "🌐",
+        "title": "Multiplayer online",
+        "description": "Buat ruang, gabung sesi, atau ikuti turnamen resmi bersama hingga 12 tim pemain dari seluruh Indonesia."
+      }
+    ],
+    "howToPlay": [
+      {
+        "step": 1,
+        "title": "Buat ruang atau gabung sesi",
+        "description": "Daftar, buat room baru atau join turnamen yang tersedia. Slot terbuka untuk 12 tim — rebut tempatmu!"
+      },
+      {
+        "step": 2,
+        "title": "Pilih roketmu",
+        "description": "Dari 6 jenis roket tersedia, pilih yang sesuai gaya bermainmu — agresif, cepat, atau bertahan."
+      },
+      {
+        "step": 3,
+        "title": "Jawab pertanyaan & tembak musuh",
+        "description": "Di tengah pertempuran, soal trivia muncul. Jawab benar dalam hitungan detik untuk menghancurkan lawan lebih cepat."
+      },
+      {
+        "step": 4,
+        "title": "Kalahkan boss & raih skor tertinggi",
+        "description": "Setiap stage diakhiri dengan boss fight. Hancurkan boss, kumpulkan skor, dan panjat leaderboard global!"
+      }
+    ],
+    "charactersTitle": "Armada Roketmu",
+    "characters": [
+      {
+        "name": "Nebula Striker",
+        "icon": "🔴",
+        "description": "Attack. Serangan tinggi, andalan di garis depan pertempuran."
+      },
+      {
+        "name": "Quantum UFO",
+        "icon": "⚪",
+        "description": "Speed. Super cepat, sulit ditembak musuh."
+      },
+      {
+        "name": "Stellar Phoenix",
+        "icon": "🟡",
+        "description": "Balanced. Seimbang antara serangan dan pertahanan."
+      },
+      {
+        "name": "Cosmic Ranger",
+        "icon": "🟠",
+        "description": "Defense. HP tinggi, cocok untuk pemain bertipe defensif."
+      },
+      {
+        "name": "Void Reaper",
+        "icon": "🟣",
+        "description": "DPS. Damage per second tertinggi di kelasnya."
+      },
+      {
+        "name": "Galaxy Titan",
+        "icon": "🟢",
+        "description": "Heavy. Tank galaksi — lambat tapi hampir tak bisa dihancurkan."
+      }
+    ],
+    "categories": [
+      "Sejarah dunia",
+      "Sains & teknologi",
+      "Matematika",
+      "Geografi",
+      "Pengetahuan umum",
+      "Budaya & seni",
+      "Pop culture",
+      "Bahasa & sastra"
+    ],
     "screenshots": [
       "/images/games/axiom/hero.webp",
       "/images/games/axiom/photo_2026-03-30_14-32-20.webp",
@@ -171,7 +424,84 @@
     "teams": "12/12",
     "href": "/games/7",
     "playUrl": "https://zigma.gameforsmart.com",
-    "description": "Bertahan hidup dan kalahkan musuh di dunia Zigma.",
+    "description": "Zigma – Mind Venture adalah game kuis RPG multiplayer yang memadukan keseruan menjawab soal dengan mekanisme pertarungan berbasis strategi. Pilih karaktermu, kumpulkan skill, dan hadapi pemain lain dalam arena kecerdasan yang penuh adrenalin!\n\nBukan sekadar kuis biasa — setiap jawaban benar memberimu poin serangan, pertahanan, atau kemampuan spesial. Semakin cepat dan tepat kamu menjawab, semakin kuat karaktermu di arena!",
+    "features": [
+      {
+        "icon": "⚔️",
+        "title": "RPG + Quiz combat",
+        "description": "Jawab soal untuk melancarkan serangan dan mengalahkan musuh secara real-time."
+      },
+      {
+        "icon": "🌐",
+        "title": "Multiplayer online",
+        "description": "Bertarung melawan pemain nyata dari seluruh Indonesia dan mancanegara."
+      },
+      {
+        "icon": "🧠",
+        "title": "500+ pertanyaan",
+        "description": "Ratusan soal dari berbagai kategori: sains, sejarah, budaya, logika, dan lainnya."
+      },
+      {
+        "icon": "🏆",
+        "title": "Sistem peringkat",
+        "description": "Naiki leaderboard global dan raih gelar sebagai Mind Champion terkuat!"
+      }
+    ],
+    "howToPlay": [
+      {
+        "step": 1,
+        "title": "Pilih karaktermu",
+        "description": "Setiap karakter punya gaya bertarung unik — Wizard untuk spellcaster, Warrior untuk serangan langsung, atau Ranger untuk strategi jarak jauh."
+      },
+      {
+        "step": 2,
+        "title": "Masuk ke arena",
+        "description": "Bergabung ke room multiplayer atau buat ruang privatmu sendiri untuk menantang teman."
+      },
+      {
+        "step": 3,
+        "title": "Jawab soal, serang musuh",
+        "description": "Setiap jawaban benar = serangan. Kecepatan dan ketepatan menjawab menentukan damage yang kamu berikan."
+      },
+      {
+        "step": 4,
+        "title": "Kumpulkan XP & naik level",
+        "description": "Raih XP dari setiap pertarungan, buka skill baru, dan kustomisasi karaktermu untuk menjadi lebih kuat."
+      }
+    ],
+    "characters": [
+      {
+        "name": "Wizard",
+        "icon": "🧙",
+        "description": "Mana tinggi, serangan area. Cocok untuk kuis sains & logika."
+      },
+      {
+        "name": "Warrior",
+        "icon": "⚔️",
+        "description": "HP & armor tebal. Dominan di soal sejarah & geografi."
+      },
+      {
+        "name": "Ranger",
+        "icon": "🏹",
+        "description": "Serangan cepat & kritis. Unggul di soal budaya & seni."
+      },
+      {
+        "name": "Shadow",
+        "icon": "💀",
+        "description": "Stealth & debuff. Mematikan di soal teka-teki & misteri."
+      }
+    ],
+    "categories": [
+      "Sains & teknologi",
+      "Sejarah dunia",
+      "Matematika & logika",
+      "Budaya & seni",
+      "Geografi",
+      "Bahasa & sastra",
+      "Pop culture",
+      "Pengetahuan umum",
+      "Sport & olahraga"
+    ],
     "screenshots": [
       "/images/games/zigma/hero.webp",
       "/images/games/zigma/photo_2026-03-30_15-48-56 (2).webp",

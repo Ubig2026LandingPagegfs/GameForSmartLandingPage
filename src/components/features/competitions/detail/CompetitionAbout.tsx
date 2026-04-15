@@ -31,7 +31,7 @@ export default function CompetitionAbout({ description }: CompetitionAboutProps)
         Tentang Kompetisi
       </h3>
 
-      <div className="row g-4 mb-8">
+      {/* <div className="row g-4 mb-8">
         {[
           { icon: "ti-bulb",   title: "Tujuan",  text: "Menguji kemampuan akademik dan strategi gameplay." },
           { icon: "ti-trophy", title: "Tingkat", text: "Kompetisi kompetitif skala nasional." },
@@ -54,7 +54,7 @@ export default function CompetitionAbout({ description }: CompetitionAboutProps)
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className="tcn-6 fs-md lh-lg border-top border-secondary border-opacity-10 pt-6">
         {renderDescription()}

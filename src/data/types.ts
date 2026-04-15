@@ -36,6 +36,10 @@ export interface TournamentInfo {
   videoUrl?: string;
   screenshots?: string[];
   features?: { icon: string; title: string; description: string }[];
+  howToPlay?: { step: number; title: string; description: string }[];
+  characters?: { name: string; icon: string; description: string }[];
+  charactersTitle?: string;
+  categories?: string[];
   playUrl?: string;
   isFavorite?: boolean;
   logo?: string;
