@@ -166,8 +166,11 @@
     "playUrl": "https://memoryquiz.gameforsmart.com",
     "description": "Latih daya ingatmu dengan memecahkan teka-teki memori tingkat tinggi.",
     "screenshots": [
-      "/images/games/memory-quiz/hero.webp",
-      "/images/games/quiz-rush/hero.webp"
+      "/images/games/memory-quiz/1.webp",
+      "/images/games/memory-quiz/2.webp",
+      "/images/games/memory-quiz/3.webp",
+      "/images/games/memory-quiz/4.webp",
+      "/images/games/memory-quiz/5.webp"
     ],
     "slug": "4"
   },
