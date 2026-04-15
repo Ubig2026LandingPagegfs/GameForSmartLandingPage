@@ -2,31 +2,31 @@ stages:
   - test
   - deploy
 
-# TAHAP 1: PENGECEKAN KODE (TESTING)
 check_code:
   stage: test
   tags:
-    - nodejs # Sesuaikan dengan tag runner kamu, atau hapus baris tags ini jika runner tidak pakai tag
+    - nodejs # Sesuaikan dengan tag runner kamu (laravel/nodejs)
   script:
     - echo "Sedang mengecek kelayakan kodingan..."
     - npm install
-    # Jika kamu belum punya script test, baris di bawah bisa dikomentari dulu
-    - npm test || echo "Test belum dikonfigurasi, lanjut..." 
+    - npm test  echo "Test belum dikonfigurasi, lanjut..." 
   only:
     - main
 
-# TAHAP 2: PENGIRIMAN KE SERVER (DEPLOY)
 deploy_to_aapanel:
   stage: deploy
   tags:
-    - nodejs
+    - nodejs # Sesuaikan dengan tag runner kamu (laravel/nodejs)
   script:
-    - echo "Kodingan aman! Mengirim ke aaPanel..."
+    - echo "Kodingan aman! Mengirim langsung ke aaPanel tanpa Git Pull..."
+    # 1. Pastikan rsync terinstall di Robot Runner (CT 200)
+    # 2. Kirim file dari Runner langsung ke folder aaPanel
+    - rsync -avz --delete --exclude '.git' --exclude 'node_modules' ./ root@192.168.1.157:/www/wwwroot/GameForSmartLandingPage/
+    # 3. Jalankan perintah instalasi & restart di server tujuan lewat SSH
     - ssh -o StrictHostKeyChecking=no root@192.168.1.157 "
         cd /www/wwwroot/GameForSmartLandingPage && 
-        git pull origin main && 
         npm install && 
-        pm2 restart all || echo 'Aplikasi sudah terupdate!'
+        pm2 restart all  echo 'Aplikasi berhasil di-restart!'
       "
   only:
     - main
