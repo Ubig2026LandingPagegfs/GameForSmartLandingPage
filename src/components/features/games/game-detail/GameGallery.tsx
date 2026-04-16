@@ -149,12 +149,6 @@ export default function GameGallery({ media, activeIndex, onSelect, onOpenVideo 
                                         </div>
                                     )}
                                 </div>
-                                {item.type === "video" && (
-                                    <div className="gps-video-badge">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                                        Video
-                                    </div>
-                                )}
                             </div>
                         ))}
                     </div>
@@ -266,19 +260,9 @@ export default function GameGallery({ media, activeIndex, onSelect, onOpenVideo 
                 }
                 .gps-gallery-item:hover .gps-item-hover { background: rgba(0,0,0,0.4); }
 
-                .gps-play-btn, .gps-zoom-icon {
+                .gps-zoom-icon {
                     opacity: 0; transform: scale(0.8);
                     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                }
-                .gps-play-btn {
-                    width: 64px; height: 64px;
-                    background: var(--accent);
-                    border-radius: 50%;
-                    display: flex; align-items: center; justify-content: center;
-                    color: #fff;
-                    box-shadow: 0 8px 30px rgba(255,122,0,0.5);
-                }
-                .gps-zoom-icon {
                     width: 52px; height: 52px;
                     background: rgba(255,255,255,0.1);
                     border: 1px solid rgba(255,255,255,0.2);
@@ -287,19 +271,22 @@ export default function GameGallery({ media, activeIndex, onSelect, onOpenVideo 
                     color: #fff;
                     backdrop-filter: blur(8px);
                 }
-                .gps-gallery-item:hover .gps-play-btn,
+                .gps-play-btn {
+                    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                    width: 64px; height: 64px;
+                    background: var(--accent);
+                    border-radius: 50%;
+                    display: flex; align-items: center; justify-content: center;
+                    color: #fff;
+                    box-shadow: 0 8px 30px rgba(255,122,0,0.5);
+                }
+                .gps-gallery-item:hover .gps-play-btn {
+                    transform: scale(1.1);
+                }
                 .gps-gallery-item:hover .gps-zoom-icon {
                     opacity: 1; transform: scale(1);
                 }
 
-                .gps-video-badge {
-                    position: absolute; bottom: 12px; left: 12px;
-                    background: rgba(0,0,0,0.7);
-                    color: #fff; font-size: 11px; font-weight: 600;
-                    padding: 4px 10px; border-radius: 20px;
-                    display: flex; align-items: center; gap: 6px;
-                    backdrop-filter: blur(4px);
-                }
 
                 /* ── Lightbox ── */
                 .gps-lightbox {

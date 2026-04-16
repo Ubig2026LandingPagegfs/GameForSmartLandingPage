@@ -66,7 +66,8 @@ export default function TournamentSection() {
             date: formatDateRange(db.qualification_start_date || db.registration_start_date, db.final_end_date || db.qualification_end_date || db.registration_end_date), 
             prizeMoney: db.prize_pool || "Lihat Detail",
             type: db.category || "Umum",
-            slug: db.slug
+            slug: db.slug,
+            startDateForSort: db.qualification_start_date || db.registration_start_date || null
           }));
           
           if (mapped.length > 0) {
@@ -81,9 +82,18 @@ export default function TournamentSection() {
     fetchCompetitions();
   }, []);
 
-  const visibleTournaments = tournaments.filter(
-    (t) => t.status === "Published" || t.status === "Coming Soon",
-  );
+  const visibleTournaments = tournaments
+    .filter((t) => t.status === "Published" || t.status === "Coming Soon")
+    .sort((a, b) => {
+      // 1. Prioritize 'Published' status
+      if (a.status === "Published" && b.status !== "Published") return -1;
+      if (a.status !== "Published" && b.status === "Published") return 1;
+
+      // 2. Sort by date (earlier dates first)
+      const dateA = a.startDateForSort ? new Date(a.startDateForSort).getTime() : Infinity;
+      const dateB = b.startDateForSort ? new Date(b.startDateForSort).getTime() : Infinity;
+      return dateA - dateB;
+    });
 
   useEffect(() => {
     let swiperInstance: any = null;
