@@ -12,12 +12,14 @@ interface RegistrationViewProps {
   competitionTitle: string;
   competitionSlug: string;
   fee: string;
+  availableCategories?: string;
 }
 
 export default function RegistrationView({
   competitionTitle,
   competitionSlug,
   fee,
+  availableCategories,
 }: RegistrationViewProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,7 +34,6 @@ export default function RegistrationView({
   // Form State
   const [formData, setFormData] = useState({
     fullName: "",
-    institution: "",
     email: "",
     category: "",
   });
@@ -46,14 +47,14 @@ export default function RegistrationView({
   const { profile, user, isLoggedIn, loading: authLoading, handleLogin } = useAuth();
 
   useEffect(() => {
-    if (user) {
+    if (user || profile) {
       setFormData(prev => ({
         ...prev,
-        fullName: user.user_metadata?.full_name || user.user_metadata?.name || "",
-        email: user.email || "",
+        fullName: profile?.fullname || user?.user_metadata?.full_name || user?.user_metadata?.name || "",
+        email: profile?.email || user?.email || "",
       }));
     }
-  }, [user]);
+  }, [user, profile]);
 
   useEffect(() => {
     // Tangkap token dari URL seperti saran teman
@@ -245,6 +246,20 @@ export default function RegistrationView({
       
       const isPaid = fee === "Free Entry" || fee === "Gratis";
 
+      // Cek apakah user merubah namanya di form
+      const currentFullname = profile.fullname || user.user_metadata?.full_name || user.user_metadata?.name || "";
+      if (formData.fullName.trim() !== currentFullname.trim() && formData.fullName.trim() !== "") {
+        console.log("Update nama profil ke:", formData.fullName.trim());
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .update({ fullname: formData.fullName.trim() })
+          .eq('id', profile.id);
+          
+        if (profileError) {
+          console.error("Failed to update profile fullname:", profileError);
+        }
+      }
+
       const { error } = await supabase.from('competition_participants').insert({
         id: partId,
         competition_id: competitionSlug,
@@ -302,6 +317,10 @@ export default function RegistrationView({
       </div>
     );
   }
+
+  const parsedCategories = availableCategories 
+    ? availableCategories.split(',').map(c => c.trim()).filter(Boolean)
+    : ["Sekolah Dasar (SD)", "Sekolah Menengah Pertama (SMP)", "SMA Sederajat"];
 
   return (
     <div className="registration-view py-lg-12 py-8 px-sm-6 px-4">
@@ -368,20 +387,27 @@ export default function RegistrationView({
                     placeholder="Masukkan nama lengkap"
                     required
                   />
+                  <span className="tcn-6 d-block mt-2" style={{ fontSize: '0.75rem', lineHeight: '1.2' }}>
+                    <i className="ti ti-info-circle me-1"></i>
+                    Nama ini akan disimpan ke profil utama Anda.
+                  </span>
                 </div>
                 <div className="col-md-6">
                   <label className="tcn-1 fs-sm fw-medium mb-2 d-block">
-                    Asal Sekolah / Institusi <span className="tcp-1">*</span>
+                    Kategori / Tingkat Pendidikan <span className="tcp-1">*</span>
                   </label>
-                  <Input
-                    type="text"
-                    name="institution"
-                    value={formData.institution}
-                    onChange={handleChange}
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange as any}
                     className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
-                    placeholder="Nama instansi"
                     required
-                  />
+                  >
+                    <option value="" disabled hidden>Pilih Kategori</option>
+                    {parsedCategories.map((cat, idx) => (
+                      <option key={idx} value={cat}>{cat}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
@@ -398,48 +424,34 @@ export default function RegistrationView({
                   <label className="tcn-1 fs-sm fw-medium mb-2 d-block">
                     Email Aktif <span className="tcp-1">*</span>
                   </label>
-                  <Input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
-                    placeholder="contoh@email.com"
-                    required
-                  />
+                    <Input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 text-base h-12 pe-none opacity-75"
+                      placeholder="contoh@email.com"
+                      disabled
+                      readOnly
+                    />
                 </div>
                 <div className="col-md-6">
                   <label className="tcn-1 fs-sm fw-medium mb-2 d-block">
-                    Kategori / Tingkat Pendidikan <span className="tcp-1">*</span>
+                    Biaya Pendaftaran
                   </label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange as any}
-                    className="w-100 py-3 px-4 bgn-3 rounded-3 tcn-1 border border-secondary border-opacity-10 focus-neon text-base h-12"
-                    required
-                  >
-                    <option value="" disabled hidden>Pilih Kategori</option>
-                    <option value="SD">Sekolah Dasar (SD)</option>
-                    <option value="SMP">Sekolah Menengah Pertama (SMP)</option>
-                    <option value="SMA Sederajat">SMA / Sederajat</option>
-                  </select>
+                  <div className="w-100 py-3 px-4 bgn-3 rounded-3 border border-secondary border-opacity-10 d-flex align-items-center h-12">
+                    <span className="tcp-1 fw-bold fs-five">
+                      {fee !== "Free Entry" ? fee.replace(/^Rp\./i, 'Rp ') : "Gratis"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* CAPTCHA Dihapus karena pengguna dijamin sudah login / verified */}
 
-            {/* Summary & Submit */}
-            <div className="mt-4 p-4 bgn-3 rounded-3 border border-secondary border-opacity-10 d-flex flex-wrap align-items-center justify-content-between gap-4">
-              <div>
-                <span className="tcn-6 fs-sm d-block mb-1">
-                  Biaya Pendaftaran
-                </span>
-                <span className="tcn-1 fs-five fw-bold tcp-1">
-                  {fee !== "Free Entry" ? fee.replace(/^Rp\./i, 'Rp ') : "Gratis"}
-                </span>
-              </div>
+            {/* Submit */}
+            <div className="mt-4 d-flex justify-content-end">
               <Button
                 type="submit"
                 className="btn-half-border position-relative d-inline-flex py-5 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none hover:bg-transparent text-white"

@@ -46,6 +46,7 @@ export default async function RegistrationPage(props: { params: Promise<{ slug: 
                         competitionTitle={item.title}
                         competitionSlug={item.id} // Passing REAL UUID to match Database Foreign Key requirement
                         fee={item.registration_fee || 'Free Entry'}
+                        availableCategories={item.category}
                     />
                 </article>
             </main>
