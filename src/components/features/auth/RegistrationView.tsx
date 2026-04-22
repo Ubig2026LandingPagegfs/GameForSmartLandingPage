@@ -27,7 +27,7 @@ export default function RegistrationView({
   const [captchaOk, setCaptchaOk] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
-  const [checkingRegistration, setCheckingRegistration] = useState(false);
+  const [existingRegistration, setExistingRegistration] = useState<any>(null);
   const [localUser, setLocalUser] = useState<any>(null);
   const [debugMsg, setDebugMsg] = useState("");
 
@@ -123,24 +123,24 @@ export default function RegistrationView({
 
   const activeUser = user || localUser;
 
-  // Cek apakah user ini sudah terdaftar sebelumnya
+  // Cek secara diam-diam (background) apakah user sudah terdaftar sebelumnya
   useEffect(() => {
-    if (activeUser && competitionSlug) {
-      setCheckingRegistration(true);
+    // Kita harus mengecek menggunakan profile.id karena pada saat pendaftaran (insert)
+    // yang digunakan sebagai user_id adalah profile.id, bukan auth user id (activeUser.id)
+    if (profile && competitionSlug) {
       supabase
         .from("competition_participants")
-        .select("id")
+        .select("id, is_paid")
         .eq("competition_id", competitionSlug)
-        .eq("user_id", activeUser.id)
+        .eq("user_id", profile.id)
         .single()
         .then(({ data }) => {
           if (data) {
-            setIsAlreadyRegistered(true);
+            setExistingRegistration(data);
           }
-          setCheckingRegistration(false);
         });
     }
-  }, [activeUser, competitionSlug]);
+  }, [profile, competitionSlug]);
 
   // Redirect otomatis ke login jika belum login (dengan perlindungan anti-loop)
   useEffect(() => {
@@ -168,7 +168,7 @@ export default function RegistrationView({
     }
   }, [authLoading, isVerifying, activeUser]);
 
-  if (isVerifying || (authLoading && !localUser) || checkingRegistration) {
+  if (isVerifying || (authLoading && !localUser)) {
     return (
       <div
         className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100"
@@ -183,37 +183,7 @@ export default function RegistrationView({
     );
   }
 
-  // Jika sudah terdaftar, cegah form tampil dan beri info sukses/sudah daftar
-  if (isAlreadyRegistered) {
-    return (
-      <div
-        className="registration-view py-12 px-6 d-flex flex-column align-items-center justify-content-center text-center h-100"
-        style={{ minHeight: "60vh" }}
-      >
-        <div
-          className="mb-6 p-4 rounded-circle"
-          style={{ backgroundColor: "rgba(34, 197, 94, 0.1)" }}
-        >
-          <i
-            className="ti ti-circle-check display-five"
-            style={{ color: "#22c55e" }}
-          ></i>
-        </div>
-        <h3 className="tcn-1 fw-bold mb-3">Telah Terdaftar</h3>
-        <p className="tcn-6 max-w-md mx-auto mb-6">
-          Anda sudah terdaftar sebagai peserta pada kompetisi{" "}
-          <strong className="tcn-1">{competitionTitle}</strong>! Data registrasi
-          Anda sudah tersimpan dengan aman di dalam sistem kami.
-        </p>
-        <Link
-          href={`/competitions`}
-          className="btn-half-border position-relative d-inline-flex py-4 bgp-1 px-8 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none text-white fs-five"
-        >
-          Lihat Kompetisi Lain
-        </Link>
-      </div>
-    );
-  }
+
 
   // Jika belum login: tampilkan loading jika auto-redirect akan terjadi, atau tombol manual jika sudah pernah redirect
   if (!activeUser) {
@@ -273,6 +243,43 @@ export default function RegistrationView({
     );
   }
 
+  const handleContinuePayment = async () => {
+    setIsSubmitting(true);
+    try {
+      const amountNumber = parseInt(fee.replace(/\D/g, ""), 10) || 0;
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ADMIN_URL}/api/payment/create-invoice`,
+        {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            pesertaId: existingRegistration?.id,
+            nama: formData.fullName || activeUser?.user_metadata?.full_name || activeUser?.user_metadata?.name || activeUser?.email,
+            email: formData.email || activeUser?.email,
+            amount: amountNumber,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.invoiceUrl) {
+        window.location.href = data.invoiceUrl;
+        return;
+      } else {
+        console.error("Xendit tidak mengembalikan invoiceUrl:", data);
+        alert("Pendaftaran tercatat, namun gagal memuat halaman pembayaran. Silakan hubungi admin.");
+      }
+    } catch (paymentError) {
+      console.error("Gagal buat invoice:", paymentError);
+      alert("Terjadi kesalahan saat menghubungkan ke sistem pembayaran.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -294,6 +301,12 @@ export default function RegistrationView({
 
     if (!formData.category) {
       alert("Silakan pilih Kategori/Tingkat Pendidikan Anda.");
+      return;
+    }
+
+    // Jika dari awal form dimuat data registrasinya sudah ditemukan, langsung tampilkan popup
+    if (existingRegistration) {
+      setIsAlreadyRegistered(true);
       return;
     }
 
@@ -340,7 +353,19 @@ export default function RegistrationView({
 
       if (error) {
         if (error.code === '23505') {
-          alert("Anda sudah terdaftar dalam kompetisi ini!");
+          // Jika tidak terdeteksi di awal tapi gagal saat insert (karena unik), fetch data dan tampilkan popup
+          const { data: existingData } = await supabase
+            .from("competition_participants")
+            .select("id, is_paid")
+            .eq("competition_id", competitionSlug)
+            .eq("user_id", profile.id)
+            .single();
+          
+          if (existingData) {
+            setExistingRegistration(existingData);
+          }
+          
+          setIsAlreadyRegistered(true);
           return;
         }
         console.error("Supabase Insert Error:", error);
@@ -359,7 +384,7 @@ export default function RegistrationView({
               method: 'POST',
               headers: { 
                 'Content-Type': 'application/json',
-              //  'ngrok-skip-browser-warning': 'true' // Bypass halaman peringatan ngrok
+                //'ngrok-skip-browser-warning': 'true' // Bypass halaman peringatan ngrok
               },
               body: JSON.stringify({
                 pesertaId: partId,
@@ -593,6 +618,90 @@ export default function RegistrationView({
           </form>
         </div>
       </div>
+
+      {/* Modal Already Registered */}
+      {isAlreadyRegistered && (
+        <div 
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', zIndex: 9999, padding: '1rem' }}
+        >
+          <div className="bgn-4 rounded-4 p-6 shadow-lg border border-secondary border-opacity-10 position-relative" style={{ maxWidth: '450px', width: '100%' }}>
+            
+            {/* Tombol Close (X) */}
+            <button 
+              onClick={() => setIsAlreadyRegistered(false)}
+              className="position-absolute top-0 end-0 m-4 bg-transparent border-0 tcn-6 hover-tcn-1 transition-all"
+            >
+              <i className="ti ti-x fs-4"></i>
+            </button>
+
+            {existingRegistration?.is_paid ? (
+              // Tampilan Sudah Bayar
+              <div>
+                <div className="d-flex flex-column align-items-center text-center mt-2">
+                  <div
+                    className="mb-4 p-3 rounded-circle"
+                    style={{ backgroundColor: "rgba(34, 197, 94, 0.1)" }}
+                  >
+                    <i className="ti ti-circle-check fs-2xl" style={{ color: "#22c55e" }}></i>
+                  </div>
+                  <h4 className="tcn-1 fw-bold mb-2">Telah Terdaftar</h4>
+                  <p className="tcn-6 mb-6 fs-sm">
+                    Anda sudah terdaftar sebagai peserta pada kompetisi{" "}
+                    <strong className="tcn-1">{competitionTitle}</strong>! Data registrasi
+                    Anda sudah tersimpan dengan aman di dalam sistem kami.
+                  </p>
+                  <Button
+                    onClick={() => router.push('/competitions')}
+                    className="btn-half-border position-relative d-inline-flex py-3 bgp-1 px-6 rounded-pill text-nowrap fw-bold transition-all hover-scale border-none text-white w-100 justify-content-center"
+                  >
+                    Lihat Kompetisi Lain
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              // Tampilan Belum Bayar (Alert Box Orange)
+              <div className="mt-2">
+                <div 
+                  className="rounded-3 p-4 mb-4" 
+                  style={{ backgroundColor: "rgba(249, 115, 22, 0.1)", border: "1px solid rgba(249, 115, 22, 0.3)" }}
+                >
+                  <div className="d-flex gap-3 align-items-start">
+                    <i className="ti ti-alert-circle fs-xl mt-1" style={{ color: "#f97316" }}></i>
+                    <div>
+                      <h5 className="fw-bold mb-2" style={{ color: "#f97316", fontSize: '1rem' }}>Kamu Sudah Terdaftar Di Kompetisi Ini</h5>
+                      <p className="mb-0 tcn-6" style={{ fontSize: '0.875rem', lineHeight: '1.5' }}>
+                        Namun, kamu belum menyelesaikan pembayaran. Silakan selesaikan pembayaran untuk memastikan tempatmu di kompetisi ini.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="d-flex justify-content-end gap-3 mt-5">
+                   <Button
+                      onClick={() => setIsAlreadyRegistered(false)}
+                      variant="outline"
+                      className="py-2 px-5 rounded-pill fw-bold transition-all border border-secondary border-opacity-20 text-white hover:bg-white hover:bg-opacity-10 bg-transparent fs-sm"
+                   >
+                      Batal
+                   </Button>
+                   <Button
+                      onClick={handleContinuePayment}
+                      disabled={isSubmitting}
+                      className="position-relative py-2 bgp-1 px-5 rounded-pill fw-bold transition-all hover-scale border-none text-white d-flex align-items-center gap-2 fs-sm"
+                   >
+                      {isSubmitting ? (
+                        <><i className="ti ti-loader animate-spin"></i> Memproses...</>
+                      ) : (
+                        "Selesaikan Pembayaran"
+                      )}
+                   </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .max-w-3xl {
