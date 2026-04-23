@@ -11,13 +11,67 @@ import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
 import gamesRaw from "@/data/games.json";
 import { TournamentInfo } from "@/data/types";
+import { supabase } from "@/lib/supabase";
 
-const allItemsData = gamesRaw as TournamentInfo[];
+const fallbackData = gamesRaw as TournamentInfo[];
+
+// Helper map data Supabase ke TournamentInfo
+function mapDbToGame(db: any): TournamentInfo {
+  return {
+    id: db.id,
+    slug: db.slug,
+    title: db.title,
+    type: db.genre || db.type || 'game',
+    genre: db.genre || 'Uncategorized',
+    platform: db.platform || 'Web',
+    image: db.image || '',
+    logo: db.logo || '',
+    playUrl: db.play_url || '',
+    videoUrl: db.video_url || '',
+    description: db.description || '',
+    features: db.features || [],
+    howToPlay: db.how_to_play || [],
+    charactersTitle: db.characters_title || '',
+    characters: db.characters || [],
+    categories: db.categories || [],
+    screenshots: db.screenshots || [],
+    isFavorite: db.is_favorite || false,
+    players: String(db.played_count || 0),
+    rating: "4.9",
+    status: db.status || "Active",
+    href: `/games/${db.slug}`,
+  } as unknown as TournamentInfo;
+}
 
 export default function GamesView() {
   const [activeTab, setActiveTab] = useState("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [allGames, setAllGames] = useState<TournamentInfo[]>(fallbackData);
+  const [isLoading, setIsLoading] = useState(true);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Fetch data dari Supabase
+  useEffect(() => {
+    async function fetchGames() {
+      try {
+        const { data, error } = await supabase
+          .from('master_games')
+          .select('*')
+          .eq('status', 'PUBLISHED')
+          .order('created_at', { ascending: false });
+
+        if (data && !error && data.length > 0) {
+          setAllGames(data.map(mapDbToGame));
+        }
+        // Jika gagal, tetap menggunakan fallbackData yang sudah di-set di useState
+      } catch (err) {
+        console.error('Failed to fetch games from Supabase:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchGames();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,13 +86,12 @@ export default function GamesView() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const games = [...allItemsData]
-    .sort((a, b) => b.id - a.id);
+  const games = [...allGames];
 
   const filteredGames = games.filter((game) => {
     if (activeTab === "All") return true;
     if (activeTab === "Favorit") return game.isFavorite;
-    return game.status === activeTab;
+    return game.genre === activeTab || game.status === activeTab;
   });
 
   return (

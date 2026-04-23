@@ -1,19 +1,64 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import GameCard from "@/components/features/games/GameCard";
 import { useSearch } from "@/context/SearchContext";
 import gamesDataRaw from "@/data/games.json";
 import { TournamentInfo } from "@/data/types";
+import { supabase } from "@/lib/supabase";
 
-const gamesData = gamesDataRaw as TournamentInfo[];
+const fallbackGames = gamesDataRaw as TournamentInfo[];
+
+function mapDbToGame(db: any): TournamentInfo {
+  return {
+    id: db.id,
+    slug: db.slug,
+    title: db.title,
+    type: db.genre || db.type || 'game',
+    genre: db.genre || 'Uncategorized',
+    platform: db.platform || 'Web',
+    image: db.image || '',
+    logo: db.logo || '',
+    playUrl: db.play_url || '',
+    videoUrl: db.video_url || '',
+    description: db.description || '',
+    screenshots: db.screenshots || [],
+    isFavorite: db.is_favorite || false,
+    players: String(db.played_count || 0),
+    rating: "4.9",
+    status: db.status || "Active",
+    href: `/games/${db.slug}`,
+  } as unknown as TournamentInfo;
+}
 
 export default function GamesSection() {
   const { searchQuery } = useSearch();
+  const [gamesData, setGamesData] = useState<TournamentInfo[]>(fallbackGames);
+
+  // Fetch data dari Supabase saat komponen dimuat
+  useEffect(() => {
+    async function fetchGames() {
+      try {
+        const { data, error } = await supabase
+          .from('master_games')
+          .select('*')
+          .eq('status', 'PUBLISHED')
+          .order('is_favorite', { ascending: false }) // Favorit dulu (true > false)
+          .order('created_at', { ascending: false });
+
+        if (data && !error && data.length > 0) {
+          setGamesData(data.map(mapDbToGame));
+        }
+      } catch (err) {
+        console.error('GamesSection: Supabase fetch failed, using fallback', err);
+      }
+    }
+    fetchGames();
+  }, []);
 
   const filteredGames = [...gamesData]
-    .reverse()
     .filter(
       (game) =>
         game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
