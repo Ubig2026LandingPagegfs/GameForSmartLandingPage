@@ -1,13 +1,17 @@
 export interface BlogPost {
-  id: number;
+  id: string;
+  slug: string;
   title: string;
   author: string;
-  date: string;
+  date?: string;
   category: string[];
-  excerpt: string;
-  content: string;
-  image: string;
-  slug: string;
+  excerpt?: string;
+  content?: string;
+  image?: string;
+  status?: string;
+  published_at?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface TournamentInfo {

@@ -4,23 +4,19 @@ import Link from "next/link";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import Footer from "@/components/shared/Footer";
-import blogDataRaw from "@/data/blog.json";
 import { BlogPost } from "@/data/types";
 import BlogCard from "./BlogCard";
 import Breadcrumbs from "@/components/shared/Breadcrumbs";
 
-const blogData = blogDataRaw as BlogPost[];
-
 interface BlogDetailViewProps {
   post: BlogPost;
+  relatedPosts: BlogPost[];
 }
 
-export default function BlogDetailView({ post }: BlogDetailViewProps) {
+export default function BlogDetailView({ post, relatedPosts }: BlogDetailViewProps) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(13);
   const [comment, setComment] = useState("");
-
-  const relatedPosts = blogData.filter((p) => p.id !== post.id).slice(0, 5);
 
   const handleLike = () => {
     setLiked(!liked);
@@ -100,14 +96,13 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
                       <span className="meta-sep">•</span>
                       <span className="meta-category">{post.category[0]}</span>
                       <span className="meta-sep">•</span>
-                      <span className="meta-date">{post.date}</span>
+                      <span className="meta-date">{post.date || (post.published_at ? new Date(post.published_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-')}</span>
                     </div>
                   </div>
 
-                  {/* Featured Image */}
                   <div className="featured-image-wrap mb-10">
                     <img
-                      src={post.image}
+                      src={post.image || '/images/blog/blog-1.webp'}
                       alt={post.title}
                       className="w-100 h-100 object-fit-cover"
                     />
@@ -120,7 +115,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
                     </h2>
                     <div
                       className="article-content"
-                      dangerouslySetInnerHTML={{ __html: post.content }}
+                      dangerouslySetInnerHTML={{ __html: post.content || '' }}
                     />
                   </div>
 
@@ -164,8 +159,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
                   <div className="mt-20 d-lg-none">
                     <h2 className="text-white fw-black mb-8 fs-4">Baca Juga</h2>
                     <div className="row g-6">
-                      {blogData
-                        .filter((p) => p.id !== post.id)
+                      {relatedPosts
                         .slice(0, 3)
                         .map((p) => (
                           <div key={p.id} className="col-md-6 col-12">
@@ -227,7 +221,11 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
                               <div className="d-flex align-items-center gap-2">
                                 <span className="related-cat">{p.category[0]}</span>
                                 <span className="text-secondary-dim fs-xs">•</span>
-                                <span className="related-date">{p.date.split(' ').slice(0, 2).join(' ')}</span>
+                                <span className="related-date">
+                                  {p.date 
+                                    ? p.date.split(' ').slice(0, 2).join(' ') 
+                                    : (p.published_at ? new Date(p.published_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long' }) : '-')}
+                                </span>
                               </div>
                             </div>
                           </Link>

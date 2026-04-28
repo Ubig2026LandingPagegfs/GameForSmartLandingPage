@@ -3,6 +3,8 @@ import CompetitionDetailView from "@/components/features/competitions/detail/Com
 import { supabase } from "@/lib/supabase";
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
     params: { slug: string };
 }

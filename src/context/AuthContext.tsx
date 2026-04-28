@@ -134,13 +134,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // 2. Fallback baca SSO Token di URL (dari sistem legacy landing page)
         const urlParams = new URLSearchParams(window.location.search);
-        const tokenFromUrl = urlParams.get("token");
+        const rawToken = urlParams.get("token");
+        
+        let tokenFromUrl = rawToken;
+        let refreshTokenFromUrl = rawToken;
+
+        if (rawToken) {
+          // Jika token adalah string JSON yang berisi access_token dan refresh_token
+          if (rawToken.startsWith("{") && rawToken.includes("access_token")) {
+            try {
+              const parsed = JSON.parse(rawToken);
+              if (parsed.access_token) {
+                tokenFromUrl = parsed.access_token;
+                refreshTokenFromUrl = parsed.refresh_token || parsed.access_token;
+              }
+            } catch (e) {}
+          }
+        }
 
         if (tokenFromUrl && !session) {
           const { data, error } = await supabase.auth.getUser(tokenFromUrl);
           if (!error && data?.user) {
             // PENTING: Gunakan setSession agar supabase tercatat fully login
-            await supabase.auth.setSession({ access_token: tokenFromUrl, refresh_token: tokenFromUrl })
+            await supabase.auth.setSession({ access_token: tokenFromUrl, refresh_token: refreshTokenFromUrl as string })
             const url = new URL(window.location.href);
             url.searchParams.delete("token");
             window.history.replaceState({}, '', url.toString());

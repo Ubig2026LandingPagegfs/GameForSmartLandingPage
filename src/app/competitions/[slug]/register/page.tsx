@@ -6,6 +6,8 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Sidebar from "@/components/shared/Sidebar";
 
+export const dynamic = 'force-dynamic';
+
 async function getCompetitionBySlug(slug: string) {
     const { data } = await supabase.from('competitions').select('*').eq('slug', slug).single();
     if (!data) return null;

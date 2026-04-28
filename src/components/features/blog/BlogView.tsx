@@ -1,13 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import Footer from "@/components/shared/Footer";
 import blogDataRaw from "@/data/blog.json";
 import { BlogPost } from "@/data/types";
+import { supabase } from "@/lib/supabase";
 
-const blogData = blogDataRaw as BlogPost[];
+const fallbackData = blogDataRaw as unknown as BlogPost[];
 import BlogCard from "./BlogCard";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -23,6 +24,30 @@ const categories = [
 
 export default function BlogView() {
   const [activeCategory, setActiveCategory] = useState("Semua");
+  const [blogData, setBlogData] = useState<BlogPost[]>(fallbackData);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch blog posts dari Supabase
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('*')
+          .eq('status', 'PUBLISHED')
+          .order('published_at', { ascending: false });
+
+        if (data && !error && data.length > 0) {
+          setBlogData(data as BlogPost[]);
+        }
+      } catch (err) {
+        console.error('BlogView: Supabase fetch failed, using fallback', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchBlogs();
+  }, []);
 
   const filteredPosts = activeCategory === "Semua"
     ? blogData
@@ -79,28 +104,37 @@ export default function BlogView() {
 
               {/* BLOG GRID */}
               <div className="blog-grid-wrap position-relative">
-                <motion.div 
-                   layout
-                   className="row g-6"
-                >
-                  <AnimatePresence mode="popLayout">
-                    {filteredPosts.map((post) => (
-                      <motion.div 
-                        key={post.id}
-                        layout
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.4 }}
-                        className="col-lg-4 col-md-6 col-12"
-                      >
-                        <BlogCard {...post} />
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </motion.div>
+                {loading ? (
+                  <div className="text-center py-20">
+                    <div className="spinner-border text-orange-500" role="status" style={{ width: '3rem', height: '3rem', borderColor: 'rgba(255,255,255,0.1)', borderTopColor: '#ea580c' }}>
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="text-secondary mt-4">Memuat artikel...</p>
+                  </div>
+                ) : (
+                  <motion.div 
+                    layout
+                    className="row g-6"
+                  >
+                    <AnimatePresence mode="popLayout">
+                      {filteredPosts.map((post) => (
+                        <motion.div 
+                          key={post.id}
+                          layout
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.4 }}
+                          className="col-lg-4 col-md-6 col-12"
+                        >
+                          <BlogCard {...post} />
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </motion.div>
+                )}
 
-                {filteredPosts.length === 0 && (
+                {!loading && filteredPosts.length === 0 && (
                   <div className="text-center py-20 mt-10">
                     <i className="ti ti-search fs-1 text-secondary mb-4"></i>
                     <h3 className="text-white">Tidak ada artikel ditemukan</h3>

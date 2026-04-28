@@ -13,7 +13,7 @@
     "ticketFee": "Free Entry",
     "date": "07 OCT, 5:10 AM",
     "teams": "12/12",
-    "href": "/games/1",
+    "href": "/games/crazyrace",
     "playUrl": "https://crazyrace.gameforsmart.com",
     "videoUrl": "https://youtu.be/skbF-1V4NEg?si=CQdWq9ZLVVU92VZc",
     "description": "Rasakan adrenalin balap mobil dengan kecepatan tinggi dan lintasan menantang.",
@@ -23,7 +23,7 @@
       "/images/games/crazy-race/3.webp",
       "/images/games/crazy-race/4.webp"
     ],
-    "slug": "1"
+    "slug": "crazyrace"
   },
   {
     "id": 2,
@@ -39,7 +39,7 @@
     "ticketFee": "Free Entry",
     "date": "07 OCT, 5:10 AM",
     "teams": "12/12",
-    "href": "/games/2",
+    "href": "/games/quizrush",
     "playUrl": "https://quizrush.gameforsmart.com",
     "description": "Uji kecepatan respon dan tangkasnya tanganmu dalam tantangan aksi yang seru.",
     "screenshots": [
@@ -49,7 +49,7 @@
       "/images/games/quiz-rush/photo_2026-03-31_16-17-25 (4).webp",
       "/images/games/quiz-rush/photo_2026-03-31_16-17-25 (5).webp"
     ],
-    "slug": "2"
+    "slug": "quizrush"
   },
   {
     "id": 3,
@@ -65,7 +65,7 @@
     "ticketFee": "Free Entry",
     "date": "07 OCT, 5:10 AM",
     "teams": "12/12",
-    "href": "/games/3",
+    "href": "/games/spacequiz",
     "playUrl": "https://spacequiz.gameforsmart.com",
     "description": "Space Quiz adalah game kuis interaktif bertema luar angkasa yang menggabungkan seru-nya menjawab pertanyaan dengan aksi menghindari asteroid di galaksi. Kendalikan pesawat luar angkasamu, kumpulkan bintang, dan buktikan kecerdasanmu di tengah luasnya semesta!\n\nBukan kuis biasa — antara sesi pertanyaan, kamu harus menerbangkan pesawatmu menghindari meteor dan mengumpulkan power-up. Semakin banyak soal yang kamu jawab benar, semakin tinggi skormu dan semakin besar peluang meraih gelar Space Champion!",
     "features": [
@@ -147,7 +147,7 @@
       "/images/games/space-quiz/photo_2026-04-01_20-15-33.webp",
       "/images/games/space-quiz/photo_2026-04-01_20-15-33 (2).webp"
     ],
-    "slug": "3"
+    "slug": "spacequiz"
   },
   {
     "id": 4,
@@ -163,7 +163,7 @@
     "ticketFee": "Free Entry",
     "date": "07 OCT, 5:10 AM",
     "teams": "12/12",
-    "href": "/games/4",
+    "href": "/games/memoryquiz",
     "playUrl": "https://memoryquiz.gameforsmart.com",
     "description": "Latih daya ingatmu dengan memecahkan teka-teki memori tingkat tinggi.",
     "screenshots": [
@@ -173,7 +173,7 @@
       "/images/games/memory-quiz/4.webp",
       "/images/games/memory-quiz/5.webp"
     ],
-    "slug": "4"
+    "slug": "memoryquiz"
   },
   {
     "id": 5,
@@ -189,7 +189,7 @@
     "ticketFee": "Free Entry",
     "date": "07 OCT, 5:10 AM",
     "teams": "12/12",
-    "href": "/games/5",
+    "href": "/games/nitroquiz",
     "playUrl": "https://nitroquiz.gameforsmart.com",
     "description": "NitroQuiz adalah game kuis balap multiplayer yang menggabungkan seru-nya menjawab soal dengan adrenalin balapan kart di jalanan kota Indonesia. Kendalikan karaktermu, jawab pertanyaan dengan cepat dan tepat, dan pacu kendaraanmu menuju garis finish lebih dulu dari lawan!\n\nBukan sekadar kuis biasa — setiap jawaban benar memberikan NOS (Nitrous Oxide) yang mempercepat kartmu di lintasan. Semakin akurat dan cepat kamu menjawab, semakin besar nitromu dan makin jauh kamu meninggalkan lawan!",
     "features": [
@@ -283,7 +283,7 @@
       "/images/games/nitro-quiz/photo_2026-03-31_18-57-18 (3).webp"
     ],
     "logo": "/images/logos/logonitroquiz.webp",
-    "slug": "5",
+    "slug": "nitroquiz",
     "isFavorite": true
   },
   {
@@ -300,7 +300,7 @@
     "ticketFee": "Free Entry",
     "date": "07 OCT, 5:10 AM",
     "teams": "12/12",
-    "href": "/games/6",
+    "href": "/games/axiom",
     "playUrl": "https://axiom.gameforsmart.com",
     "videoUrl": "https://youtu.be/mUln-7dZvWI?si=0V5lLMdouJ7Fe_DS",
     "description": "Axiom adalah game space shooter berbasis web yang memadukan aksi tembak-menembak seru di luar angkasa dengan tantangan trivia. Kamu mengendalikan roket tempur, melawan gelombang musuh alien — dan senjatamu adalah pengetahuanmu. Jawab pertanyaan dengan benar untuk menembakkan peluru dan menghancurkan musuh!\n\nHadapi boss raksasa, pilih dari 6 roket unik dengan kemampuan berbeda, dan bersaing di leaderboard global. Dengan kontrol Mouse/WASD yang intuitif dan serangan otomatis, siapapun bisa langsung terjun ke medan tempur antariksa.",
@@ -409,7 +409,7 @@
       "/images/games/axiom/photo_2026-03-30_21-57-45.webp"
     ],
     "logo": "/images/logos/logoaxiom.webp",
-    "slug": "6",
+    "slug": "axiom",
     "isFavorite": true
   },
   {
@@ -426,7 +426,7 @@
     "ticketFee": "Free Entry",
     "date": "07 OCT, 5:10 AM",
     "teams": "12/12",
-    "href": "/games/7",
+    "href": "/games/zigma",
     "playUrl": "https://zigma.gameforsmart.com",
     "description": "Zigma – Mind Venture adalah game kuis RPG multiplayer yang memadukan keseruan menjawab soal dengan mekanisme pertarungan berbasis strategi. Pilih karaktermu, kumpulkan skill, dan hadapi pemain lain dalam arena kecerdasan yang penuh adrenalin!\n\nBukan sekadar kuis biasa — setiap jawaban benar memberimu poin serangan, pertahanan, atau kemampuan spesial. Semakin cepat dan tepat kamu menjawab, semakin kuat karaktermu di arena!",
     "features": [
@@ -514,7 +514,7 @@
       "/images/games/zigma/photo_2026-03-30_15-49-52.webp"
     ],
     "logo": "/images/logos/logozigma.webp",
-    "slug": "7",
+    "slug": "zigma",
     "isFavorite": true
   }
 ]
